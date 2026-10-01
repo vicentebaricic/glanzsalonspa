@@ -504,7 +504,16 @@ html.hide-samples .sample{display:none}
 .open-now.is-closed i{background:#B24A3A}
 .address{font-style:normal;font-size:var(--fs-lg);line-height:1.5;margin-bottom:var(--sp-5)}
 .map{border-radius:var(--radius-l);overflow:hidden;min-height:380px;background:var(--c-surface);border:1px solid var(--c-line)}
-.map iframe{width:100%;height:100%;min-height:380px;border:0;display:block}
+.map{position:relative;display:block;text-decoration:none;color:var(--c-text)}
+.map .ph{position:absolute;inset:0}
+.map img{transition:transform 1.2s var(--ease-out)}
+.map:hover img{transform:scale(1.03)}
+.map__card{position:absolute;left:var(--sp-4);right:var(--sp-4);bottom:var(--sp-4);display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-3) var(--sp-4);
+  background:var(--c-bg);padding:var(--sp-4) var(--sp-5);box-shadow:var(--shadow-2)}
+.map__card svg{width:28px;height:28px;color:var(--c-accent);flex:none}
+.map__card strong{display:block;font-weight:600}
+.map__card span{font-size:var(--fs-sm);color:var(--c-muted)}
+.map__card .map__cta{margin-left:auto;font-weight:600;color:var(--c-accent-ink);border-bottom:1px solid currentColor}
 .btn-row{display:flex;flex-wrap:wrap;gap:var(--sp-3)}
 
 /* ============================================================
@@ -1058,10 +1067,14 @@ textarea.input{min-height:96px;resize:vertical}
         <a class="btn btn--ghost" href="https://www.google.com/maps/search/?api=1&query=Paseo+Liray+21-A+Chicureo+Colina" target="_blank" rel="noopener">Cómo llegar</a>
       </div>
     </div>
-    <div class="map reveal" data-delay="1">
-      <iframe title="Mapa: Glanz Salon y Spa en Paseo Liray, Chicureo" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-        src="https://www.google.com/maps?q=Paseo%20Liray%2021-A%2C%20Chicureo%2C%20Colina%2C%20Chile&z=16&output=embed"></iframe>
-    </div>
+    <a class="map reveal" data-delay="1" href="https://www.google.com/maps/search/?api=1&query=Paseo+Liray+21-A+Chicureo+Colina" target="_blank" rel="noopener" aria-label="Abrir ubicación de Glanz en Google Maps">
+      <div class="ph" data-file="assets/img/espacio/salon-02.webp"><img src="assets/img/espacio/salon-02.webp" alt="" loading="lazy" width="1600" height="900"></div>
+      <div class="map__card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+        <div><strong>Paseo Liray, local 21-A</strong><span>Chicureo · Colina</span></div>
+        <span class="map__cta">Abrir en Google Maps →</span>
+      </div>
+    </a>
   </div>
 </section>
 
