@@ -91,7 +91,7 @@ def save(img, path, w, q=80):
 # (salida, fuente, caja, aspect, ancho)
 SHOTS = [
     # Destacados y nosotros
-    ("destacado-cabello.webp",       "G", (0.10,0.0,0.90,1.0), 3/2, 1400),
+    ("destacado-cabello.webp",       "G", (0.25,0.0,0.80,1.0), 4/5, 1400),
     ("destacado-color.webp",         "C", (0.15,0.05,0.80,0.95), 4/5, 1400),
     ("espacio/salon-01.webp",        "N", (0.20,0.05,0.80,0.95), 4/5, 1100),
     ("espacio/detalle-01.webp",      "G", (0.70,0.30,1.00,0.95), 3/4, 700),
@@ -104,7 +104,7 @@ SHOTS = [
     ("espacio/salon-espejos.webp",   "S", (0.00,0.02,0.56,0.62), 1, 800),
     ("espacio/salon-estantes.webp",  "S", (0.57,0.00,0.87,0.50), 1, 800),
     ("espacio/salon-lounge.webp",    "S", (0.52,0.45,1.00,1.00), 1, 800),
-    ("destacado-corte.webp",         "K", (0.00,0.10,1.00,0.62), 3/2, 1400),
+    ("destacado-corte.webp",         "K", (0.00,0.05,1.00,0.85), 4/5, 1400),
     ("nosotros-01.webp",             "A", (0.00,0.22,1.00,0.95), 4/5, 1100),
     ("nosotros-02.webp",             "N", (0.35,0.30,0.75,0.80), 3/4, 700),
     ("instagram/post-01.webp",       "C", (0.35,0.28,0.82,0.90), 4/5, 900),

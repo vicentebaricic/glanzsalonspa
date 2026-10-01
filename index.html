@@ -312,7 +312,8 @@ html.hide-samples .sample{display:none}
 .split{display:grid;grid-template-columns:1fr;gap:var(--sp-3);padding:var(--sp-3) var(--sp-3) 0}
 @media (min-width:700px){ .split{grid-template-columns:1fr 1fr;padding:var(--sp-5) clamp(1.25rem,3vw,3.5rem) 0;gap:var(--sp-5)} }
 .split__item{position:relative;display:block;color:#F8F5F0;text-decoration:none;overflow:hidden}
-.split__item .ph{aspect-ratio:3/2}
+.split__item .ph{aspect-ratio:4/5}
+@media (min-width:1000px){ .split__item .ph{aspect-ratio:auto;height:min(92vh, 980px)} }
 .split__item img{transition:transform 1.2s var(--ease-out)}
 .split__item:hover img{transform:scale(1.03)}
 .split__cap{position:absolute;left:0;right:0;bottom:0;padding:var(--sp-8) var(--sp-5) var(--sp-5);background:linear-gradient(transparent, rgba(20,16,14,.65))}
@@ -859,11 +860,11 @@ textarea.input{min-height:96px;resize:vertical}
 <!-- =================== SPLIT EDITORIAL =================== -->
 <div class="split" aria-label="Destacados">
   <a class="split__item reveal" href="trabajos.html">
-    <div class="ph" data-file="assets/img/destacado-cabello.webp"><img src="assets/img/destacado-cabello.webp" alt="Estilista dando ondas al cabello de una clienta" loading="lazy" width="1400" height="933"></div>
+    <div class="ph" data-file="assets/img/destacado-cabello.webp"><img src="assets/img/destacado-cabello.webp" alt="Estilista dando ondas al cabello de una clienta" loading="lazy" width="900" height="1125"></div>
     <div class="split__cap"><h2>Ondas, brushing y peinados</h2><span>Ver trabajos</span></div>
   </a>
   <a class="split__item reveal" data-delay="1" href="#servicios">
-    <div class="ph" data-file="assets/img/destacado-corte.webp"><img src="assets/img/destacado-corte.webp" alt="Corte de cabello con la clienta mirando al espejo" loading="lazy" width="1400" height="933"></div>
+    <div class="ph" data-file="assets/img/destacado-corte.webp"><img src="assets/img/destacado-corte.webp" alt="Corte de cabello con la clienta mirando al espejo" loading="lazy" width="900" height="1125"></div>
     <div class="split__cap"><h2>Cortes que respetan tu estilo</h2><span>Ver servicios</span></div>
   </a>
 </div>
