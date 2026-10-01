@@ -20,6 +20,7 @@ SRC = {
     "N": "manicure.jpg",                               # manicure
     "A": "a.jpg",                                      # clienta sonriendo durante el color
     "K": "aditya-sethia-iCJTDyLyP0I-unsplash.jpg",     # corte con cabello húmedo
+    "S": "salon-referencia.png",                       # interior de salón (REFERENCIA, no es Glanz)
 }
 
 def grade(im, strength=1.0):
@@ -99,6 +100,10 @@ SHOTS = [
     ("espacio/lavado.webp",          "V9.5", (0.20,0.0,0.80,1.0), 1, 800),
     ("espacio/recepcion.webp",       "C", (0.20,0.25,0.80,0.75), 7/5, 1000),
     ("espacio/cta.webp",             "V9.5", (0.00,0.00,1.00,1.00), 16/9, 1800),
+    ("espacio/salon-main.webp",      "S", (0.00,0.00,1.00,1.00), 4/3, 1600),
+    ("espacio/salon-espejos.webp",   "S", (0.00,0.02,0.56,0.62), 1, 800),
+    ("espacio/salon-estantes.webp",  "S", (0.57,0.00,0.87,0.50), 1, 800),
+    ("espacio/salon-lounge.webp",    "S", (0.52,0.45,1.00,1.00), 1, 800),
     ("destacado-corte.webp",         "K", (0.00,0.05,1.00,0.85), 4/5, 1400),
     ("nosotros-01.webp",             "A", (0.00,0.22,1.00,0.95), 4/5, 1100),
     ("nosotros-02.webp",             "N", (0.35,0.30,0.75,0.80), 3/4, 700),
