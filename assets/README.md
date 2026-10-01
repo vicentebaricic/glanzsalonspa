@@ -1,5 +1,22 @@
 # Multimedia de Glanz Salon y Spa
 
+## Páginas
+
+El sitio tiene 4 páginas: `index.html` (inicio), `trabajos.html`, `tienda.html` y `gift-card.html`.
+**No se editan directo**: se generan desde `src/` con
+
+```bash
+python3 tools/build_pages.py
+```
+
+- `src/pages/*.html` → contenido de cada página
+- `src/partials/` → head, menú (header) y pie (footer, carrito, barra móvil), compartidos
+- `src/styles.css` y `src/app.js` → estilos, CONFIG (WhatsApp, AgendaPro), datos y comportamiento
+
+Cada página generada queda autocontenida (HTML + CSS + JS en un solo archivo).
+El GLANZ gigante del pie usa las letras del logo vectorizadas (`tools/glanz-glyphs.json`).
+
+
 - `Media/` guarda los **originales** subidos (logo, video 4K, fotos Unsplash, equipo).
 - `assets/` tiene las versiones **optimizadas** que usa `index.html`.
 
@@ -28,9 +45,10 @@ Para reemplazarlos por material real:
 |---|---|
 | `video/hero.mp4`, `hero-mobile.mp4` | Video del hero (horizontal / vertical), con grade |
 | `img/logo*.png` | Logo malva, claro (sobre el video) y para modo oscuro |
-| `img/destacado-*.webp`, `img/espacio/*` | Fotos editoriales, Quiénes somos, espacios, llamado final |
+| `img/destacado-*.webp`, `img/nosotros-*.webp`, `img/espacio/*` | Fotos editoriales, Quiénes somos, espacios, llamado final |
 | `img/servicios/*` | 3 fotos por categoría (Cabello, Belleza, Bienestar) |
 | `img/galeria/*` | 12 trabajos (color, corte, uñas, rostro) |
 | `img/antes-despues/*` | 3 pares antes/después |
 | `img/equipo/*` | Yasna, Aline, Eli, Melissa (ideal reemplazar por fotos de ≥800×800 px) |
 | `img/tienda/*` | 8 productos |
+| `img/instagram/*` | 3 posts grandes de Instagram (el del medio es video) |

@@ -18,6 +18,8 @@ SRC = {
     "C": "haircolouring.jpg",                          # coloración con pincel
     "F": "ionela-mat-16mHHrY3PUk-unsplash.jpg",        # facial
     "N": "manicure.jpg",                               # manicure
+    "A": "a.jpg",                                      # clienta sonriendo durante el color
+    "K": "aditya-sethia-iCJTDyLyP0I-unsplash.jpg",     # corte con cabello húmedo
 }
 
 def grade(im, strength=1.0):
@@ -96,7 +98,12 @@ SHOTS = [
     ("espacio/salon-02.webp",        "G", (0.00,0.00,1.00,1.00), 16/9, 1600),
     ("espacio/lavado.webp",          "V9.5", (0.20,0.0,0.80,1.0), 1, 800),
     ("espacio/recepcion.webp",       "C", (0.20,0.25,0.80,0.75), 7/5, 1000),
-    ("espacio/cta.webp",             "G", (0.00,0.00,1.00,1.00), 16/9, 1800),
+    ("espacio/cta.webp",             "V9.5", (0.00,0.00,1.00,1.00), 16/9, 1800),
+    ("destacado-corte.webp",         "K", (0.00,0.05,1.00,0.85), 4/5, 1400),
+    ("nosotros-01.webp",             "A", (0.00,0.22,1.00,0.95), 4/5, 1100),
+    ("nosotros-02.webp",             "N", (0.35,0.30,0.75,0.80), 3/4, 700),
+    ("instagram/post-01.webp",       "C", (0.35,0.28,0.82,0.90), 4/5, 900),
+    ("instagram/post-03.webp",       "A", (0.42,0.12,1.00,0.56), 4/5, 900),
     # Servicios
     ("servicios/cabello-01.webp",    "C", (0.20,0.10,0.75,0.90), 3/4, 1000),
     ("servicios/cabello-02.webp",    "G", (0.30,0.15,0.75,0.75), 1, 700),
@@ -109,7 +116,7 @@ SHOTS = [
     ("servicios/bienestar-03.webp",  "F", (0.00,0.00,0.40,0.55), 1, 700),
     # Galería
     ("galeria/color-01.webp",        "C", (0.38,0.38,0.75,0.75), 1, 1100),
-    ("galeria/color-02.webp",        "G", (0.35,0.25,0.70,0.95), 3/5, 800),
+    ("galeria/color-02.webp",        "K", (0.05,0.10,0.95,1.00), 3/5, 800),
     ("galeria/color-03.webp",        "V7", (0.0,0.1,1.0,0.9), 16/9, 1000),
     ("galeria/color-04.webp",        "C", (0.25,0.30,0.72,0.62), 3/2, 800),
     ("galeria/corte-01.webp",        "G", (0.32,0.15,0.72,0.95), 1, 800),
