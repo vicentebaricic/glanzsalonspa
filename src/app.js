@@ -186,14 +186,27 @@ function renderBA(){
 function renderTeam(){
   $("#team").innerHTML = TEAM.map((m, i) => `
     <article class="member reveal" data-delay="${i % 4}">
-      ${imgBox("assets/img/equipo/" + m.file, `${m.name}, ${m.role}`)}
+      <div class="member__photo">
+        ${imgBox("assets/img/equipo/" + m.file, `${m.name}, ${m.role}`)}
+        <div class="member__over" id="bio-${i}">
+          <p class="member__tag">${esc(m.tagline)}</p>
+          <p>${esc(m.bio)}</p>
+          <a class="js-wa" data-wa="equipo" data-name="${esc(m.name)}" href="#" target="_blank" rel="noopener">Agendar con ${esc(m.name)} →</a>
+        </div>
+      </div>
       <h3>${esc(m.name)}</h3>
       <p class="role">${esc(m.role)}</p>
-      <p class="member__tag">${esc(m.tagline)}</p>
-      <p>${esc(m.bio)}</p>
-      <p class="member__days"><span>Atiende</span> ${esc(m.days)}</p>
-      <a class="link js-wa" data-wa="equipo" data-name="${esc(m.name)}" href="#" target="_blank" rel="noopener">Agendar con ${esc(m.name)} →</a>
+      <p class="member__days">${esc(m.days)}</p>
+      <button class="member__more" type="button" aria-expanded="false" aria-controls="bio-${i}">Ver perfil</button>
     </article>`).join("");
+  // Táctil y teclado: el botón abre/cierra el perfil (en desktop también aparece con el cursor)
+  $("#team").addEventListener("click", e => {
+    const b = e.target.closest(".member__more"); if (!b) return;
+    const card = b.closest(".member"), open = !card.classList.contains("is-open");
+    $$(".member.is-open").forEach(c => { c.classList.remove("is-open"); $(".member__more", c).setAttribute("aria-expanded", "false"); $(".member__more", c).textContent = "Ver perfil"; });
+    card.classList.toggle("is-open", open);
+    b.setAttribute("aria-expanded", open); b.textContent = open ? "Cerrar" : "Ver perfil";
+  });
 }
 
 function renderReviews(){
