@@ -2,7 +2,8 @@
 
 ## Páginas
 
-El sitio tiene 4 páginas: `index.html` (inicio), `trabajos.html`, `tienda.html` y `gift-card.html`.
+El sitio tiene 5 páginas: `index.html` (inicio), `servicios.html`, `trabajos.html`, `tienda.html` y `gift-card.html`.
+Los servicios (nombres, duraciones y precios) se editan en la lista `SERVICES` de `src/app.js`.
 **No se editan directo**: se generan desde `src/` con
 
 ```bash

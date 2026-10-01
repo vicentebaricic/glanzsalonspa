@@ -34,6 +34,51 @@ const CONFIG = {
   ]
 };
 
+/* Servicios — categorías de AgendaPro agrupadas en 3 mundos.
+   Precios y duraciones DE EJEMPLO: reemplazar con los de AgendaPro. Agregar servicios = agregar filas. */
+const SERVICES = [
+  { id: "cabello", name: "Cabello", img: "cabello-wide.webp",
+    intro: "Color, corte y cuidado pensados para tu tipo de cabello. Siempre con diagnóstico previo.",
+    groups: [
+      { id: "coloracion", name: "Coloración", items: [
+        ["Tintura raíz", "90 min", 38000], ["Tintura completa", "2 h", 48000], ["Balayage", "3 h", 95000],
+        ["Mechas / babylights", "3 h", 85000], ["Baño de color", "60 min", 32000], ["Matiz", "45 min", 22000] ] },
+      { id: "corte", name: "Corte de cabello", items: [
+        ["Corte + lavado + secado", "60 min", 25000], ["Despunte", "30 min", 15000], ["Corte de flequillo", "15 min", 6000],
+        ["Corte niños", "30 min", 12000], ["Corte masculino", "30 min", 14000] ] },
+      { id: "tratamientos", name: "Tratamientos capilares", items: [
+        ["Hidratación profunda", "45 min", 28000], ["Nutrición y brillo", "45 min", 30000],
+        ["Reconstrucción", "60 min", 35000], ["Alisado / keratina", "3 h", 70000] ] },
+      { id: "brushing", name: "Brushing, peinado y secado", items: [
+        ["Brushing", "45 min", 18000], ["Ondas", "45 min", 22000], ["Peinado de evento", "60 min", 35000], ["Trenzas", "45 min", 25000] ] }
+    ] },
+  { id: "belleza", name: "Belleza", img: "belleza-wide.webp",
+    intro: "Manos, pies y mirada. Detalles que se notan, con herramientas esterilizadas.",
+    groups: [
+      { id: "manos", name: "Spa de manos", items: [
+        ["Manicure tradicional", "45 min", 12000], ["Manicure + esmaltado permanente", "60 min", 18000],
+        ["Manicure rusa", "90 min", 24000], ["Kapping gel", "90 min", 24000] ] },
+      { id: "pies", name: "Spa de pies", items: [
+        ["Pedicure spa", "60 min", 25000], ["Pedicure + esmaltado permanente", "75 min", 28000], ["Pedicure clínica", "60 min", 30000] ] },
+      { id: "pestanas", name: "Pestañas y cejas", items: [
+        ["Lifting de pestañas", "60 min", 25000], ["Extensiones 1 a 1", "2 h", 38000],
+        ["Diseño de cejas", "30 min", 12000], ["Laminado de cejas", "45 min", 22000] ] },
+      { id: "depilacion", name: "Depilación", items: [
+        ["Rostro completo", "20 min", 10000], ["Axilas", "15 min", 8000], ["Piernas completas", "45 min", 20000], ["Rebaje", "30 min", 15000] ] },
+      { id: "otros-manos-pies", name: "Otros servicios de manos y pies", items: [
+        ["Retiro de esmaltado permanente", "20 min", 6000], ["Reparación de uña", "15 min", 3000], ["Diseño (por uña)", "—", 1500] ] }
+    ] },
+  { id: "bienestar", name: "Bienestar", img: "bienestar-wide.webp",
+    intro: "Una pausa real en tu semana: masajes y cuidado de la piel.",
+    groups: [
+      { id: "masoterapia", name: "Masoterapia", items: [
+        ["Masaje relajante", "60 min", 35000], ["Masaje descontracturante", "60 min", 38000],
+        ["Piedras calientes", "75 min", 45000], ["Drenaje linfático", "60 min", 38000] ] },
+      { id: "cosmetologia", name: "Cosmetología", items: [
+        ["Limpieza facial profunda", "75 min", 35000], ["Hidratación facial", "60 min", 30000], ["Maquillaje profesional", "60 min", 35000] ] }
+    ] }
+];
+
 /* Galería — reemplaza con fotos reales (assets/img/galeria/) */
 const GALLERY = [
   { home: true, file: "corte-01.webp",    cat: "corte",    cap: "Ondas sueltas",                size: "g-big" },
@@ -224,6 +269,58 @@ function renderReviews(){
       <div class="review__foot"><span>${esc(r.service)}</span>${sampleBadge("Reseña de ejemplo")}</div>
     </li>`).join("");
   initCarousel($("#reviews").closest(".carousel"));
+}
+
+// Página de servicios: lista completa + índice fijo + barra de categorías (móvil) + buscador
+function renderServices(){
+  const norm = t => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  $("#svcList").innerHTML = SERVICES.map(c => `
+    <section class="svc-cat" id="${c.id}" data-spy="${c.id}" aria-labelledby="h-${c.id}">
+      <div class="svc-cat__head">
+        ${imgBox("assets/img/servicios/" + c.img, "", "svc-cat__img")}
+        <div class="svc-cat__title"><h2 id="h-${c.id}">${c.name}</h2><p>${c.intro}</p></div>
+      </div>
+      ${c.groups.map(g => `
+        <div class="svc-group" id="${c.id}-${g.id}" data-spy="${c.id}" data-sub="${c.id}-${g.id}">
+          <div class="svc-group__head"><h3>${g.name}</h3><a class="link js-book" href="#" target="_blank" rel="noopener">Reservar →</a></div>
+          <ul class="svc-rows">
+            ${g.items.map(([n, d, p]) => `<li data-q="${esc(norm(n + " " + g.name + " " + c.name))}"><span class="svc-rows__name">${esc(n)}</span><span class="svc-rows__dur">${esc(d)}</span><span class="svc-rows__price">desde ${clp(p)}</span></li>`).join("")}
+          </ul>
+        </div>`).join("")}
+    </section>`).join("");
+
+  $("#svcIndex").innerHTML = SERVICES.map(c => `
+    <li><a href="#${c.id}" data-cat="${c.id}">${c.name}</a>
+      <ul>${c.groups.map(g => `<li><a href="#${c.id}-${g.id}" data-sub="${c.id}-${g.id}">${g.name}</a></li>`).join("")}</ul></li>`).join("");
+  $("#svcChips").innerHTML = SERVICES.map(c => `<a class="chip" href="#${c.id}" data-cat="${c.id}">${c.name}</a>`).join("");
+
+  // Resalta en el índice y en la barra la sección visible
+  const mark = (cat, sub) => {
+    $$("[data-cat]", $("#svcIndex")).concat($$("[data-cat]", $("#svcChips"))).forEach(a => a.classList.toggle("is-active", a.dataset.cat === cat));
+    $$("[data-sub]", $("#svcIndex")).forEach(a => a.classList.toggle("is-active", a.dataset.sub === sub));
+    const chip = $(`#svcChips [data-cat="${cat}"]`); if (chip) chip.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+  };
+  const io = new IntersectionObserver(entries => {
+    const vis = entries.filter(e => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+    if (vis) mark(vis.target.dataset.spy, vis.target.dataset.sub || null);
+  }, { rootMargin: "-30% 0px -60% 0px" });
+  $$(".svc-group, .svc-cat__head", $("#svcList")).forEach(el => { if (!el.dataset.spy) el.dataset.spy = el.closest(".svc-cat").id; io.observe(el); });
+  mark(SERVICES[0].id, null);
+
+  // Buscador
+  const input = $("#svcSearch"), empty = $("#svcEmpty");
+  input.addEventListener("input", () => {
+    const q = norm(input.value.trim());
+    let total = 0;
+    $$(".svc-group", $("#svcList")).forEach(g => {
+      let n = 0;
+      $$("li", g).forEach(li => { const ok = !q || li.dataset.q.includes(q); li.hidden = !ok; n += ok; });
+      g.hidden = n === 0; total += n;
+    });
+    $$(".svc-cat", $("#svcList")).forEach(c => c.hidden = !$$(".svc-group", c).some(g => !g.hidden));
+    empty.hidden = total > 0;
+    $("#svcCount").textContent = q ? `${total} ${total === 1 ? "servicio" : "servicios"}` : "";
+  });
 }
 
 // Carrusel horizontal: flechas, arrastre/scroll nativo con snap y "Leer más" en textos largos
@@ -636,7 +733,7 @@ function initSamples(){
 // Cada bloque corre solo si su sección existe en la página actual
 const run = (sel, fn) => { if (!sel || $(sel)) fn(); };
 run("#gallery", renderGallery); run("#baGrid", renderBA); run("#team", renderTeam);
-run("#reviews", renderReviews); run("#hoursBody", renderHours); run("#shop", renderShop);
+run("#reviews", renderReviews); run("#svcList", renderServices); run("#hoursBody", renderHours); run("#shop", renderShop);
 wireLinks(); watchMedia();
 run(null, initHeader); run(null, initTheme); run("#mnav", initMenu); run("#heroVideo", initHero);
 run("[role=tab]", initTabs); run("#gallery", initGallery); run("#giftForm", initGift); run("#cart", initCart);

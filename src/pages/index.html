@@ -35,7 +35,7 @@
     <div class="ph" data-file="assets/img/destacado-cabello.webp"><img src="assets/img/destacado-cabello.webp" alt="Estilista dando ondas al cabello de una clienta" loading="lazy" width="900" height="1125"></div>
     <div class="split__cap"><h2>Ondas, brushing y peinados</h2><span>Ver trabajos</span></div>
   </a>
-  <a class="split__item reveal" data-delay="1" href="#servicios">
+  <a class="split__item reveal" data-delay="1" href="servicios.html">
     <div class="ph" data-file="assets/img/destacado-corte.webp"><img src="assets/img/destacado-corte.webp" alt="Corte de cabello con la clienta mirando al espejo" loading="lazy" width="900" height="1125"></div>
     <div class="split__cap"><h2>Cortes que respetan tu estilo</h2><span>Ver servicios</span></div>
   </a>
@@ -77,94 +77,26 @@
         <p class="eyebrow">Servicios</p>
         <h2 class="h2" id="svc-title">Todo lo que necesitas, <em>en un solo lugar</em></h2>
       </div>
-      <p class="lead reveal" data-delay="1">Organizamos nuestros servicios en tres mundos. Revisa cada uno y reserva directamente en AgendaPro. <span class="sample">Precios de ejemplo</span></p>
+      <p class="lead reveal" data-delay="1">Elige un mundo y revisa todos los servicios, con duración y valores.</p>
     </div>
-
-    <div class="svc-tabs" role="tablist" aria-label="Categorías de servicios">
-      <button class="chip" role="tab" id="tab-cabello" aria-controls="panel-cabello" aria-selected="true">Cabello</button>
-      <button class="chip" role="tab" id="tab-belleza" aria-controls="panel-belleza" aria-selected="false" tabindex="-1">Belleza</button>
-      <button class="chip" role="tab" id="tab-bienestar" aria-controls="panel-bienestar" aria-selected="false" tabindex="-1">Bienestar</button>
+    <div class="svc-cards">
+      <a class="svc-card reveal" data-delay="0" href="servicios.html#cabello">
+        <div class="ph" data-file="assets/img/servicios/home-cabello.webp"><img src="assets/img/servicios/home-cabello.webp" alt="Estilista dando ondas con tenaza" loading="lazy" width="800" height="1000"></div>
+        <div class="svc-card__body"><h3>Cabello</h3><p>Coloración · Corte · Tratamientos · Brushing y peinados</p><span class="link">Ver servicios →</span></div>
+      </a>
+      <a class="svc-card reveal" data-delay="1" href="servicios.html#belleza">
+        <div class="ph" data-file="assets/img/servicios/home-belleza.webp"><img src="assets/img/servicios/home-belleza.webp" alt="Manicure con herramientas esterilizadas" loading="lazy" width="800" height="1000"></div>
+        <div class="svc-card__body"><h3>Belleza</h3><p>Manos · Pies · Pestañas y cejas · Depilación</p><span class="link">Ver servicios →</span></div>
+      </a>
+      <a class="svc-card reveal" data-delay="2" href="servicios.html#bienestar">
+        <div class="ph" data-file="assets/img/servicios/home-bienestar.webp"><img src="assets/img/servicios/home-bienestar.webp" alt="Clienta relajada durante un masaje facial" loading="lazy" width="800" height="1000"></div>
+        <div class="svc-card__body"><h3>Bienestar</h3><p>Masajes · Limpieza facial · Cosmetología</p><span class="link">Ver servicios →</span></div>
+      </a>
     </div>
-
-    <!-- CABELLO -->
-    <div class="svc" role="tabpanel" id="panel-cabello" aria-labelledby="tab-cabello" tabindex="0">
-      <div class="svc__media">
-        <div class="ph" data-file="assets/img/servicios/cabello-01.webp"><img src="assets/img/servicios/cabello-01.webp" alt="Estilista aplicando coloración con pincel y papel" loading="lazy" width="600" height="800"></div>
-        <div class="ph" data-file="assets/img/servicios/cabello-02.webp"><img src="assets/img/servicios/cabello-02.webp" alt="Estilista dando ondas con tenaza" loading="lazy" width="400" height="400"></div>
-        <div class="ph" data-file="assets/img/servicios/cabello-03.webp"><img src="assets/img/servicios/cabello-03.webp" alt="Brushing con cepillo redondo" loading="lazy" width="400" height="400"></div>
-      </div>
-      <div>
-        <div class="svc__head">
-          <h3>Cabello</h3>
-          <p>Color, corte y cuidado pensados para tu tipo de cabello y tu estilo de vida. Siempre con diagnóstico previo.</p>
-        </div>
-        <ul class="svc-list">
-          <li><details open><summary><span>Coloración<small>Tintura, mechas, balayage, baño de color, canas</small></span><span class="plus" aria-hidden="true">+</span></summary>
-            <div class="svc-items"><div><span>Tintura raíz</span><span>desde $38.000</span></div><div><span>Balayage / mechas</span><span>desde $95.000</span></div><div><span>Baño de color</span><span>desde $32.000</span></div></div></details></li>
-          <li><details><summary><span>Corte de cabello<small>Diseño, mantención y flequillo</small></span><span class="plus" aria-hidden="true">+</span></summary>
-            <div class="svc-items"><div><span>Corte + lavado + secado</span><span>desde $25.000</span></div><div><span>Despunte</span><span>desde $15.000</span></div></div></details></li>
-          <li><details><summary><span>Tratamientos capilares<small>Hidratación, nutrición, reconstrucción, alisados</small></span><span class="plus" aria-hidden="true">+</span></summary>
-            <div class="svc-items"><div><span>Hidratación profunda</span><span>desde $28.000</span></div><div><span>Alisado / keratina</span><span>desde $70.000</span></div></div></details></li>
-          <li><details><summary><span>Brushing, peinado y secado<small>Para el día a día o un evento</small></span><span class="plus" aria-hidden="true">+</span></summary>
-            <div class="svc-items"><div><span>Brushing</span><span>desde $18.000</span></div><div><span>Peinado de evento</span><span>desde $35.000</span></div></div></details></li>
-        </ul>
-        <a class="btn btn--accent js-book" href="#" target="_blank" rel="noopener">Reservar servicio de cabello</a>
-      </div>
-    </div>
-
-    <!-- BELLEZA -->
-    <div class="svc" role="tabpanel" id="panel-belleza" aria-labelledby="tab-belleza" tabindex="0" hidden>
-      <div class="svc__media">
-        <div class="ph" data-file="assets/img/servicios/belleza-01.webp"><img src="assets/img/servicios/belleza-01.webp" alt="Manicure con esmaltado permanente" loading="lazy" width="600" height="800"></div>
-        <div class="ph" data-file="assets/img/servicios/belleza-02.webp"><img src="assets/img/servicios/belleza-02.webp" alt="Limpieza facial y cuidado de la piel" loading="lazy" width="400" height="400"></div>
-        <div class="ph" data-file="assets/img/servicios/belleza-03.webp"><img src="assets/img/servicios/belleza-03.webp" alt="Cuidado de cutículas en manicure" loading="lazy" width="400" height="400"></div>
-      </div>
-      <div>
-        <div class="svc__head">
-          <h3>Belleza</h3>
-          <p>Manos, pies, mirada y piel. Detalles que se notan, hechos con calma y herramientas esterilizadas.</p>
-        </div>
-        <ul class="svc-list">
-          <li><details open><summary><span>Spa de manos<small>Manicure, esmaltado permanente, kapping</small></span><span class="plus" aria-hidden="true">+</span></summary>
-            <div class="svc-items"><div><span>Manicure + permanente</span><span>desde $18.000</span></div><div><span>Kapping gel</span><span>desde $24.000</span></div></div></details></li>
-          <li><details><summary><span>Spa de pies<small>Pedicure clínica y estética</small></span><span class="plus" aria-hidden="true">+</span></summary>
-            <div class="svc-items"><div><span>Pedicure spa</span><span>desde $25.000</span></div><div><span>Pedicure + permanente</span><span>desde $28.000</span></div></div></details></li>
-          <li><details><summary><span>Pestañas y cejas<small>Lifting, extensiones, diseño y laminado</small></span><span class="plus" aria-hidden="true">+</span></summary>
-            <div class="svc-items"><div><span>Lifting de pestañas</span><span>desde $25.000</span></div><div><span>Diseño + laminado de cejas</span><span>desde $22.000</span></div></div></details></li>
-          <li><details><summary><span>Cosmetología<small>Limpieza facial e hidratación</small></span><span class="plus" aria-hidden="true">+</span></summary>
-            <div class="svc-items"><div><span>Limpieza facial profunda</span><span>desde $35.000</span></div></div></details></li>
-          <li><details><summary><span>Depilación<small>Cera, rostro y cuerpo</small></span><span class="plus" aria-hidden="true">+</span></summary>
-            <div class="svc-items"><div><span>Rostro</span><span>desde $8.000</span></div><div><span>Piernas completas</span><span>desde $20.000</span></div></div></details></li>
-          <li><details><summary><span>Otros servicios de manos y pies<small>Retiro, reparación y diseño</small></span><span class="plus" aria-hidden="true">+</span></summary>
-            <div class="svc-items"><div><span>Retiro de permanente</span><span>desde $6.000</span></div></div></details></li>
-        </ul>
-        <a class="btn btn--accent js-book" href="#" target="_blank" rel="noopener">Reservar servicio de belleza</a>
-      </div>
-    </div>
-
-    <!-- BIENESTAR -->
-    <div class="svc" role="tabpanel" id="panel-bienestar" aria-labelledby="tab-bienestar" tabindex="0" hidden>
-      <div class="svc__media">
-        <div class="ph" data-file="assets/img/servicios/bienestar-01.webp"><img src="assets/img/servicios/bienestar-01.webp" alt="Clienta relajada durante un masaje facial" loading="lazy" width="600" height="800"></div>
-        <div class="ph" data-file="assets/img/servicios/bienestar-02.webp"><img src="assets/img/servicios/bienestar-02.webp" alt="Masaje facial relajante" loading="lazy" width="400" height="400"></div>
-        <div class="ph" data-file="assets/img/servicios/bienestar-03.webp"><img src="assets/img/servicios/bienestar-03.webp" alt="Textura de manta suave en la camilla" loading="lazy" width="400" height="400"></div>
-      </div>
-      <div>
-        <div class="svc__head">
-          <h3>Bienestar</h3>
-          <p>Una pausa real en tu semana. Masajes que sueltan tensiones y te devuelven la energía.</p>
-        </div>
-        <ul class="svc-list">
-          <li><details open><summary><span>Masoterapia<small>Masajes de cuerpo: relajante, descontracturante, piedras calientes</small></span><span class="plus" aria-hidden="true">+</span></summary>
-            <div class="svc-items"><div><span>Masaje relajante 60 min</span><span>desde $35.000</span></div><div><span>Descontracturante 60 min</span><span>desde $38.000</span></div><div><span>Piedras calientes 75 min</span><span>desde $45.000</span></div></div></details></li>
-          <li><details><summary><span>Promociones y servicios destacados<small>Combinaciones que cambian cada mes</small></span><span class="plus" aria-hidden="true">+</span></summary>
-            <div class="svc-items"><div><span>Revisa las promociones vigentes en AgendaPro</span><span>—</span></div></div></details></li>
-        </ul>
-        <a class="btn btn--accent js-book" href="#" target="_blank" rel="noopener">Reservar masaje</a>
-      </div>
-    </div>
+    <div class="more-row reveal"><a class="btn btn--ghost" href="servicios.html">Ver todos los servicios →</a></div>
   </div>
 </section>
+
 <!-- =================== TRABAJOS (VISTA PREVIA) =================== -->
 <section class="section" id="trabajos" aria-labelledby="gal-title">
   <div class="container">
