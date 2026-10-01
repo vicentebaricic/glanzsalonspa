@@ -1,0 +1,1680 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glanz Salon y Spa · Chicureo</title>
+<meta name="description" content="Glanz Salon y Spa en Paseo Liray, Chicureo. Más de 7 años cuidando tu cabello, manos, pestañas y bienestar. Reserva tu hora online.">
+<meta name="theme-color" content="#F8F5F0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1D1A18" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23292522'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='38' text-anchor='middle' fill='%23F8F5F0'%3EG%3C/text%3E%3C/svg%3E">
+
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  /* Paleta base: 70 / 15 / 10 / 5 */
+  --c-bg:        #F8F5F0;   /* 70% */
+  --c-surface:   #EEE8E0;   /* 15% */
+  --c-ink:       #292522;   /* 10% */
+  --c-accent:    #A65A45;   /* 5%  terracota (botones, acentos) */
+  --c-accent-ink:#8E4A37;   /* terracota para texto sobre claro (AA) */
+  --c-on-accent: #FFFFFF;
+
+  --c-text:      var(--c-ink);
+  --c-muted:     #615953;
+  --c-line:      #DDD4C9;
+  --c-card:      #FFFFFF;
+  --c-overlay:   rgba(24,20,18,.55);
+  --c-sample-bg: #FFF1C9;
+  --c-sample-tx: #6B4E00;
+
+  --font-display: "DM Serif Display", Georgia, "Times New Roman", serif;
+  --font-body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --fs-xs: .8125rem;
+  --fs-sm: .9375rem;
+  --fs-md: 1.0625rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: clamp(1.6rem, 1.2rem + 1.6vw, 2.25rem);
+  --fs-2xl: clamp(2.1rem, 1.4rem + 3vw, 3.6rem);
+  --fs-hero: clamp(2.8rem, 1.2rem + 7vw, 7rem);
+
+  --sp-1: .25rem; --sp-2: .5rem; --sp-3: .75rem; --sp-4: 1rem;
+  --sp-5: 1.5rem; --sp-6: 2rem; --sp-7: 3rem; --sp-8: 4.5rem; --sp-9: 7rem;
+
+  --radius-s: 2px; --radius-m: 0px; --radius-l: 2px; --radius-pill: 2px; --radius-round: 999px;
+  --shadow-1: 0 1px 2px rgba(41,37,34,.06), 0 4px 14px rgba(41,37,34,.06);
+  --shadow-2: 0 10px 40px rgba(41,37,34,.16);
+
+  --ease-out: cubic-bezier(.22,.61,.36,1);
+  --dur-fast: 160ms; --dur-med: 320ms; --dur-slow: 800ms;
+
+  --container: 1240px;
+  --header-h: 68px;
+
+  --z-header: 40; --z-bar: 45; --z-drawer: 60; --z-toast: 80;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --c-bg:#1D1A18; --c-surface:#27231F; --c-ink:#F3EEE8;
+    --c-accent:#C9806B; --c-accent-ink:#E0A18E; --c-on-accent:#1D1A18;
+    --c-text:#F3EEE8; --c-muted:#B9AFA6; --c-line:#3A3430; --c-card:#2C2723;
+    --c-overlay:rgba(10,8,7,.6); --c-sample-bg:#4A3A10; --c-sample-tx:#FFE29A;
+    --shadow-1: 0 1px 2px rgba(0,0,0,.3), 0 4px 14px rgba(0,0,0,.25);
+    --shadow-2: 0 10px 40px rgba(0,0,0,.5);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --c-bg:#1D1A18; --c-surface:#27231F; --c-ink:#F3EEE8;
+  --c-accent:#C9806B; --c-accent-ink:#E0A18E; --c-on-accent:#1D1A18;
+  --c-text:#F3EEE8; --c-muted:#B9AFA6; --c-line:#3A3430; --c-card:#2C2723;
+  --c-overlay:rgba(10,8,7,.6); --c-sample-bg:#4A3A10; --c-sample-tx:#FFE29A;
+  --shadow-1: 0 1px 2px rgba(0,0,0,.3), 0 4px 14px rgba(0,0,0,.25);
+  --shadow-2: 0 10px 40px rgba(0,0,0,.5);
+  color-scheme: dark;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--c-bg);color:var(--c-text);
+  font-family:var(--font-body);font-size:var(--fs-md);line-height:1.65;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  padding-bottom:76px; /* barra fija móvil */
+}
+@media (min-width: 900px){ body{padding-bottom:0} }
+img,video{display:block;max-width:100%}
+img{height:auto}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:400;line-height:1.08;margin:0;letter-spacing:-.01em;text-wrap:balance}
+p{margin:0 0 var(--sp-4)}
+[id]{scroll-margin-top:calc(var(--header-h) + 12px)}
+:focus-visible{outline:3px solid var(--c-accent);outline-offset:3px;border-radius:4px}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:var(--sp-4);top:-60px;z-index:100;background:var(--c-ink);color:var(--c-bg);padding:var(--sp-3) var(--sp-4);border-radius:var(--radius-s)}
+.skip:focus{top:var(--sp-4)}
+
+.container{width:min(100% - 2.5rem, var(--container));margin-inline:auto}
+.section{padding-block:var(--sp-8)}
+@media (min-width: 900px){ .section{padding-block:var(--sp-9)} }
+.section--alt{background:var(--c-surface)}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:var(--sp-3);
+  font-size:var(--fs-xs);font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--c-accent-ink);
+  margin-bottom:var(--sp-4);
+}
+.eyebrow::before{content:"";width:28px;height:1px;background:currentColor}
+.h2{font-size:var(--fs-2xl)}
+.h2 em{font-style:italic;color:var(--c-accent-ink)}
+.lead{font-size:var(--fs-lg);color:var(--c-muted);max-width:56ch}
+.muted{color:var(--c-muted)}
+.section-head{display:grid;gap:var(--sp-4);margin-bottom:var(--sp-7)}
+@media (min-width: 900px){
+  .section-head--split{grid-template-columns:1.1fr .9fr;align-items:end;gap:var(--sp-7)}
+}
+
+/* Contenido de ejemplo */
+.sample{
+  display:inline-flex;align-items:center;gap:.35em;vertical-align:middle;
+  font-family:var(--font-body);font-size:.6875rem;font-weight:700;letter-spacing:.04em;line-height:1;
+  text-transform:uppercase;white-space:nowrap;
+  background:var(--c-sample-bg);color:var(--c-sample-tx);
+  padding:.35em .6em;border-radius:var(--radius-round);border:1px dashed currentColor;
+}
+.sample::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+html.hide-samples .sample{display:none}
+
+/* Botones */
+.btn{
+  --_bg:var(--c-ink);--_fg:var(--c-bg);
+  display:inline-flex;align-items:center;justify-content:center;gap:.6em;
+  min-height:50px;padding:0 1.6em;border-radius:var(--radius-pill);border:1px solid transparent;
+  background:var(--_bg);color:var(--_fg);font-weight:500;font-size:var(--fs-sm);letter-spacing:.02em;
+  text-decoration:none;cursor:pointer;touch-action:manipulation;
+  transition:background var(--dur-fast) var(--ease-out),color var(--dur-fast),border-color var(--dur-fast),transform var(--dur-fast);
+}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn--accent{--_bg:var(--c-accent);--_fg:var(--c-on-accent)}
+.btn--accent:hover{--_bg:var(--c-accent-ink)}
+.btn--ghost{--_bg:transparent;--_fg:var(--c-text);border-color:currentColor}
+.btn--ghost:hover{--_bg:var(--c-text);--_fg:var(--c-bg)}
+.btn--light{--_bg:#F8F5F0;--_fg:#292522}
+.btn--ghost-light{--_bg:transparent;--_fg:#F8F5F0;border-color:rgba(248,245,240,.7)}
+.btn--ghost-light:hover{--_bg:#F8F5F0;--_fg:#292522}
+.btn svg{width:18px;height:18px;flex:none}
+.link{
+  display:inline-flex;align-items:center;gap:.4em;font-weight:600;color:var(--c-accent-ink);
+  text-decoration:underline;text-underline-offset:.25em;text-decoration-thickness:1px;
+}
+.link:hover{text-decoration-thickness:2px}
+
+/* Imágenes con placeholder (mientras se sube la multimedia) */
+.ph{position:relative;overflow:hidden;background:color-mix(in srgb, var(--c-surface) 82%, var(--c-ink) 8%)}
+.ph img,.ph video{width:100%;height:100%;object-fit:cover}
+.ph.is-missing{
+  background:
+    linear-gradient(135deg, rgba(166,90,69,.10), transparent 60%),
+    repeating-linear-gradient(45deg, transparent 0 14px, rgba(41,37,34,.035) 14px 15px),
+    color-mix(in srgb, var(--c-surface) 82%, var(--c-ink) 8%);
+}
+.ph.is-missing img{opacity:0}
+.ph.is-missing::after{
+  content:attr(data-file);position:absolute;inset:auto var(--sp-3) var(--sp-3) var(--sp-3);
+  font:600 11px/1.3 var(--font-body);color:var(--c-muted);letter-spacing:.02em;word-break:break-all;
+}
+
+/* Reveal on scroll */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity var(--dur-slow) var(--ease-out),transform var(--dur-slow) var(--ease-out)}
+.reveal.is-in{opacity:1;transform:none}
+.reveal[data-delay="1"]{transition-delay:90ms}
+.reveal[data-delay="2"]{transition-delay:180ms}
+.reveal[data-delay="3"]{transition-delay:270ms}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.header{
+  position:fixed;inset:0 0 auto 0;z-index:var(--z-header);height:var(--header-h);
+  display:flex;align-items:center;color:#F8F5F0;
+  transition:background var(--dur-med),color var(--dur-med),box-shadow var(--dur-med);
+}
+.header.is-solid{background:color-mix(in srgb, var(--c-bg) 92%, transparent);color:var(--c-text);box-shadow:0 1px 0 var(--c-line);backdrop-filter:saturate(1.2) blur(10px);-webkit-backdrop-filter:saturate(1.2) blur(10px)}
+.header__inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:var(--sp-4);width:min(100% - 2.5rem, 1400px);margin-inline:auto}
+.brand{display:flex;flex-direction:column;align-items:center;line-height:1;text-decoration:none;grid-column:2}
+.brand__name{font-family:var(--font-body);font-weight:500;font-size:1.5rem;letter-spacing:.55em;margin-right:-.55em;text-transform:uppercase}
+.brand__tag{font-size:.5625rem;letter-spacing:.42em;margin-right:-.42em;text-transform:uppercase;margin-top:6px;opacity:.8}
+@media (min-width:1080px){ .brand__name{font-size:1.85rem} }
+.nav{display:none;grid-column:1;grid-row:1}
+.nav ul{display:flex;gap:var(--sp-5);flex-wrap:nowrap;list-style:none;margin:0;padding:0}
+.nav a{font-size:var(--fs-sm);font-weight:500;text-decoration:none;padding:var(--sp-2) 0;border-bottom:1px solid transparent}
+.nav a:hover{border-color:currentColor}
+.header__actions{display:flex;align-items:center;justify-content:flex-end;gap:var(--sp-2);grid-column:3;grid-row:1}
+.icon-btn{
+  position:relative;display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;
+  background:transparent;border:1px solid transparent;cursor:pointer;color:inherit;
+  transition:background var(--dur-fast),border-color var(--dur-fast);
+}
+.icon-btn:hover{border-color:currentColor}
+.icon-btn svg{width:20px;height:20px}
+.cart-count{
+  position:absolute;top:2px;right:0;min-width:18px;height:18px;padding:0 5px;border-radius:var(--radius-round);
+  background:var(--c-accent);color:var(--c-on-accent);font-size:11px;font-weight:700;line-height:18px;text-align:center;
+}
+.cart-count[hidden]{display:none}
+.header .btn-book{display:none;min-height:auto;padding:var(--sp-2) 0;background:none;color:inherit;border:0;border-bottom:1px solid currentColor;border-radius:0}
+.header .btn-book:hover{transform:none;opacity:.75}
+.menu-btn{display:inline-grid}
+#themeBtn{display:none}
+@media (max-width:419px){ .brand__name{font-size:1.2rem;letter-spacing:.45em;margin-right:-.45em} }
+@media (min-width: 1080px){
+  .nav{display:block}
+  .header .btn-book{display:inline-flex}
+  .menu-btn{display:none}
+  #themeBtn{display:inline-grid}
+}
+
+/* Menú móvil */
+.mnav{
+  position:fixed;inset:0;z-index:var(--z-drawer);background:var(--c-bg);color:var(--c-text);
+  display:flex;flex-direction:column;padding:var(--sp-5) 1.25rem;
+  transform:translateY(-100%);visibility:hidden;transition:transform var(--dur-med) var(--ease-out),visibility 0s var(--dur-med);
+}
+.mnav.is-open{transform:none;visibility:visible;transition:transform var(--dur-med) var(--ease-out)}
+.mnav__top{display:flex;justify-content:space-between;align-items:center}
+.mnav__top .brand{align-items:flex-start}
+.mnav ul{list-style:none;margin:var(--sp-7) 0 0;padding:0}
+.mnav li a{display:block;font-family:var(--font-display);font-size:2rem;padding:var(--sp-2) 0;text-decoration:none;border-bottom:1px solid var(--c-line)}
+.mnav__foot{margin-top:auto;display:grid;gap:var(--sp-3)}
+
+/* Barra fija inferior móvil (CTA siempre visible) */
+.mbar{
+  position:fixed;inset:auto 0 0 0;z-index:var(--z-bar);display:grid;grid-template-columns:1fr auto;gap:var(--sp-2);
+  padding:var(--sp-3) 1.25rem calc(var(--sp-3) + env(safe-area-inset-bottom));
+  background:color-mix(in srgb, var(--c-bg) 94%, transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-top:1px solid var(--c-line);
+}
+.mbar .btn{min-height:50px}
+.mbar .btn--wa{width:50px;padding:0;background:#1F7A4D;color:#fff}
+@media (min-width: 900px){ .mbar{display:none} }
+
+/* WhatsApp flotante desktop */
+.fab-wa{
+  display:none;position:fixed;right:24px;bottom:24px;z-index:var(--z-bar);width:56px;height:56px;border-radius:50%;
+  background:#1F7A4D;color:#fff;place-items:center;box-shadow:var(--shadow-2);text-decoration:none;
+  transition:transform var(--dur-fast);
+}
+.fab-wa:hover{transform:scale(1.06)}
+.fab-wa svg{width:26px;height:26px}
+@media (max-width: 899px){ .hero__inner{padding-bottom:calc(76px + 2rem + env(safe-area-inset-bottom))} .hero__row{gap:var(--sp-5)} }
+@media (min-width: 900px){ .fab-wa{display:grid} .hero__row{padding-right:72px} }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;color:#F8F5F0;isolation:isolate;overflow:hidden;background:#2B2521}
+.hero__media{position:absolute;inset:0;z-index:-2}
+.hero__media video,.hero__media img{width:100%;height:100%;object-fit:cover}
+.hero__media.is-missing{background:radial-gradient(120% 90% at 70% 20%, #6A4A3E 0%, #2B2521 60%)}
+.hero__media.is-missing::after{color:rgba(248,245,240,.55);inset:auto 1.25rem 90px auto;max-width:60vw;text-align:right}
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg, rgba(20,16,14,.45) 0%, rgba(20,16,14,.05) 30%, rgba(20,16,14,.15) 55%, rgba(20,16,14,.78) 100%);
+}
+.hero__inner{width:min(100% - 2.5rem, 1400px);margin-inline:auto;padding-bottom:clamp(2.5rem, 7vh, 5.5rem);padding-top:calc(var(--header-h) + 3rem)}
+.hero__kicker{font-size:var(--fs-xs);letter-spacing:.24em;text-transform:uppercase;font-weight:600;margin-bottom:var(--sp-5);opacity:.95}
+.hero h1{font-size:var(--fs-hero);line-height:.98;max-width:13ch;letter-spacing:-.02em}
+.hero h1 em{font-style:italic;color:#F3CDBE}
+.hero__row{padding-right:0;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:var(--sp-6);margin-top:var(--sp-6)}
+.hero__ctas{display:flex;flex-wrap:wrap;gap:var(--sp-3)}
+.hero__meta{display:flex;align-items:center;gap:var(--sp-4);font-size:var(--fs-sm)}
+.hero__meta strong{font-family:var(--font-display);font-size:2.25rem;font-weight:400;line-height:1}
+.stars{display:inline-flex;gap:2px;color:#F2B880}
+.stars svg{width:16px;height:16px}
+.hero__pause{
+  position:absolute;right:1.25rem;top:calc(var(--header-h) + 12px);z-index:2;
+  width:44px;height:44px;border-radius:50%;border:1px solid rgba(248,245,240,.5);background:rgba(20,16,14,.25);color:#F8F5F0;
+  display:grid;place-items:center;cursor:pointer;
+}
+.hero__pause svg{width:16px;height:16px}
+
+/* Split full-bleed (2 fotos) */
+.split{display:grid;grid-template-columns:1fr;gap:var(--sp-3);padding:var(--sp-3) var(--sp-3) 0}
+@media (min-width:700px){ .split{grid-template-columns:1fr 1fr;padding:var(--sp-5) clamp(1.25rem,3vw,3.5rem) 0;gap:var(--sp-5)} }
+.split__item{position:relative;display:block;color:#F8F5F0;text-decoration:none;overflow:hidden}
+.split__item .ph{aspect-ratio:4/5}
+@media (min-width:1000px){ .split__item .ph{aspect-ratio:auto;height:min(92vh, 980px)} }
+.split__item img{transition:transform 1.2s var(--ease-out)}
+.split__item:hover img{transform:scale(1.03)}
+.split__cap{position:absolute;left:0;right:0;bottom:0;padding:var(--sp-8) var(--sp-5) var(--sp-5);background:linear-gradient(transparent, rgba(20,16,14,.65))}
+.split__cap h2{font-size:var(--fs-xl);margin-bottom:var(--sp-2)}
+.split__cap span{font-size:var(--fs-sm);border-bottom:1px solid currentColor;padding-bottom:2px}
+
+/* Quote band */
+.quote-band{background:var(--c-surface);text-align:center;padding-block:var(--sp-9)}
+.quote-band blockquote{margin:0 auto var(--sp-4);font-family:var(--font-display);font-size:var(--fs-2xl);max-width:22ch;line-height:1.15}
+.quote-band p{color:var(--c-muted);font-size:var(--fs-lg);margin-bottom:var(--sp-6)}
+
+/* Banda terracota (5%) */
+.band{background:var(--c-accent);color:var(--c-on-accent)}
+.band .container{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--sp-4);padding-block:var(--sp-6)}
+.band p{margin:0;font-size:var(--fs-md);max-width:70ch}
+.band a{color:inherit;font-weight:600;text-underline-offset:.3em;white-space:nowrap}
+
+/* ============================================================
+   NOSOTROS
+   ============================================================ */
+.about{display:grid;gap:var(--sp-7)}
+@media (min-width: 900px){
+  .about{grid-template-columns:repeat(12,1fr);gap:var(--sp-5);align-items:start}
+  .about__text{grid-column:1 / span 5;position:sticky;top:calc(var(--header-h) + 2rem)}
+  .about__media{grid-column:7 / span 6}
+}
+.about__years{display:flex;align-items:baseline;gap:var(--sp-3);margin:var(--sp-6) 0;padding-top:var(--sp-5);border-top:1px solid var(--c-line)}
+.about__years b{font-family:var(--font-display);font-weight:400;font-size:clamp(4rem, 3rem + 4vw, 6.5rem);line-height:.8;color:var(--c-accent-ink)}
+.about__years span{font-size:var(--fs-sm);color:var(--c-muted);max-width:18ch;line-height:1.35}
+.about__media{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--sp-3)}
+.about__media .a1{grid-column:1 / span 4;aspect-ratio:4/5;border-radius:var(--radius-m)}
+.about__media .a2{grid-column:5 / span 2;align-self:end;aspect-ratio:3/4;border-radius:var(--radius-m);margin-bottom:-2rem}
+.about__media .a3{grid-column:2 / span 5;aspect-ratio:16/10;border-radius:var(--radius-m);margin-top:var(--sp-3)}
+.pillars{display:grid;gap:var(--sp-5);margin-top:var(--sp-8);counter-reset:p}
+@media (min-width: 700px){ .pillars{grid-template-columns:repeat(2,1fr)} }
+@media (min-width: 1080px){ .pillars{grid-template-columns:repeat(4,1fr);gap:var(--sp-6)} }
+.pillar{padding-top:var(--sp-4);border-top:1px solid var(--c-ink)}
+.pillar::before{counter-increment:p;content:"0" counter(p);display:block;font-size:var(--fs-xs);font-weight:700;letter-spacing:.12em;color:var(--c-accent-ink);margin-bottom:var(--sp-3)}
+.pillar h3{font-size:1.5rem;margin-bottom:var(--sp-2)}
+.pillar p{color:var(--c-muted);font-size:var(--fs-sm);margin:0}
+
+/* ============================================================
+   SERVICIOS
+   ============================================================ */
+.svc-tabs{display:flex;gap:var(--sp-2);flex-wrap:wrap;margin-bottom:var(--sp-6)}
+.chip{
+  min-height:44px;padding:0 1.2em;border-radius:var(--radius-pill);border:1px solid var(--c-line);background:transparent;
+  font-weight:600;font-size:var(--fs-sm);cursor:pointer;transition:all var(--dur-fast);
+}
+.chip:hover{border-color:var(--c-text)}
+.chip[aria-selected="true"],.chip[aria-pressed="true"]{background:var(--c-ink);color:var(--c-bg);border-color:var(--c-ink)}
+.svc{display:grid;gap:var(--sp-6)}
+.svc[hidden]{display:none}
+@media (min-width: 900px){
+  .svc{grid-template-columns:5fr 7fr;gap:var(--sp-8);align-items:start}
+  .svc--flip .svc__media{order:2}
+}
+.svc__media{display:grid;grid-template-columns:3fr 2fr;gap:var(--sp-3)}
+.svc__media .ph:first-child{aspect-ratio:3/4;border-radius:var(--radius-m);grid-row:span 2}
+.svc__media .ph:not(:first-child){aspect-ratio:1;border-radius:var(--radius-m)}
+.svc__head h3{font-size:var(--fs-2xl)}
+.svc__head p{color:var(--c-muted);margin-top:var(--sp-3);max-width:52ch}
+.svc-list{list-style:none;margin:var(--sp-6) 0;padding:0;border-top:1px solid var(--c-line)}
+.svc-list li{border-bottom:1px solid var(--c-line)}
+.svc-list details summary{
+  display:flex;align-items:center;justify-content:space-between;gap:var(--sp-4);padding:var(--sp-4) 0;cursor:pointer;list-style:none;
+  font-weight:600;
+}
+.svc-list details summary::-webkit-details-marker{display:none}
+.svc-list summary .plus{width:28px;height:28px;flex:none;border-radius:50%;border:1px solid var(--c-line);display:grid;place-items:center;transition:transform var(--dur-med) var(--ease-out)}
+.svc-list details[open] .plus{transform:rotate(45deg)}
+.svc-list summary small{display:block;font-weight:400;color:var(--c-muted);font-size:var(--fs-sm)}
+.svc-items{padding:0 0 var(--sp-5);display:grid;gap:var(--sp-2);font-size:var(--fs-sm)}
+.svc-items div{display:flex;justify-content:space-between;gap:var(--sp-4);border-bottom:1px dotted var(--c-line);padding-bottom:var(--sp-2)}
+.svc-items span:last-child{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--c-muted)}
+
+/* ============================================================
+   GALERÍA (grid editorial asimétrico)
+   ============================================================ */
+.gallery-filters{display:flex;gap:var(--sp-2);flex-wrap:wrap}
+.gallery{
+  display:grid;gap:var(--sp-2);grid-template-columns:repeat(2,1fr);grid-auto-flow:dense;grid-auto-rows:minmax(140px, 22vw);
+}
+@media (min-width: 700px){ .gallery{grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(160px, 15vw)} }
+@media (min-width: 1240px){ .gallery{grid-template-columns:repeat(6,1fr);grid-auto-rows:150px} }
+.g-item{position:relative;border-radius:var(--radius-m);overflow:hidden;cursor:zoom-in;border:0;padding:0;background:var(--c-surface)}
+.g-item .ph{position:absolute;inset:0}
+.g-item img{transition:transform 900ms var(--ease-out)}
+.g-item:hover img{transform:scale(1.04)}
+.g-item figcaption{
+  position:absolute;left:0;right:0;bottom:0;padding:var(--sp-6) var(--sp-3) var(--sp-3);
+  background:linear-gradient(transparent, rgba(20,16,14,.72));color:#F8F5F0;font-size:var(--fs-xs);font-weight:600;letter-spacing:.04em;
+  text-align:left;opacity:0;transform:translateY(6px);transition:all var(--dur-med) var(--ease-out);
+}
+.g-item:hover figcaption,.g-item:focus-visible figcaption{opacity:1;transform:none}
+@media (hover: none){ .g-item figcaption{opacity:1;transform:none} }
+.g-item.is-hidden{display:none}
+.g-tall{grid-row:span 2}
+.g-wide{grid-column:span 2}
+.g-big{grid-column:span 2;grid-row:span 2}
+.gallery-foot{display:flex;flex-wrap:wrap;gap:var(--sp-4);align-items:center;justify-content:space-between;margin-top:var(--sp-6)}
+
+/* Lightbox */
+.lightbox{
+  position:fixed;inset:0;z-index:var(--z-drawer);background:rgba(15,12,10,.92);display:grid;place-items:center;padding:var(--sp-5);
+  opacity:0;visibility:hidden;transition:opacity var(--dur-med),visibility 0s var(--dur-med);
+}
+.lightbox.is-open{opacity:1;visibility:visible;transition:opacity var(--dur-med)}
+.lightbox img{max-height:82vh;max-width:min(92vw, 1100px);border-radius:var(--radius-s);object-fit:contain}
+.lightbox p{color:#F8F5F0;text-align:center;margin-top:var(--sp-3);font-size:var(--fs-sm)}
+.lightbox .icon-btn{position:absolute;color:#F8F5F0;border-color:rgba(248,245,240,.35)}
+.lb-close{top:16px;right:16px}
+.lb-prev{left:12px;top:50%;transform:translateY(-50%)}
+.lb-next{right:12px;top:50%;transform:translateY(-50%)}
+
+/* ============================================================
+   ANTES / DESPUÉS
+   ============================================================ */
+.ba-grid{display:grid;gap:var(--sp-6)}
+@media (min-width: 900px){
+  .ba-grid{grid-template-columns:1.25fr 1fr;grid-template-rows:auto auto;gap:var(--sp-5)}
+  .ba-grid .ba:first-child{grid-row:span 2}
+}
+.ba figure{margin:0}
+.ba__frame{
+  --pos:50%;position:relative;aspect-ratio:4/5;border-radius:var(--radius-m);overflow:hidden;background:var(--c-surface);
+  user-select:none;-webkit-user-select:none;touch-action:pan-y;
+}
+.ba-grid .ba:not(:first-child) .ba__frame{aspect-ratio:4/3}
+.ba__frame .ph{position:absolute;inset:0}
+.ba__after{clip-path:inset(0 0 0 var(--pos))}
+.ba__label{
+  position:absolute;top:var(--sp-3);z-index:2;padding:.35em .8em;border-radius:var(--radius-pill);
+  background:rgba(20,16,14,.6);color:#F8F5F0;font-size:var(--fs-xs);font-weight:700;letter-spacing:.1em;text-transform:uppercase;pointer-events:none;
+}
+.ba__label--b{left:var(--sp-3)} .ba__label--a{right:var(--sp-3)}
+.ba__line{position:absolute;top:0;bottom:0;left:var(--pos);width:2px;margin-left:-1px;background:#F8F5F0;z-index:2;pointer-events:none}
+.ba__knob{
+  position:absolute;top:50%;left:var(--pos);z-index:3;width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;
+  background:#F8F5F0;color:#292522;display:grid;place-items:center;box-shadow:var(--shadow-2);pointer-events:none;
+}
+.ba__knob svg{width:22px;height:22px}
+.ba__range{position:absolute;inset:0;z-index:4;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;-webkit-appearance:none;appearance:none}
+.ba__range:focus-visible + .ba__knob{outline:3px solid var(--c-accent);outline-offset:3px}
+.ba figcaption{display:flex;justify-content:space-between;gap:var(--sp-3);align-items:baseline;margin-top:var(--sp-3);flex-wrap:wrap}
+.ba figcaption strong{font-family:var(--font-display);font-weight:400;font-size:1.35rem}
+.ba figcaption span{font-size:var(--fs-sm);color:var(--c-muted)}
+
+/* ============================================================
+   EQUIPO
+   ============================================================ */
+.team{display:grid;gap:var(--sp-6) var(--sp-5);grid-template-columns:1fr}
+@media (min-width: 600px){ .team{grid-template-columns:repeat(2,1fr)} }
+@media (min-width: 1080px){ .team{grid-template-columns:repeat(4,1fr)} .team > :nth-child(even){margin-top:var(--sp-8)} }
+.member .ph{aspect-ratio:4/5;border-radius:var(--radius-m);margin-bottom:var(--sp-4)}
+.member h3{font-size:1.6rem}
+.member .role{font-size:var(--fs-xs);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c-accent-ink);margin:var(--sp-2) 0 var(--sp-3)}
+.member p{font-size:var(--fs-sm);color:var(--c-muted);margin-bottom:var(--sp-3)}
+.member .member__tag{font-family:var(--font-display);font-size:1.15rem;line-height:1.3;color:var(--c-text);margin-bottom:var(--sp-2)}
+.member .member__days{font-size:var(--fs-xs);color:var(--c-text);border-top:1px solid var(--c-line);padding-top:var(--sp-3)}
+.member__days span{display:block;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c-muted);margin-bottom:2px}
+.space-strip{display:grid;grid-template-columns:2fr 1fr 1.3fr;gap:var(--sp-3);margin-top:var(--sp-8)}
+.space-strip .ph{aspect-ratio:auto;height:clamp(160px, 26vw, 360px);border-radius:var(--radius-m)}
+@media (max-width: 599px){ .space-strip{grid-template-columns:1fr 1fr} .space-strip .ph:first-child{grid-column:span 2} }
+
+/* ============================================================
+   RESEÑAS
+   ============================================================ */
+.reviews-wrap{display:grid;gap:var(--sp-7)}
+@media (min-width: 1000px){ .reviews-wrap{grid-template-columns:4fr 8fr;gap:var(--sp-8)} }
+.score{font-family:var(--font-display);font-size:clamp(5rem, 4rem + 4vw, 8rem);line-height:.85}
+.score + .stars svg{width:22px;height:22px}
+.reviews{display:grid;gap:var(--sp-5)}
+@media (min-width: 700px){ .reviews{grid-template-columns:repeat(2,1fr)} }
+.review{margin:0;padding:var(--sp-6);background:var(--c-bg);border:1px solid var(--c-line);display:flex;flex-direction:column}
+.review .stars{color:var(--c-accent);margin-bottom:var(--sp-3)}
+.review figcaption{margin-top:auto}
+.review blockquote{margin:0 0 var(--sp-5);font-size:var(--fs-md);line-height:1.6}
+.review figcaption{display:flex;justify-content:space-between;align-items:center;gap:var(--sp-3);font-size:var(--fs-sm);color:var(--c-muted);flex-wrap:wrap}
+.review figcaption b{color:var(--c-text);font-weight:600}
+
+/* ============================================================
+   VISÍTANOS: horarios + ubicación
+   ============================================================ */
+.visit{display:grid;gap:var(--sp-7)}
+@media (min-width: 1000px){ .visit{grid-template-columns:5fr 7fr;gap:var(--sp-8);align-items:stretch} }
+.hours{width:100%;border-collapse:collapse;font-size:var(--fs-md);margin:var(--sp-5) 0 var(--sp-6)}
+.hours th,.hours td{padding:var(--sp-3) 0;border-bottom:1px solid var(--c-line);text-align:left;font-weight:500}
+.hours td{text-align:right;font-variant-numeric:tabular-nums;color:var(--c-muted)}
+.hours tr.is-today th,.hours tr.is-today td{color:var(--c-accent-ink);font-weight:700}
+.open-now{display:inline-flex;align-items:center;gap:.5em;font-size:var(--fs-sm);font-weight:600}
+.open-now i{width:8px;height:8px;border-radius:50%;background:#2E8B57}
+.open-now.is-closed i{background:#B24A3A}
+.address{font-style:normal;font-size:var(--fs-lg);line-height:1.5;margin-bottom:var(--sp-5)}
+.map{border-radius:var(--radius-l);overflow:hidden;min-height:380px;background:var(--c-surface);border:1px solid var(--c-line)}
+.map iframe{width:100%;height:100%;min-height:380px;border:0;display:block}
+.btn-row{display:flex;flex-wrap:wrap;gap:var(--sp-3)}
+
+/* ============================================================
+   GIFT CARD
+   ============================================================ */
+.gift{display:grid;gap:var(--sp-7);align-items:center}
+@media (min-width: 1000px){ .gift{grid-template-columns:1fr 1fr;gap:var(--sp-8)} }
+.gcard{
+  position:relative;aspect-ratio:1.6;border-radius:var(--radius-l);padding:clamp(1.25rem, 3vw, 2.25rem);
+  background:#292522;color:#F8F5F0;box-shadow:var(--shadow-2);overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;
+  max-width:560px;
+}
+.gcard::before{content:"";position:absolute;right:-18%;top:-40%;width:70%;aspect-ratio:1;border-radius:50%;background:#A65A45;opacity:.9}
+.gcard > *{position:relative}
+.gcard__top{display:flex;justify-content:space-between;align-items:flex-start}
+.gcard__brand{font-family:var(--font-display);font-size:clamp(1.6rem, 1rem + 2vw, 2.4rem);line-height:1}
+.gcard__brand small{display:block;font-family:var(--font-body);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;margin-top:6px}
+.gcard__amount{font-family:var(--font-display);font-size:clamp(2.2rem, 1.4rem + 3vw, 3.6rem);line-height:1}
+.gcard__to{font-size:var(--fs-sm);opacity:.85;min-height:1.6em}
+.gcard__msg{font-family:var(--font-display);font-style:italic;font-size:1.05rem;opacity:.9;max-width:30ch;min-height:1.4em;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.form{display:grid;gap:var(--sp-4)}
+.field{display:grid;gap:var(--sp-2)}
+.field label,.field legend{font-size:var(--fs-sm);font-weight:600}
+.field small{font-size:var(--fs-xs);color:var(--c-muted)}
+.input{
+  width:100%;min-height:48px;padding:.7em 1em;border-radius:var(--radius-m);border:1px solid var(--c-line);background:var(--c-card);
+  font-size:16px;transition:border-color var(--dur-fast);
+}
+textarea.input{min-height:96px;resize:vertical}
+.input:hover{border-color:var(--c-muted)}
+.input:focus-visible{outline:2px solid var(--c-accent);outline-offset:1px;border-color:transparent}
+.input[aria-invalid="true"]{border-color:#B24A3A}
+.err{color:#B24A3A;font-size:var(--fs-xs);font-weight:600;min-height:1em}
+:root[data-theme="dark"] .err{color:#F0A08F}
+.amounts{display:flex;flex-wrap:wrap;gap:var(--sp-2);border:0;padding:0;margin:0}
+.amounts label{position:relative}
+.amounts input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.amounts span{display:inline-flex;align-items:center;min-height:44px;padding:0 1.1em;border-radius:var(--radius-pill);border:1px solid var(--c-line);font-weight:600;font-size:var(--fs-sm);font-variant-numeric:tabular-nums;cursor:pointer;transition:all var(--dur-fast)}
+.amounts input:checked + span{background:var(--c-ink);color:var(--c-bg);border-color:var(--c-ink)}
+.amounts input:focus-visible + span{outline:3px solid var(--c-accent);outline-offset:2px}
+.grid-2{display:grid;gap:var(--sp-4)}
+@media (min-width: 600px){ .grid-2{grid-template-columns:1fr 1fr} }
+
+/* ============================================================
+   TIENDA
+   ============================================================ */
+.shop{display:grid;gap:var(--sp-6) var(--sp-4);grid-template-columns:repeat(2,1fr)}
+@media (min-width: 800px){ .shop{grid-template-columns:repeat(3,1fr)} }
+@media (min-width: 1180px){ .shop{grid-template-columns:repeat(4,1fr)} }
+.product{display:flex;flex-direction:column}
+.product .ph{aspect-ratio:4/5;border-radius:var(--radius-m);margin-bottom:var(--sp-3);background:var(--c-card)}
+.product__brand{font-size:var(--fs-xs);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c-muted)}
+.product h3{font-family:var(--font-body);font-weight:600;font-size:var(--fs-md);line-height:1.35;margin:var(--sp-1) 0}
+.product p{font-size:var(--fs-sm);color:var(--c-muted);margin-bottom:var(--sp-3)}
+.product__foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:var(--sp-2)}
+.price{font-weight:700;font-variant-numeric:tabular-nums}
+.add-btn{min-height:44px;padding:0 1em;font-size:var(--fs-xs)}
+.add-btn.is-added{--_bg:#1F7A4D;--_fg:#fff}
+
+/* Carrito (drawer) */
+.scrim{position:fixed;inset:0;z-index:calc(var(--z-drawer) - 1);background:var(--c-overlay);opacity:0;visibility:hidden;transition:opacity var(--dur-med),visibility 0s var(--dur-med)}
+.scrim.is-open{opacity:1;visibility:visible;transition:opacity var(--dur-med)}
+.drawer{
+  position:fixed;top:0;right:0;bottom:0;z-index:var(--z-drawer);width:min(100%, 440px);background:var(--c-bg);
+  display:flex;flex-direction:column;box-shadow:var(--shadow-2);
+  transform:translateX(100%);visibility:hidden;transition:transform var(--dur-med) var(--ease-out),visibility 0s var(--dur-med);
+}
+.drawer.is-open{transform:none;visibility:visible;transition:transform var(--dur-med) var(--ease-out)}
+.drawer__head{display:flex;align-items:center;justify-content:space-between;padding:var(--sp-4) var(--sp-5);border-bottom:1px solid var(--c-line)}
+.drawer__head h2{font-size:1.75rem}
+.drawer__body{flex:1;overflow-y:auto;padding:var(--sp-4) var(--sp-5)}
+.drawer__foot{padding:var(--sp-5);border-top:1px solid var(--c-line);display:grid;gap:var(--sp-3);padding-bottom:calc(var(--sp-5) + env(safe-area-inset-bottom))}
+.cart-line{display:grid;grid-template-columns:64px 1fr auto;gap:var(--sp-3);align-items:center;padding:var(--sp-3) 0;border-bottom:1px solid var(--c-line)}
+.cart-line .ph{width:64px;height:80px;border-radius:var(--radius-s)}
+.cart-line .ph.is-missing::after{display:none}
+.cart-line h4{font-family:var(--font-body);font-weight:600;font-size:var(--fs-sm);line-height:1.3}
+.cart-line .muted{font-size:var(--fs-xs)}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--c-line);border-radius:var(--radius-pill);margin-top:var(--sp-2)}
+.qty button{width:36px;height:36px;border:0;background:transparent;cursor:pointer;font-size:1.1rem;border-radius:50%}
+.qty output{min-width:24px;text-align:center;font-weight:600;font-variant-numeric:tabular-nums}
+.remove{background:none;border:0;cursor:pointer;color:var(--c-muted);font-size:var(--fs-xs);text-decoration:underline;padding:var(--sp-2)}
+.cart-total{display:flex;justify-content:space-between;font-size:var(--fs-lg);font-weight:700}
+.cart-empty{text-align:center;padding:var(--sp-8) var(--sp-4);color:var(--c-muted)}
+.cart-empty h3{font-size:1.6rem;color:var(--c-text);margin-bottom:var(--sp-2)}
+
+/* Toast */
+.toast{
+  position:fixed;left:50%;bottom:96px;z-index:var(--z-toast);transform:translate(-50%, 20px);opacity:0;pointer-events:none;
+  background:var(--c-ink);color:var(--c-bg);padding:var(--sp-3) var(--sp-5);border-radius:var(--radius-pill);font-size:var(--fs-sm);font-weight:600;
+  box-shadow:var(--shadow-2);transition:all var(--dur-med) var(--ease-out);max-width:calc(100% - 2rem);text-align:center;
+}
+.toast.is-show{opacity:1;transform:translate(-50%,0)}
+@media (min-width: 900px){ .toast{bottom:32px} }
+
+/* ============================================================
+   CTA final + footer
+   ============================================================ */
+.cta-band{position:relative;color:#F8F5F0;isolation:isolate;overflow:hidden;background:#292522}
+.cta-band .ph{position:absolute;inset:0;z-index:-2;background:#3A302B}
+.cta-band::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg, rgba(20,16,14,.85), rgba(20,16,14,.35))}
+.cta-band .container{padding-block:var(--sp-9);display:grid;gap:var(--sp-5);justify-items:start}
+.cta-band h2{font-size:var(--fs-2xl);max-width:16ch}
+.cta-band h2 em{color:#F1C7B8}
+.footer{background:var(--c-surface);padding-block:var(--sp-8) var(--sp-6);font-size:var(--fs-sm)}
+.footer__grid{display:grid;gap:var(--sp-6)}
+@media (min-width: 800px){ .footer__grid{grid-template-columns:2fr 1fr 1fr 1fr} }
+.footer .brand{align-items:flex-start}
+.footer h3{font-family:var(--font-body);font-size:var(--fs-xs);font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:var(--sp-3);color:var(--c-muted)}
+.footer ul{list-style:none;margin:0;padding:0;display:grid;gap:var(--sp-2)}
+.footer a{text-decoration:none}
+.footer a:hover{text-decoration:underline}
+.footer__mark{
+  display:block;margin-top:var(--sp-8);font-family:var(--font-body);font-weight:500;text-transform:uppercase;line-height:.8;
+  font-size:clamp(4rem, 17vw, 15rem);letter-spacing:.32em;margin-right:-.32em;text-align:center;color:var(--c-text);
+  white-space:nowrap;overflow:hidden;user-select:none;
+}
+.footer__bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--sp-4);margin-top:var(--sp-7);padding-top:var(--sp-5);border-top:1px solid var(--c-line);color:var(--c-muted)}
+.text-btn{background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;color:inherit;font-size:inherit}
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+
+<!-- =================== HEADER =================== -->
+<header class="header" id="header">
+  <div class="header__inner">
+    <a class="brand" href="#inicio" aria-label="Glanz Salon y Spa, ir al inicio">
+      <span class="brand__name">Glanz</span>
+      <span class="brand__tag">Salon y Spa</span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <ul>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#trabajos">Trabajos</a></li>
+        <li><a href="#equipo">Equipo</a></li>
+        <li><a href="#tienda">Tienda</a></li>
+        <li><a href="#giftcard">Gift Card</a></li>
+      </ul>
+    </nav>
+    <div class="header__actions">
+      <button class="icon-btn" type="button" id="themeBtn" aria-label="Cambiar a modo oscuro">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <button class="icon-btn" type="button" id="cartBtn" aria-label="Abrir carrito, 0 productos" aria-controls="cart" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+        <span class="cart-count" id="cartCount" hidden>0</span>
+      </button>
+      <a class="btn btn-book js-book" href="#" target="_blank" rel="noopener">Reservar hora</a>
+      <button class="icon-btn menu-btn" type="button" id="menuBtn" aria-label="Abrir menú" aria-controls="mnav" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Menú móvil -->
+<div class="mnav" id="mnav" role="dialog" aria-modal="true" aria-label="Menú">
+  <div class="mnav__top">
+    <span class="brand"><span class="brand__name">Glanz</span><span class="brand__tag">Salon y Spa</span></span>
+    <button class="icon-btn" type="button" id="menuClose" aria-label="Cerrar menú">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <ul>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#trabajos">Trabajos</a></li>
+    <li><a href="#equipo">Equipo</a></li>
+    <li><a href="#giftcard">Gift Card</a></li>
+    <li><a href="#tienda">Tienda</a></li>
+    <li><a href="#visitanos">Horarios y ubicación</a></li>
+  </ul>
+  <div class="mnav__foot">
+    <a class="btn btn--accent js-book" href="#" target="_blank" rel="noopener">Reservar hora</a>
+    <a class="btn btn--ghost js-wa" data-wa="menu" href="#" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+    <button class="text-btn" type="button" id="themeBtnM" style="justify-self:center;padding:var(--sp-3)">Cambiar modo claro / oscuro</button>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- =================== HERO =================== -->
+<section class="hero" id="inicio" aria-label="Bienvenida">
+  <div class="hero__media ph" data-file="assets/video/hero.mp4  ·  assets/img/hero-poster.jpg">
+    <video id="heroVideo" autoplay muted loop playsinline preload="metadata" poster="assets/img/hero-poster.jpg" aria-hidden="true">
+      <source src="assets/video/hero.webm" type="video/webm">
+      <source src="assets/video/hero.mp4" type="video/mp4">
+    </video>
+  </div>
+  <button class="hero__pause" type="button" id="heroPause" aria-label="Pausar video de fondo">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+  </button>
+  <div class="hero__inner">
+    <p class="hero__kicker">Paseo Liray · Chicureo</p>
+    <h1>Tu momento de <em>calma</em> y cuidado en Chicureo</h1>
+    <div class="hero__row">
+      <div class="hero__ctas">
+        <a class="btn btn--light js-book" href="#" target="_blank" rel="noopener">Reservar hora</a>
+        <a class="btn btn--ghost-light" href="#servicios">Ver servicios</a>
+      </div>
+      <a class="hero__meta js-reviews" href="#" target="_blank" rel="noopener" style="text-decoration:none">
+        <strong>4,9</strong>
+        <span>
+          <span class="stars" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 15l-5.2 2.7 1-5.9L1.5 7.7l5.9-.8z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 15l-5.2 2.7 1-5.9L1.5 7.7l5.9-.8z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 15l-5.2 2.7 1-5.9L1.5 7.7l5.9-.8z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 15l-5.2 2.7 1-5.9L1.5 7.7l5.9-.8z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 15l-5.2 2.7 1-5.9L1.5 7.7l5.9-.8z"/></svg>
+          </span><br>197 reseñas en AgendaPro
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- =================== SPLIT EDITORIAL =================== -->
+<div class="split" aria-label="Destacados">
+  <a class="split__item reveal" href="#trabajos">
+    <div class="ph" data-file="assets/img/destacado-cabello.jpg"><img src="assets/img/destacado-cabello.jpg" alt="Clienta con coloración realizada en Glanz" loading="lazy" width="900" height="1125"></div>
+    <div class="split__cap"><h2>Color que se ve natural</h2><span>Ver trabajos</span></div>
+  </a>
+  <a class="split__item reveal" data-delay="1" href="#tienda">
+    <div class="ph" data-file="assets/img/destacado-tienda.jpg"><img src="assets/img/destacado-tienda.jpg" alt="Productos profesionales para el cuidado del cabello" loading="lazy" width="900" height="1125"></div>
+    <div class="split__cap"><h2>El cuidado sigue en casa</h2><span>Ir a la tienda</span></div>
+  </a>
+</div>
+
+<!-- =================== NOSOTROS =================== -->
+<section class="section" id="nosotros" aria-labelledby="about-title">
+  <div class="container">
+    <div class="about">
+      <div class="about__text reveal">
+        <p class="eyebrow">Quiénes somos</p>
+        <h2 class="h2" id="about-title">Aquí no eres una más. <em>Eres nuestra prioridad.</em></h2>
+        <div class="about__years">
+          <b>+7</b>
+          <span>años cuidando a mujeres de Chicureo y Colina</span>
+        </div>
+        <p>Glanz nació hace más de siete años con una idea simple: un salón donde te escuchen de verdad. Antes de tomar una tijera o preparar un color, conversamos contigo, entendemos lo que buscas y te asesoramos con honestidad y experiencia.</p>
+        <p>Trabajamos con productos profesionales de alta calidad y técnicas actualizadas, en un espacio impecable, ordenado y desinfectado después de cada atención. Creemos que el verdadero lujo está en la dedicación, en el detalle y en cómo te vas sintiendo cuando ves el resultado final.</p>
+        <p class="muted">Nuestros cupos son limitados para asegurar una atención 100% personalizada.</p>
+        <a class="link js-book" href="#" target="_blank" rel="noopener">Agenda tu momento →</a>
+      </div>
+      <div class="about__media">
+        <div class="ph a1 reveal" data-file="assets/img/espacio/salon-01.jpg"><img src="assets/img/espacio/salon-01.jpg" alt="Interior del salón Glanz, luminoso y ordenado" loading="lazy" width="800" height="1000"></div>
+        <div class="ph a2 reveal" data-delay="1" data-file="assets/img/espacio/detalle-01.jpg"><img src="assets/img/espacio/detalle-01.jpg" alt="Detalle de herramientas limpias y ordenadas" loading="lazy" width="600" height="800"></div>
+        <div class="ph a3 reveal" data-delay="2" data-file="assets/img/espacio/atencion-01.jpg"><img src="assets/img/espacio/atencion-01.jpg" alt="Estilista conversando con una clienta antes del servicio" loading="lazy" width="1000" height="625"></div>
+      </div>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar reveal"><h3>Higiene impecable</h3><p>Herramientas esterilizadas, superficies desinfectadas y material desechable en cada atención.</p></div>
+      <div class="pillar reveal" data-delay="1"><h3>Te escuchamos</h3><p>Diagnóstico honesto antes de cada servicio. Te decimos lo que sí y lo que no te conviene.</p></div>
+      <div class="pillar reveal" data-delay="2"><h3>Productos de calidad</h3><p>Marcas profesionales que cuidan la fibra capilar, tu piel y tus uñas.</p></div>
+      <div class="pillar reveal" data-delay="3"><h3>Tiempo para ti</h3><p>Luz cálida, música suave y un ritmo tranquilo para que de verdad desconectes.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== QUOTE =================== -->
+<section class="quote-band" aria-label="Calificación de clientas">
+  <div class="container reveal">
+    <blockquote>“El verdadero lujo está en la dedicación y en el detalle.”</blockquote>
+    <p>4,9 de 5 · 197 reseñas en AgendaPro</p>
+    <a class="btn btn--ghost js-reviews" href="#" target="_blank" rel="noopener">Leer reseñas</a>
+  </div>
+</section>
+
+<div class="band">
+  <div class="container">
+    <p>Regala Glanz: gift card electrónica para cualquier servicio o producto, lista en minutos.</p>
+    <a href="#giftcard">Comprar gift card →</a>
+  </div>
+</div>
+
+<!-- =================== SERVICIOS =================== -->
+<section class="section section--alt" id="servicios" aria-labelledby="svc-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="reveal">
+        <p class="eyebrow">Servicios</p>
+        <h2 class="h2" id="svc-title">Todo lo que necesitas, <em>en un solo lugar</em></h2>
+      </div>
+      <p class="lead reveal" data-delay="1">Organizamos nuestros servicios en tres mundos. Revisa cada uno y reserva directamente en AgendaPro. <span class="sample">Precios de ejemplo</span></p>
+    </div>
+
+    <div class="svc-tabs" role="tablist" aria-label="Categorías de servicios">
+      <button class="chip" role="tab" id="tab-cabello" aria-controls="panel-cabello" aria-selected="true">Cabello</button>
+      <button class="chip" role="tab" id="tab-belleza" aria-controls="panel-belleza" aria-selected="false" tabindex="-1">Belleza</button>
+      <button class="chip" role="tab" id="tab-bienestar" aria-controls="panel-bienestar" aria-selected="false" tabindex="-1">Bienestar</button>
+    </div>
+
+    <!-- CABELLO -->
+    <div class="svc" role="tabpanel" id="panel-cabello" aria-labelledby="tab-cabello" tabindex="0">
+      <div class="svc__media">
+        <div class="ph" data-file="assets/img/servicios/cabello-01.jpg"><img src="assets/img/servicios/cabello-01.jpg" alt="Coloración en tonos miel realizada en Glanz" loading="lazy" width="600" height="800"></div>
+        <div class="ph" data-file="assets/img/servicios/cabello-02.jpg"><img src="assets/img/servicios/cabello-02.jpg" alt="Corte y brushing terminado" loading="lazy" width="400" height="400"></div>
+        <div class="ph" data-file="assets/img/servicios/cabello-03.jpg"><img src="assets/img/servicios/cabello-03.jpg" alt="Tratamiento capilar en lavado" loading="lazy" width="400" height="400"></div>
+      </div>
+      <div>
+        <div class="svc__head">
+          <h3>Cabello</h3>
+          <p>Color, corte y cuidado pensados para tu tipo de cabello y tu estilo de vida. Siempre con diagnóstico previo.</p>
+        </div>
+        <ul class="svc-list">
+          <li><details open><summary><span>Coloración<small>Tintura, mechas, balayage, baño de color, canas</small></span><span class="plus" aria-hidden="true">+</span></summary>
+            <div class="svc-items"><div><span>Tintura raíz</span><span>desde $38.000</span></div><div><span>Balayage / mechas</span><span>desde $95.000</span></div><div><span>Baño de color</span><span>desde $32.000</span></div></div></details></li>
+          <li><details><summary><span>Corte de cabello<small>Diseño, mantención y flequillo</small></span><span class="plus" aria-hidden="true">+</span></summary>
+            <div class="svc-items"><div><span>Corte + lavado + secado</span><span>desde $25.000</span></div><div><span>Despunte</span><span>desde $15.000</span></div></div></details></li>
+          <li><details><summary><span>Tratamientos capilares<small>Hidratación, nutrición, reconstrucción, alisados</small></span><span class="plus" aria-hidden="true">+</span></summary>
+            <div class="svc-items"><div><span>Hidratación profunda</span><span>desde $28.000</span></div><div><span>Alisado / keratina</span><span>desde $70.000</span></div></div></details></li>
+          <li><details><summary><span>Brushing, peinado y secado<small>Para el día a día o un evento</small></span><span class="plus" aria-hidden="true">+</span></summary>
+            <div class="svc-items"><div><span>Brushing</span><span>desde $18.000</span></div><div><span>Peinado de evento</span><span>desde $35.000</span></div></div></details></li>
+        </ul>
+        <a class="btn btn--accent js-book" href="#" target="_blank" rel="noopener">Reservar servicio de cabello</a>
+      </div>
+    </div>
+
+    <!-- BELLEZA -->
+    <div class="svc svc--flip" role="tabpanel" id="panel-belleza" aria-labelledby="tab-belleza" tabindex="0" hidden>
+      <div class="svc__media">
+        <div class="ph" data-file="assets/img/servicios/belleza-01.jpg"><img src="assets/img/servicios/belleza-01.jpg" alt="Manicure con esmaltado permanente" loading="lazy" width="600" height="800"></div>
+        <div class="ph" data-file="assets/img/servicios/belleza-02.jpg"><img src="assets/img/servicios/belleza-02.jpg" alt="Lifting de pestañas" loading="lazy" width="400" height="400"></div>
+        <div class="ph" data-file="assets/img/servicios/belleza-03.jpg"><img src="assets/img/servicios/belleza-03.jpg" alt="Spa de pies" loading="lazy" width="400" height="400"></div>
+      </div>
+      <div>
+        <div class="svc__head">
+          <h3>Belleza</h3>
+          <p>Manos, pies, mirada y piel. Detalles que se notan, hechos con calma y herramientas esterilizadas.</p>
+        </div>
+        <ul class="svc-list">
+          <li><details open><summary><span>Spa de manos<small>Manicure, esmaltado permanente, kapping</small></span><span class="plus" aria-hidden="true">+</span></summary>
+            <div class="svc-items"><div><span>Manicure + permanente</span><span>desde $18.000</span></div><div><span>Kapping gel</span><span>desde $24.000</span></div></div></details></li>
+          <li><details><summary><span>Spa de pies<small>Pedicure clínica y estética</small></span><span class="plus" aria-hidden="true">+</span></summary>
+            <div class="svc-items"><div><span>Pedicure spa</span><span>desde $25.000</span></div><div><span>Pedicure + permanente</span><span>desde $28.000</span></div></div></details></li>
+          <li><details><summary><span>Pestañas y cejas<small>Lifting, extensiones, diseño y laminado</small></span><span class="plus" aria-hidden="true">+</span></summary>
+            <div class="svc-items"><div><span>Lifting de pestañas</span><span>desde $25.000</span></div><div><span>Diseño + laminado de cejas</span><span>desde $22.000</span></div></div></details></li>
+          <li><details><summary><span>Cosmetología<small>Limpieza facial e hidratación</small></span><span class="plus" aria-hidden="true">+</span></summary>
+            <div class="svc-items"><div><span>Limpieza facial profunda</span><span>desde $35.000</span></div></div></details></li>
+          <li><details><summary><span>Depilación<small>Cera, rostro y cuerpo</small></span><span class="plus" aria-hidden="true">+</span></summary>
+            <div class="svc-items"><div><span>Rostro</span><span>desde $8.000</span></div><div><span>Piernas completas</span><span>desde $20.000</span></div></div></details></li>
+          <li><details><summary><span>Otros servicios de manos y pies<small>Retiro, reparación y diseño</small></span><span class="plus" aria-hidden="true">+</span></summary>
+            <div class="svc-items"><div><span>Retiro de permanente</span><span>desde $6.000</span></div></div></details></li>
+        </ul>
+        <a class="btn btn--accent js-book" href="#" target="_blank" rel="noopener">Reservar servicio de belleza</a>
+      </div>
+    </div>
+
+    <!-- BIENESTAR -->
+    <div class="svc" role="tabpanel" id="panel-bienestar" aria-labelledby="tab-bienestar" tabindex="0" hidden>
+      <div class="svc__media">
+        <div class="ph" data-file="assets/img/servicios/bienestar-01.jpg"><img src="assets/img/servicios/bienestar-01.jpg" alt="Sala de masajes con luz cálida" loading="lazy" width="600" height="800"></div>
+        <div class="ph" data-file="assets/img/servicios/bienestar-02.jpg"><img src="assets/img/servicios/bienestar-02.jpg" alt="Masaje de espalda relajante" loading="lazy" width="400" height="400"></div>
+        <div class="ph" data-file="assets/img/servicios/bienestar-03.jpg"><img src="assets/img/servicios/bienestar-03.jpg" alt="Aceites y toallas preparadas para el masaje" loading="lazy" width="400" height="400"></div>
+      </div>
+      <div>
+        <div class="svc__head">
+          <h3>Bienestar</h3>
+          <p>Una pausa real en tu semana. Masajes que sueltan tensiones y te devuelven la energía.</p>
+        </div>
+        <ul class="svc-list">
+          <li><details open><summary><span>Masoterapia<small>Masajes de cuerpo: relajante, descontracturante, piedras calientes</small></span><span class="plus" aria-hidden="true">+</span></summary>
+            <div class="svc-items"><div><span>Masaje relajante 60 min</span><span>desde $35.000</span></div><div><span>Descontracturante 60 min</span><span>desde $38.000</span></div><div><span>Piedras calientes 75 min</span><span>desde $45.000</span></div></div></details></li>
+          <li><details><summary><span>Promociones y servicios destacados<small>Combinaciones que cambian cada mes</small></span><span class="plus" aria-hidden="true">+</span></summary>
+            <div class="svc-items"><div><span>Revisa las promociones vigentes en AgendaPro</span><span>—</span></div></div></details></li>
+        </ul>
+        <a class="btn btn--accent js-book" href="#" target="_blank" rel="noopener">Reservar masaje</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== GALERÍA =================== -->
+<section class="section" id="trabajos" aria-labelledby="gal-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="reveal">
+        <p class="eyebrow">Nuestros trabajos</p>
+        <h2 class="h2" id="gal-title">Resultados reales, <em>de clientas reales</em></h2>
+      </div>
+      <div class="reveal" data-delay="1">
+        <p class="lead">Cada foto es un trabajo hecho en Glanz. Sin filtros exagerados, sin promesas imposibles.</p>
+        <div class="gallery-filters" role="group" aria-label="Filtrar trabajos">
+          <button class="chip" type="button" data-filter="all" aria-pressed="true">Todos</button>
+          <button class="chip" type="button" data-filter="color" aria-pressed="false">Color</button>
+          <button class="chip" type="button" data-filter="corte" aria-pressed="false">Corte y peinado</button>
+          <button class="chip" type="button" data-filter="unas" aria-pressed="false">Uñas</button>
+          <button class="chip" type="button" data-filter="pestanas" aria-pressed="false">Pestañas y cejas</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery" id="gallery"><!-- JS --></div>
+
+    <div class="gallery-foot">
+      <p class="muted" style="margin:0">Más trabajos todas las semanas en nuestro Instagram.</p>
+      <a class="btn btn--ghost js-ig" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+        @glanzsalonyspa
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =================== ANTES / DESPUÉS =================== -->
+<section class="section section--alt" id="antes-despues" aria-labelledby="ba-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="reveal">
+        <p class="eyebrow">Antes y después</p>
+        <h2 class="h2" id="ba-title">Desliza y <em>mira la diferencia</em></h2>
+      </div>
+      <p class="lead reveal" data-delay="1">Arrastra la línea hacia la izquierda o la derecha. También puedes usar las flechas del teclado.</p>
+    </div>
+    <div class="ba-grid" id="baGrid"><!-- JS --></div>
+  </div>
+</section>
+
+<!-- =================== EQUIPO =================== -->
+<section class="section" id="equipo" aria-labelledby="team-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="reveal">
+        <p class="eyebrow">Equipo</p>
+        <h2 class="h2" id="team-title">Las manos detrás <em>de cada resultado</em></h2>
+      </div>
+      <p class="lead reveal" data-delay="1">Un equipo pequeño y especializado. Cuatro profesionales que te escuchan, te asesoran con honestidad y cuidan cada detalle.</p>
+    </div>
+    <div class="team" id="team"><!-- JS --></div>
+
+    <div class="space-strip" aria-label="Nuestro espacio">
+      <div class="ph reveal" data-file="assets/img/espacio/salon-02.jpg"><img src="assets/img/espacio/salon-02.jpg" alt="Estaciones de trabajo del salón" loading="lazy" width="900" height="500"></div>
+      <div class="ph reveal" data-delay="1" data-file="assets/img/espacio/lavado.jpg"><img src="assets/img/espacio/lavado.jpg" alt="Zona de lavado" loading="lazy" width="500" height="500"></div>
+      <div class="ph reveal" data-delay="2" data-file="assets/img/espacio/recepcion.jpg"><img src="assets/img/espacio/recepcion.jpg" alt="Recepción de Glanz" loading="lazy" width="700" height="500"></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== RESEÑAS =================== -->
+<section class="section section--alt" id="resenas" aria-labelledby="rev-title">
+  <div class="container reviews-wrap">
+    <div class="reveal">
+      <p class="eyebrow">Reseñas</p>
+      <h2 class="h2" id="rev-title" style="margin-bottom:var(--sp-5)">Lo que dicen <em>nuestras clientas</em></h2>
+      <div class="score" aria-hidden="true">4,9</div>
+      <div class="stars" aria-hidden="true" style="color:#C98A3E;margin:var(--sp-3) 0">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="22" height="22"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 15l-5.2 2.7 1-5.9L1.5 7.7l5.9-.8z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" width="22" height="22"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 15l-5.2 2.7 1-5.9L1.5 7.7l5.9-.8z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" width="22" height="22"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 15l-5.2 2.7 1-5.9L1.5 7.7l5.9-.8z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" width="22" height="22"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 15l-5.2 2.7 1-5.9L1.5 7.7l5.9-.8z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" width="22" height="22"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 15l-5.2 2.7 1-5.9L1.5 7.7l5.9-.8z"/></svg>
+      </div>
+      <p class="sr-only">Calificación 4,9 de 5</p>
+      <p class="muted">Promedio de 197 reseñas verificadas en AgendaPro.</p>
+      <a class="btn btn--ghost js-reviews" href="#" target="_blank" rel="noopener">Ver las 197 reseñas</a>
+    </div>
+    <div class="reviews" id="reviews"><!-- JS --></div>
+  </div>
+</section>
+
+<!-- =================== GIFT CARD =================== -->
+<section class="section" id="giftcard" aria-labelledby="gift-title">
+  <div class="container gift">
+    <div class="reveal">
+      <p class="eyebrow">Gift Card</p>
+      <h2 class="h2" id="gift-title">Regala un momento <em>solo para ella</em></h2>
+      <p class="lead" style="margin:var(--sp-4) 0 var(--sp-6)">Gift card electrónica, lista para enviar por WhatsApp o correo. Válida para cualquier servicio o producto de la tienda.</p>
+      <div class="gcard" aria-live="polite" aria-label="Vista previa de la gift card">
+        <div class="gcard__top">
+          <div class="gcard__brand">Glanz<small>Salon y Spa</small></div>
+          <div class="gcard__to" id="gcTo">Para: alguien especial</div>
+        </div>
+        <div>
+          <div class="gcard__msg" id="gcMsg">Un momento de calma, solo para ti.</div>
+          <div class="gcard__amount" id="gcAmount">$40.000</div>
+        </div>
+      </div>
+    </div>
+
+    <form class="form reveal" data-delay="1" id="giftForm" novalidate>
+      <fieldset class="field" style="border:0;padding:0;margin:0">
+        <legend>Monto <span class="sample">Montos de ejemplo</span></legend>
+        <div class="amounts" id="gcAmounts">
+          <label><input type="radio" name="amount" value="25000"><span>$25.000</span></label>
+          <label><input type="radio" name="amount" value="40000" checked><span>$40.000</span></label>
+          <label><input type="radio" name="amount" value="60000"><span>$60.000</span></label>
+          <label><input type="radio" name="amount" value="100000"><span>$100.000</span></label>
+        </div>
+      </fieldset>
+      <div class="grid-2">
+        <div class="field">
+          <label for="gcFrom">De (tu nombre) *</label>
+          <input class="input" id="gcFromIn" name="from" autocomplete="name" required aria-describedby="gcFromErr">
+          <span class="err" id="gcFromErr" role="alert"></span>
+        </div>
+        <div class="field">
+          <label for="gcToIn">Para *</label>
+          <input class="input" id="gcToIn" name="to" required aria-describedby="gcToErr">
+          <span class="err" id="gcToErr" role="alert"></span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="gcEmail">Correo de quien la recibe</label>
+        <input class="input" id="gcEmail" name="email" type="email" autocomplete="off" inputmode="email" aria-describedby="gcEmailHelp gcEmailErr">
+        <small id="gcEmailHelp">Opcional. Si lo dejas vacío, te la enviamos a ti por WhatsApp.</small>
+        <span class="err" id="gcEmailErr" role="alert"></span>
+      </div>
+      <div class="field">
+        <label for="gcMsgIn">Mensaje (opcional)</label>
+        <textarea class="input" id="gcMsgIn" name="msg" maxlength="140" aria-describedby="gcMsgHelp"></textarea>
+        <small id="gcMsgHelp">Máximo 140 caracteres.</small>
+      </div>
+      <button class="btn btn--accent" type="submit">
+        Comprar gift card
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+      <p class="muted" style="font-size:var(--fs-xs);margin:0">Al continuar, te contactamos por WhatsApp para coordinar el pago (transferencia o link de pago) y enviarte la gift card en PDF. <span class="sample">Flujo de pago por confirmar</span></p>
+    </form>
+  </div>
+</section>
+
+<!-- =================== TIENDA =================== -->
+<section class="section section--alt" id="tienda" aria-labelledby="shop-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="reveal">
+        <p class="eyebrow">Tienda</p>
+        <h2 class="h2" id="shop-title">Lleva el cuidado <em>a tu casa</em></h2>
+      </div>
+      <p class="lead reveal" data-delay="1">Los mismos productos profesionales que usamos en el salón. Retiro en Paseo Liray o despacho en Chicureo y Colina. <span class="sample">Productos y precios de ejemplo</span></p>
+    </div>
+    <div class="shop" id="shop"><!-- JS --></div>
+  </div>
+</section>
+
+<!-- =================== VISÍTANOS =================== -->
+<section class="section" id="visitanos" aria-labelledby="visit-title">
+  <div class="container visit">
+    <div class="reveal">
+      <p class="eyebrow">Horarios y ubicación</p>
+      <h2 class="h2" id="visit-title">Te esperamos <em>en Paseo Liray</em></h2>
+      <p class="open-now" id="openNow" style="margin-top:var(--sp-4)"><i aria-hidden="true"></i><span>Revisando horario…</span></p>
+      <table class="hours" aria-label="Horario de atención">
+        <tbody id="hoursBody"><!-- JS --></tbody>
+      </table>
+      <address class="address">
+        Liray 21-A, Centro Comercial Paseo Liray<br>
+        Chicureo, Colina · Región Metropolitana
+      </address>
+      <div class="btn-row">
+        <a class="btn btn--accent js-book" href="#" target="_blank" rel="noopener">Reservar hora</a>
+        <a class="btn btn--ghost js-wa" data-wa="ubicacion" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.5-.2z"/></svg>
+          WhatsApp
+        </a>
+        <a class="btn btn--ghost" href="https://www.google.com/maps/search/?api=1&query=Paseo+Liray+21-A+Chicureo+Colina" target="_blank" rel="noopener">Cómo llegar</a>
+      </div>
+    </div>
+    <div class="map reveal" data-delay="1">
+      <iframe title="Mapa: Glanz Salon y Spa en Paseo Liray, Chicureo" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps?q=Paseo%20Liray%2021-A%2C%20Chicureo%2C%20Colina%2C%20Chile&z=16&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- =================== CTA FINAL =================== -->
+<section class="cta-band" aria-labelledby="cta-title">
+  <div class="ph" data-file="assets/img/espacio/cta.jpg"><img src="assets/img/espacio/cta.jpg" alt="" loading="lazy" width="1600" height="900"></div>
+  <div class="container">
+    <h2 id="cta-title" class="reveal">Regálate ese momento <em>para ti.</em></h2>
+    <p class="reveal" data-delay="1" style="max-width:46ch;opacity:.9">Cupos limitados para que cada atención sea 100% personalizada. Reserva en menos de un minuto.</p>
+    <div class="btn-row reveal" data-delay="2">
+      <a class="btn btn--light js-book" href="#" target="_blank" rel="noopener">Reservar hora</a>
+      <a class="btn btn--ghost-light js-wa" data-wa="cta" href="#" target="_blank" rel="noopener">Tengo una duda</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- =================== FOOTER =================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <span class="brand"><span class="brand__name">Glanz</span><span class="brand__tag">Salon y Spa</span></span>
+        <p class="muted" style="margin-top:var(--sp-4);max-width:36ch">Salón de belleza y spa en Chicureo. Más de 7 años cuidando tu cabello, tus manos y tu bienestar.</p>
+      </div>
+      <div>
+        <h3>Explora</h3>
+        <ul><li><a href="#servicios">Servicios</a></li><li><a href="#trabajos">Trabajos</a></li><li><a href="#giftcard">Gift Card</a></li><li><a href="#tienda">Tienda</a></li></ul>
+      </div>
+      <div>
+        <h3>Contacto</h3>
+        <ul>
+          <li><a class="js-wa" data-wa="footer" href="#" target="_blank" rel="noopener">+56 9 4424 2386</a></li>
+          <li><a class="js-ig" href="#" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a class="js-book" href="#" target="_blank" rel="noopener">AgendaPro</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Visítanos</h3>
+        <ul><li>Liray 21-A, Paseo Liray</li><li>Chicureo, Colina</li><li>Lun a vie 10:00–19:00</li><li>Sáb 10:00–16:00</li></ul>
+      </div>
+    </div>
+    <span class="footer__mark" aria-hidden="true">Glanz</span>
+    <div class="footer__bottom">
+      <span>© <span id="year"></span> Glanz Salon y Spa</span>
+      <button class="text-btn" type="button" id="toggleSamples">Ocultar etiquetas de ejemplo</button>
+    </div>
+  </div>
+</footer>
+
+<!-- Barra fija móvil -->
+<div class="mbar">
+  <a class="btn btn--accent js-book" href="#" target="_blank" rel="noopener">Reservar hora</a>
+  <a class="btn btn--wa js-wa" data-wa="barra" href="#" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="24" height="24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.5-.2z"/></svg>
+  </a>
+</div>
+<a class="fab-wa js-wa" data-wa="flotante" href="#" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.5-.2z"/></svg>
+</a>
+
+<!-- Carrito -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="cart" role="dialog" aria-modal="true" aria-labelledby="cart-title">
+  <div class="drawer__head">
+    <h2 id="cart-title">Tu carrito</h2>
+    <button class="icon-btn" type="button" id="cartClose" aria-label="Cerrar carrito">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="drawer__body" id="cartBody"></div>
+  <div class="drawer__foot" id="cartFoot">
+    <div class="field">
+      <label for="delivery">Entrega</label>
+      <select class="input" id="delivery">
+        <option value="retiro">Retiro en el salón (Paseo Liray) · gratis</option>
+        <option value="despacho">Despacho Chicureo / Colina · $3.500</option>
+      </select>
+    </div>
+    <div class="cart-total"><span>Total</span><span id="cartTotal">$0</span></div>
+    <button class="btn btn--accent" type="button" id="checkout">Finalizar pedido por WhatsApp</button>
+    <p class="muted" style="font-size:var(--fs-xs);margin:0">Te confirmamos stock y te enviamos el link de pago. <span class="sample">Checkout por confirmar</span></p>
+  </div>
+</aside>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <button class="icon-btn lb-close" type="button" aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <button class="icon-btn lb-prev" type="button" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <figure style="margin:0"><img id="lbImg" src="" alt=""><p id="lbCap"></p></figure>
+  <button class="icon-btn lb-next" type="button" aria-label="Foto siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ============================================================
+   CONFIG — datos centralizados
+   ============================================================ */
+const CONFIG = {
+  business: "Glanz Salon y Spa",
+  whatsapp: "56944242386",
+  agendapro: "https://glanz.site.agendapro.com/cl/sucursal/73487",
+  reviews:   "https://glanz.site.agendapro.com/cl/sucursal/73487",
+  instagram: "https://www.instagram.com/glanzsalonyspa/",
+  deliveryFee: 3500,
+  // Mensajes de WhatsApp pre-armados según la sección del clic
+  waMessages: {
+    default:   "Hola Glanz, quisiera hacer una consulta.",
+    menu:      "Hola Glanz, quisiera hacer una consulta.",
+    barra:     "Hola Glanz, quisiera hacer una consulta sobre sus servicios.",
+    flotante:  "Hola Glanz, quisiera hacer una consulta sobre sus servicios.",
+    ubicacion: "Hola Glanz, ¿me podrían indicar cómo llegar al salón en Paseo Liray?",
+    cta:       "Hola Glanz, tengo una duda antes de reservar mi hora.",
+    footer:    "Hola Glanz, quisiera hacer una consulta.",
+    equipo:    "Hola Glanz, quisiera agendar con {name}.",
+    servicio:  "Hola Glanz, quisiera más información sobre {name}."
+  },
+  // Horario real (domingo = 0)
+  hours: [
+    { day: "Domingo",   open: null,    close: null },
+    { day: "Lunes",     open: "10:00", close: "19:00" },
+    { day: "Martes",    open: "10:00", close: "19:00" },
+    { day: "Miércoles", open: "10:00", close: "19:00" },
+    { day: "Jueves",    open: "10:00", close: "19:00" },
+    { day: "Viernes",   open: "10:00", close: "19:00" },
+    { day: "Sábado",    open: "10:00", close: "16:00" }
+  ]
+};
+
+/* Galería — reemplaza con fotos reales (assets/img/galeria/) */
+const GALLERY = [
+  { file: "color-01.jpg",    cat: "color",    cap: "Balayage miel",              size: "g-big" },
+  { file: "unas-01.jpg",     cat: "unas",     cap: "Esmaltado permanente nude",  size: "" },
+  { file: "pestanas-01.jpg", cat: "pestanas", cap: "Lifting de pestañas",        size: "g-tall" },
+  { file: "corte-01.jpg",    cat: "corte",    cap: "Corte bob con brushing",     size: "" },
+  { file: "color-02.jpg",    cat: "color",    cap: "Cobertura de canas",         size: "g-tall" },
+  { file: "unas-02.jpg",     cat: "unas",     cap: "Kapping gel",                size: "g-wide" },
+  { file: "corte-02.jpg",    cat: "corte",    cap: "Peinado de evento",          size: "" },
+  { file: "color-03.jpg",    cat: "color",    cap: "Rubio frío",                 size: "" },
+  { file: "pestanas-02.jpg", cat: "pestanas", cap: "Diseño y laminado de cejas", size: "" },
+  { file: "unas-03.jpg",     cat: "unas",     cap: "Spa de pies",                size: "g-wide" },
+  { file: "corte-03.jpg",    cat: "corte",    cap: "Ondas suaves",               size: "" },
+  { file: "color-04.jpg",    cat: "color",    cap: "Iluminación natural",        size: "" }
+];
+
+/* Antes / después — assets/img/antes-despues/ */
+const BEFORE_AFTER = [
+  { title: "Coloración y matiz",  note: "Balayage + tratamiento",     before: "color-antes.jpg",    after: "color-despues.jpg" },
+  { title: "Lifting de pestañas", note: "Lifting + tinte",            before: "pestanas-antes.jpg", after: "pestanas-despues.jpg" },
+  { title: "Spa de manos",        note: "Manicure + permanente",      before: "unas-antes.jpg",     after: "unas-despues.jpg" }
+];
+
+/* Equipo — datos reales. Fotos: assets/img/equipo/<nombre>.jpg */
+const TEAM = [
+  { name: "Yasna",   role: "Colorista · Estilista",          file: "yasna.jpg",
+    tagline: "Ciencia y arte en color capilar.",
+    bio: "Especialista en colorimetría, mechas de alta precisión y análisis capilar. Domina balayage, babylights y highlights para lograr efectos de luz naturales y elegantes. Sus tratamientos, basados en un diagnóstico profundo, devuelven vitalidad, suavidad y brillo.",
+    days: "Martes, miércoles, viernes y sábado" },
+  { name: "Aline",   role: "Cosmetóloga · Belleza integral", file: "aline.jpg",
+    tagline: "Versatilidad profesional y resultados impecables.",
+    bio: "Cosmetóloga certificada, especialista en piel. Realiza limpiezas faciales profundas, maquillaje profesional, manicure rusa, pedicure, depilación con cera, lifting y extensiones de pestañas 1 a 1, además de trenzas para ocasiones especiales.",
+    days: "Lunes a viernes" },
+  { name: "Eli",     role: "Masoterapeuta",                  file: "eli.jpg",
+    tagline: "Bienestar que transforma.",
+    bio: "Masoterapeuta con amplia experiencia en masajes terapéuticos y estéticos. También realiza depilación, manicure, pedicure y lifting de pestañas, combinando técnica y calidez para renovar cuerpo y mente.",
+    days: "Lunes a sábado" },
+  { name: "Melissa", role: "Estilista integral",             file: "melissa.jpg",
+    tagline: "Técnica y dedicación en cada corte.",
+    bio: "Especialista en corte femenino, masculino y niños, styling y blowout, y color, destacando en técnicas de iluminación con capucha. Su sello: un resultado pensado para realzar tu estilo.",
+    days: "Martes a sábado" }
+];
+
+/* Reseñas — DE EJEMPLO hasta copiar textos reales desde AgendaPro */
+const REVIEWS = [
+  { name: "María José R.", service: "Coloración", text: "Me escucharon de verdad y el color quedó exactamente como lo quería. El salón es impecable." },
+  { name: "Paula S.",      service: "Spa de manos", text: "Llevo años atendiéndome aquí. Siempre puntuales, limpias y con un trato precioso." },
+  { name: "Andrea M.",     service: "Masaje relajante", text: "Una hora de desconexión total. Salí nueva. La música y la luz, todo pensado." },
+  { name: "Cecilia V.",    service: "Corte y brushing", text: "Por fin encontré mi peluquería en Chicureo. Honestas al recomendar y muy profesionales." }
+];
+
+/* Tienda — productos y precios DE EJEMPLO. Fotos: assets/img/tienda/ */
+const PRODUCTS = [
+  { id: "sh-hidra",  brand: "Línea profesional", name: "Shampoo hidratante 300 ml",         desc: "Para cabello seco o con color.",         price: 18900, file: "shampoo-hidratante.jpg" },
+  { id: "ac-hidra",  brand: "Línea profesional", name: "Acondicionador hidratante 300 ml",  desc: "Desenreda y aporta suavidad.",            price: 19900, file: "acondicionador.jpg" },
+  { id: "cr-peinar", brand: "Línea profesional", name: "Crema de peinar anti frizz 200 ml", desc: "Define sin apelmazar.",                  price: 15900, file: "crema-peinar.jpg" },
+  { id: "masc-rep",  brand: "Línea profesional", name: "Mascarilla reparadora 250 ml",      desc: "Tratamiento semanal intensivo.",         price: 24900, file: "mascarilla.jpg" },
+  { id: "ac-capil",  brand: "Línea profesional", name: "Aceite capilar de argán 50 ml",     desc: "Brillo y protección de puntas.",          price: 21900, file: "aceite-argan.jpg" },
+  { id: "term",      brand: "Línea profesional", name: "Protector térmico 150 ml",          desc: "Antes del secador o la plancha.",        price: 16900, file: "protector-termico.jpg" },
+  { id: "sh-matiz",  brand: "Línea profesional", name: "Shampoo matizador 300 ml",          desc: "Neutraliza tonos amarillos en rubios.",   price: 19900, file: "shampoo-matizador.jpg" },
+  { id: "cr-manos",  brand: "Glanz Spa",         name: "Crema de manos y cutículas 75 ml",  desc: "Nutrición diaria con karité.",           price: 9900,  file: "crema-manos.jpg" }
+];
+
+/* ============================================================
+   UTILIDADES
+   ============================================================ */
+const $  = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+const clp = n => "$" + Math.round(n).toLocaleString("es-CL");
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const waLink = msg => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
+const store = {
+  get(k, d){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch { return d; } },
+  set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+};
+const STAR = '<svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 15l-5.2 2.7 1-5.9L1.5 7.7l5.9-.8z"/></svg>';
+const sampleBadge = (txt = "Contenido de ejemplo") => `<span class="sample">${txt}</span>`;
+const imgBox = (src, alt, cls = "", attrs = "") =>
+  `<div class="ph ${cls}" data-file="${esc(src)}" ${attrs}><img src="${esc(src)}" alt="${esc(alt)}" loading="lazy" decoding="async"></div>`;
+
+function toast(msg){
+  const t = $("#toast");
+  t.textContent = msg; t.classList.add("is-show");
+  clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("is-show"), 3200);
+}
+
+/* Placeholder visible cuando falta una imagen/video (antes de subir la multimedia) */
+function watchMedia(root = document){
+  $$(".ph img", root).forEach(img => {
+    const mark = () => img.closest(".ph").classList.add("is-missing");
+    if (img.complete && img.naturalWidth === 0 && img.getAttribute("src")) mark();
+    img.addEventListener("error", mark, { once: true });
+    img.addEventListener("load", () => img.closest(".ph").classList.remove("is-missing"), { once: true });
+  });
+}
+
+/* ============================================================
+   LINKS CENTRALIZADOS (AgendaPro, WhatsApp, Instagram)
+   ============================================================ */
+function wireLinks(root = document){
+  $$(".js-book", root).forEach(a => a.href = CONFIG.agendapro);
+  $$(".js-reviews", root).forEach(a => a.href = CONFIG.reviews);
+  $$(".js-ig", root).forEach(a => a.href = CONFIG.instagram);
+  $$(".js-wa", root).forEach(a => {
+    const key = a.dataset.wa || "default";
+    let msg = CONFIG.waMessages[key] || CONFIG.waMessages.default;
+    if (a.dataset.name) msg = msg.replace("{name}", a.dataset.name);
+    a.href = waLink(msg);
+  });
+}
+
+/* ============================================================
+   RENDER DE SECCIONES
+   ============================================================ */
+function renderGallery(){
+  $("#gallery").innerHTML = GALLERY.map((g, i) => `
+    <button class="g-item ${g.size} reveal" type="button" data-cat="${g.cat}" data-index="${i}" aria-label="Ampliar foto: ${esc(g.cap)}">
+      ${imgBox("assets/img/galeria/" + g.file, g.cap)}
+      <figcaption>${esc(g.cap)}</figcaption>
+    </button>`).join("");
+}
+
+function renderBA(){
+  const knob = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg>`;
+  $("#baGrid").innerHTML = BEFORE_AFTER.map((b, i) => `
+    <div class="ba reveal" data-delay="${i}">
+      <figure>
+        <div class="ba__frame">
+          ${imgBox("assets/img/antes-despues/" + b.before, "Antes: " + b.title, "ba__before")}
+          ${imgBox("assets/img/antes-despues/" + b.after, "Después: " + b.title, "ba__after")}
+          <span class="ba__label ba__label--b" aria-hidden="true">Antes</span>
+          <span class="ba__label ba__label--a" aria-hidden="true">Después</span>
+          <span class="ba__line" aria-hidden="true"></span>
+          <input class="ba__range" type="range" min="0" max="100" value="50" step="1" aria-label="Comparar antes y después: ${esc(b.title)}" aria-valuetext="50% antes">
+          <span class="ba__knob" aria-hidden="true">${knob}</span>
+        </div>
+        <figcaption><strong>${esc(b.title)}</strong><span>${esc(b.note)}</span></figcaption>
+      </figure>
+    </div>`).join("");
+  $$(".ba__range").forEach(r => {
+    const frame = r.closest(".ba__frame");
+    const set = () => {
+      frame.style.setProperty("--pos", r.value + "%");
+      r.setAttribute("aria-valuetext", `${r.value}% antes, ${100 - r.value}% después`);
+    };
+    r.addEventListener("input", set); set();
+  });
+}
+
+function renderTeam(){
+  $("#team").innerHTML = TEAM.map((m, i) => `
+    <article class="member reveal" data-delay="${i % 4}">
+      ${imgBox("assets/img/equipo/" + m.file, `${m.name}, ${m.role}`)}
+      <h3>${esc(m.name)}</h3>
+      <p class="role">${esc(m.role)}</p>
+      <p class="member__tag">${esc(m.tagline)}</p>
+      <p>${esc(m.bio)}</p>
+      <p class="member__days"><span>Atiende</span> ${esc(m.days)}</p>
+      <a class="link js-wa" data-wa="equipo" data-name="${esc(m.name)}" href="#" target="_blank" rel="noopener">Agendar con ${esc(m.name)} →</a>
+    </article>`).join("");
+}
+
+function renderReviews(){
+  $("#reviews").innerHTML = REVIEWS.map((r, i) => `
+    <figure class="review reveal" data-delay="${i % 2}">
+      <span class="stars" aria-label="5 de 5 estrellas">${STAR.repeat(5)}</span>
+      <blockquote>“${esc(r.text)}”</blockquote>
+      <figcaption><span><b>${esc(r.name)}</b> · ${esc(r.service)}</span>${sampleBadge("Reseña de ejemplo")}</figcaption>
+    </figure>`).join("");
+}
+
+function renderHours(){
+  const now = new Date();
+  const today = now.getDay();
+  const order = [1,2,3,4,5,6,0];
+  $("#hoursBody").innerHTML = order.map(d => {
+    const h = CONFIG.hours[d];
+    return `<tr class="${d === today ? "is-today" : ""}"><th scope="row">${h.day}${d === today ? ' <span class="sr-only">(hoy)</span>' : ""}</th><td>${h.open ? `${h.open} – ${h.close}` : "Cerrado"}</td></tr>`;
+  }).join("");
+
+  // ¿Abierto ahora? (hora de Chile)
+  const parts = new Intl.DateTimeFormat("es-CL", { timeZone: "America/Santiago", weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false }).formatToParts(now);
+  const hh = +parts.find(p => p.type === "hour").value, mm = +parts.find(p => p.type === "minute").value;
+  const cl = new Date(now.toLocaleString("en-US", { timeZone: "America/Santiago" }));
+  const h = CONFIG.hours[cl.getDay()];
+  const mins = hh * 60 + mm;
+  const toM = s => { const [a, b] = s.split(":").map(Number); return a * 60 + b; };
+  const el = $("#openNow");
+  if (h.open && mins >= toM(h.open) && mins < toM(h.close)) {
+    el.lastElementChild.textContent = `Abierto ahora · cierra a las ${h.close}`;
+  } else {
+    el.classList.add("is-closed");
+    el.lastElementChild.textContent = "Cerrado ahora · reserva online 24/7";
+  }
+}
+
+function renderShop(){
+  $("#shop").innerHTML = PRODUCTS.map((p, i) => `
+    <article class="product reveal" data-delay="${i % 4}">
+      ${imgBox("assets/img/tienda/" + p.file, p.name)}
+      <span class="product__brand">${esc(p.brand)}</span>
+      <h3>${esc(p.name)}</h3>
+      <p>${esc(p.desc)}</p>
+      <div class="product__foot">
+        <span class="price">${clp(p.price)}</span>
+        <button class="btn btn--ghost add-btn" type="button" data-add="${p.id}" aria-label="Agregar ${esc(p.name)} al carrito">Agregar</button>
+      </div>
+    </article>`).join("");
+}
+
+/* ============================================================
+   INTERACCIONES
+   ============================================================ */
+// Header sólido al hacer scroll
+function initHeader(){
+  const header = $("#header");
+  const onScroll = () => header.classList.toggle("is-solid", window.scrollY > window.innerHeight * 0.6 - 80);
+  onScroll(); window.addEventListener("scroll", onScroll, { passive: true });
+}
+
+// Tema claro/oscuro
+function initTheme(){
+  const btn = $("#themeBtn");
+  const saved = store.get("glanz-theme", null);
+  if (saved) document.documentElement.dataset.theme = saved;
+  const isDark = () => document.documentElement.dataset.theme
+    ? document.documentElement.dataset.theme === "dark"
+    : matchMedia("(prefers-color-scheme: dark)").matches;
+  const label = () => btn.setAttribute("aria-label", isDark() ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
+  label();
+  btn.addEventListener("click", () => {
+    const next = isDark() ? "light" : "dark";
+    document.documentElement.dataset.theme = next; store.set("glanz-theme", next); label();
+  });
+  $("#themeBtnM").addEventListener("click", () => btn.click());
+}
+
+// Focus trap + overlay genérico
+let lastFocus = null;
+function openLayer(el, { scrim = false } = {}){
+  lastFocus = document.activeElement;
+  el.classList.add("is-open");
+  if (scrim) $("#scrim").classList.add("is-open");
+  document.body.style.overflow = "hidden";
+  const f = el.querySelector("button, a[href], input, select, textarea");
+  setTimeout(() => f && f.focus(), 60);
+}
+function closeLayer(el){
+  el.classList.remove("is-open");
+  $("#scrim").classList.remove("is-open");
+  document.body.style.overflow = "";
+  lastFocus && lastFocus.focus();
+}
+function trapFocus(e, el){
+  if (e.key !== "Tab" || !el.classList.contains("is-open")) return;
+  const f = $$("button:not([disabled]), a[href], input, select, textarea", el).filter(x => x.offsetParent !== null);
+  if (!f.length) return;
+  if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f.at(-1).focus(); }
+  else if (!e.shiftKey && document.activeElement === f.at(-1)) { e.preventDefault(); f[0].focus(); }
+}
+
+// Menú móvil
+function initMenu(){
+  const m = $("#mnav"), btn = $("#menuBtn");
+  btn.addEventListener("click", () => { openLayer(m); btn.setAttribute("aria-expanded", "true"); });
+  const close = () => { closeLayer(m); btn.setAttribute("aria-expanded", "false"); };
+  $("#menuClose").addEventListener("click", close);
+  $$("a[href^='#']", m).forEach(a => a.addEventListener("click", close));
+  m.addEventListener("keydown", e => { if (e.key === "Escape") close(); trapFocus(e, m); });
+}
+
+// Video hero: pausa accesible + reduced motion
+function initHero(){
+  const v = $("#heroVideo"), b = $("#heroPause"), box = v.closest(".ph");
+  const sources = $$("source", v);
+  let failed = 0;
+  sources.forEach(s => s.addEventListener("error", () => { if (++failed === sources.length) { box.classList.add("is-missing"); b.hidden = true; } }));
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) { v.removeAttribute("autoplay"); v.pause(); }
+  const sync = () => {
+    b.setAttribute("aria-label", v.paused ? "Reproducir video de fondo" : "Pausar video de fondo");
+    b.innerHTML = v.paused
+      ? '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5l12 7-12 7z"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
+  };
+  b.addEventListener("click", () => { v.paused ? v.play() : v.pause(); });
+  v.addEventListener("play", sync); v.addEventListener("pause", sync); sync();
+}
+
+// Tabs de servicios (patrón ARIA)
+function initTabs(){
+  const tabs = $$("[role=tab]");
+  const select = t => {
+    tabs.forEach(x => {
+      const on = x === t;
+      x.setAttribute("aria-selected", on); x.tabIndex = on ? 0 : -1;
+      $("#" + x.getAttribute("aria-controls")).hidden = !on;
+    });
+  };
+  tabs.forEach((t, i) => {
+    t.addEventListener("click", () => select(t));
+    t.addEventListener("keydown", e => {
+      const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+      if (!d) return;
+      const n = tabs[(i + d + tabs.length) % tabs.length]; select(n); n.focus();
+    });
+  });
+}
+
+// Galería: filtros + lightbox
+function initGallery(){
+  const items = () => $$(".g-item");
+  $$("[data-filter]").forEach(b => b.addEventListener("click", () => {
+    $$("[data-filter]").forEach(x => x.setAttribute("aria-pressed", x === b));
+    const f = b.dataset.filter;
+    items().forEach(it => it.classList.toggle("is-hidden", f !== "all" && it.dataset.cat !== f));
+  }));
+
+  const lb = $("#lightbox"), img = $("#lbImg"), cap = $("#lbCap");
+  let idx = 0;
+  const visible = () => items().filter(i => !i.classList.contains("is-hidden"));
+  const show = i => {
+    const v = visible(); idx = (i + v.length) % v.length;
+    const g = GALLERY[+v[idx].dataset.index];
+    img.src = "assets/img/galeria/" + g.file; img.alt = g.cap; cap.textContent = g.cap;
+  };
+  $("#gallery").addEventListener("click", e => {
+    const it = e.target.closest(".g-item"); if (!it) return;
+    show(visible().indexOf(it)); openLayer(lb);
+  });
+  $(".lb-close", lb).addEventListener("click", () => closeLayer(lb));
+  $(".lb-prev", lb).addEventListener("click", () => show(idx - 1));
+  $(".lb-next", lb).addEventListener("click", () => show(idx + 1));
+  lb.addEventListener("click", e => { if (e.target === lb) closeLayer(lb); });
+  lb.addEventListener("keydown", e => {
+    if (e.key === "Escape") closeLayer(lb);
+    if (e.key === "ArrowLeft") show(idx - 1);
+    if (e.key === "ArrowRight") show(idx + 1);
+    trapFocus(e, lb);
+  });
+}
+
+// Gift card
+function initGift(){
+  const form = $("#giftForm");
+  const upd = () => {
+    const amount = +form.amount.value;
+    $("#gcAmount").textContent = clp(amount);
+    $("#gcTo").textContent = "Para: " + (form.to.value.trim() || "alguien especial");
+    $("#gcMsg").textContent = form.msg.value.trim() || "Un momento de calma, solo para ti.";
+  };
+  form.addEventListener("input", upd); upd();
+
+  const setErr = (input, errId, msg) => {
+    input.setAttribute("aria-invalid", msg ? "true" : "false");
+    $("#" + errId).textContent = msg || "";
+    return !msg;
+  };
+  const validate = () => {
+    const a = setErr(form.from, "gcFromErr", form.from.value.trim() ? "" : "Escribe tu nombre para la gift card.");
+    const b = setErr(form.to, "gcToErr", form.to.value.trim() ? "" : "Escribe el nombre de quien la recibe.");
+    const em = form.email.value.trim();
+    const c = setErr(form.email, "gcEmailErr", !em || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em) ? "" : "Revisa el correo: debe tener el formato nombre@correo.cl");
+    return a && b && c;
+  };
+  ["from", "to", "email"].forEach(n => form[n].addEventListener("blur", () => { if (form[n].value) validate(); }));
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    if (!validate()) { form.querySelector("[aria-invalid=true]").focus(); return; }
+    const lines = [
+      "Hola Glanz, quiero comprar una Gift Card electrónica:",
+      `• Monto: ${clp(+form.amount.value)}`,
+      `• De: ${form.from.value.trim()}`,
+      `• Para: ${form.to.value.trim()}`,
+      form.email.value.trim() ? `• Enviar a: ${form.email.value.trim()}` : "• Enviármela a mí por WhatsApp",
+      form.msg.value.trim() ? `• Mensaje: "${form.msg.value.trim()}"` : ""
+    ].filter(Boolean);
+    window.open(waLink(lines.join("\n")), "_blank", "noopener");
+    toast("Abrimos WhatsApp con el detalle de tu gift card");
+  });
+}
+
+// Carrito
+const cart = {
+  items: store.get("glanz-cart", {}),
+  save(){ store.set("glanz-cart", this.items); renderCart(); },
+  add(id){ this.items[id] = (this.items[id] || 0) + 1; this.save(); },
+  set(id, q){ if (q <= 0) delete this.items[id]; else this.items[id] = q; this.save(); },
+  count(){ return Object.values(this.items).reduce((a, b) => a + b, 0); },
+  subtotal(){ return Object.entries(this.items).reduce((s, [id, q]) => s + (PRODUCTS.find(p => p.id === id)?.price || 0) * q, 0); }
+};
+function renderCart(){
+  const n = cart.count();
+  const badge = $("#cartCount");
+  badge.textContent = n; badge.hidden = n === 0;
+  $("#cartBtn").setAttribute("aria-label", `Abrir carrito, ${n} ${n === 1 ? "producto" : "productos"}`);
+  const body = $("#cartBody"), foot = $("#cartFoot");
+  const entries = Object.entries(cart.items).filter(([id]) => PRODUCTS.some(p => p.id === id));
+  if (!entries.length) {
+    body.innerHTML = `<div class="cart-empty"><h3>Tu carrito está vacío</h3><p>Agrega productos de la tienda para llevar el cuidado del salón a tu casa.</p><a class="btn btn--ghost" href="#tienda" id="goShop">Ver productos</a></div>`;
+    foot.hidden = true;
+    $("#goShop").addEventListener("click", () => closeCart());
+    return;
+  }
+  foot.hidden = false;
+  body.innerHTML = entries.map(([id, q]) => {
+    const p = PRODUCTS.find(x => x.id === id);
+    return `<div class="cart-line">
+      ${imgBox("assets/img/tienda/" + p.file, "")}
+      <div><h4>${esc(p.name)}</h4><span class="muted">${clp(p.price)} c/u</span><br>
+        <span class="qty" role="group" aria-label="Cantidad de ${esc(p.name)}">
+          <button type="button" data-qty="${id}" data-d="-1" aria-label="Quitar uno">−</button>
+          <output aria-live="polite">${q}</output>
+          <button type="button" data-qty="${id}" data-d="1" aria-label="Agregar uno">+</button>
+        </span></div>
+      <div style="text-align:right"><b class="price">${clp(p.price * q)}</b><br><button class="remove" type="button" data-remove="${id}">Eliminar</button></div>
+    </div>`;
+  }).join("");
+  watchMedia(body);
+  const fee = $("#delivery").value === "despacho" ? CONFIG.deliveryFee : 0;
+  $("#cartTotal").textContent = clp(cart.subtotal() + fee);
+}
+function openCart(){ openLayer($("#cart"), { scrim: true }); $("#cartBtn").setAttribute("aria-expanded", "true"); }
+function closeCart(){ closeLayer($("#cart")); $("#cartBtn").setAttribute("aria-expanded", "false"); }
+function initCart(){
+  renderCart();
+  $("#cartBtn").addEventListener("click", openCart);
+  $("#cartClose").addEventListener("click", closeCart);
+  $("#scrim").addEventListener("click", closeCart);
+  $("#cart").addEventListener("keydown", e => { if (e.key === "Escape") closeCart(); trapFocus(e, $("#cart")); });
+  $("#delivery").addEventListener("change", renderCart);
+  $("#shop").addEventListener("click", e => {
+    const b = e.target.closest("[data-add]"); if (!b) return;
+    cart.add(b.dataset.add);
+    const p = PRODUCTS.find(x => x.id === b.dataset.add);
+    b.classList.add("is-added"); b.textContent = "Agregado ✓";
+    setTimeout(() => { b.classList.remove("is-added"); b.textContent = "Agregar"; }, 1400);
+    toast(`${p.name} agregado al carrito`);
+  });
+  $("#cartBody").addEventListener("click", e => {
+    const q = e.target.closest("[data-qty]"), r = e.target.closest("[data-remove]");
+    if (q) { cart.set(q.dataset.qty, (cart.items[q.dataset.qty] || 0) + +q.dataset.d); }
+    if (r) {
+      const id = r.dataset.remove, prev = cart.items[id];
+      cart.set(id, 0);
+      toast("Producto eliminado");
+      $("#cartClose").focus();
+      undoRemove = { id, prev };
+    }
+  });
+  $("#checkout").addEventListener("click", () => {
+    const delivery = $("#delivery").value;
+    const fee = delivery === "despacho" ? CONFIG.deliveryFee : 0;
+    const lines = ["Hola Glanz, quiero hacer este pedido de la tienda:"];
+    Object.entries(cart.items).forEach(([id, q]) => {
+      const p = PRODUCTS.find(x => x.id === id); if (p) lines.push(`• ${q} × ${p.name} — ${clp(p.price * q)}`);
+    });
+    lines.push(delivery === "despacho" ? `• Despacho Chicureo/Colina — ${clp(fee)}` : "• Retiro en el salón (Paseo Liray)");
+    lines.push(`Total: ${clp(cart.subtotal() + fee)}`);
+    window.open(waLink(lines.join("\n")), "_blank", "noopener");
+  });
+}
+let undoRemove = null;
+
+// Reveal on scroll
+function initReveal(){
+  const els = $$(".reveal:not(.is-in)");
+  if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    els.forEach(e => e.classList.add("is-in")); return;
+  }
+  const io = new IntersectionObserver(entries => entries.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add("is-in"); io.unobserve(en.target); }
+  }), { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+  els.forEach(e => io.observe(e));
+}
+
+// Mostrar/ocultar etiquetas de ejemplo (para revisar el diseño limpio)
+function initSamples(){
+  const b = $("#toggleSamples");
+  b.addEventListener("click", () => {
+    const on = document.documentElement.classList.toggle("hide-samples");
+    b.textContent = on ? "Mostrar etiquetas de ejemplo" : "Ocultar etiquetas de ejemplo";
+  });
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+renderGallery(); renderBA(); renderTeam(); renderReviews(); renderHours(); renderShop();
+wireLinks(); watchMedia();
+initHeader(); initTheme(); initMenu(); initHero(); initTabs(); initGallery(); initGift(); initCart(); initReveal(); initSamples();
+$("#year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
