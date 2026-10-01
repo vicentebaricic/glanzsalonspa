@@ -655,18 +655,19 @@ textarea.input{min-height:96px;resize:vertical}
 .more-row{display:flex;justify-content:center;margin-top:var(--sp-8)}
 
 /* ============================================================
-   EL SALÓN
+   EL SALÓN (texto breve + foto grande)
    ============================================================ */
-.salon{display:grid;gap:var(--sp-6)}
-@media (min-width:1000px){ .salon{grid-template-columns:7fr 5fr;gap:var(--sp-8);align-items:center} }
-.salon__main{aspect-ratio:4/3}
-.salon__pair{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-3);margin-top:var(--sp-3)}
-.salon__pair .ph{aspect-ratio:1}
-.salon-list{list-style:none;margin:var(--sp-6) 0;padding:0;border-top:1px solid var(--c-line)}
-.salon-list li{display:grid;grid-template-columns:auto 1fr;gap:var(--sp-4);padding:var(--sp-4) 0;border-bottom:1px solid var(--c-line)}
-.salon-list b{font-family:var(--font-display);font-weight:400;font-size:1.35rem;line-height:1.2;display:block;margin-bottom:2px}
-.salon-list span{font-size:var(--fs-sm);color:var(--c-muted)}
-.salon-list i{font-style:normal;font-size:var(--fs-xs);font-weight:700;letter-spacing:.12em;color:var(--c-accent-ink);padding-top:.35em}
+.salon{display:grid;gap:var(--sp-6);width:min(100% - 2.5rem, 1400px);margin-inline:auto}
+@media (min-width:1000px){ .salon{grid-template-columns:4fr 8fr;gap:var(--sp-8);align-items:stretch} }
+.salon__text{display:flex;flex-direction:column;justify-content:space-between;gap:var(--sp-7)}
+.salon__text h2{font-family:var(--font-body);font-weight:500;font-size:clamp(2rem, 1.4rem + 2vw, 2.9rem);letter-spacing:-.01em;margin-bottom:var(--sp-4)}
+.salon__text p{font-size:var(--fs-lg);line-height:1.55;max-width:34ch;margin-bottom:var(--sp-6)}
+.salon__img{aspect-ratio:4/3;order:-1}
+@media (min-width:1000px){ .salon__img{aspect-ratio:auto;min-height:min(78vh, 760px);order:0} }
+.salon-list{list-style:none;margin:0;padding:0}
+.salon-list li{font-family:var(--font-body);font-weight:400;font-size:clamp(1.35rem, 1.1rem + .9vw, 1.9rem);padding:var(--sp-4) 0;border-bottom:1px solid var(--c-line)}
+.salon-list a{text-decoration:none}
+.salon-list a:hover{color:var(--c-accent-ink)}
 
 /* ============================================================
    INSTAGRAM (posts grandes)
@@ -948,30 +949,25 @@ textarea.input{min-height:96px;resize:vertical}
   </div>
 </section>
 <!-- =================== EL SALÓN =================== -->
-<section class="section section--alt" id="salon" aria-labelledby="salon-title">
-  <div class="container salon">
-    <div class="reveal">
-      <div class="ph salon__main" data-file="assets/img/espacio/salon-main.webp"><img src="assets/img/espacio/salon-main.webp" alt="Interior de salón con espejos arqueados, lámparas cálidas y sala de espera" loading="lazy" width="1600" height="1200"></div>
-      <div class="salon__pair">
-        <div class="ph" data-file="assets/img/espacio/salon-espejos.webp"><img src="assets/img/espacio/salon-espejos.webp" alt="Estaciones de peinado con espejos y lámparas" loading="lazy" width="800" height="800"></div>
-        <div class="ph" data-file="assets/img/espacio/salon-estantes.webp"><img src="assets/img/espacio/salon-estantes.webp" alt="Repisas iluminadas con productos profesionales" loading="lazy" width="800" height="800"></div>
-        <div class="ph" data-file="assets/img/espacio/salon-lounge.webp"><img src="assets/img/espacio/salon-lounge.webp" alt="Rincón de espera con sillón y sillas tapizadas" loading="lazy" width="800" height="800"></div>
+<section class="section salon-sec" id="salon" aria-labelledby="salon-title">
+  <div class="salon">
+    <div class="salon__text reveal">
+      <div>
+        <h2 id="salon-title">El salón</h2>
+        <p>Un espacio limpio, cálido y tranquilo en Paseo Liray, pensado para que llegues y desconectes. <span class="sample">Foto de referencia de otro salón</span></p>
+        <a class="btn btn--ghost js-book" href="#" target="_blank" rel="noopener">Reservar hora</a>
       </div>
-    </div>
-    <div class="reveal" data-delay="1">
-      <p class="eyebrow">El salón</p>
-      <h2 class="h2" id="salon-title">Un espacio limpio, <em>cálido y tranquilo</em></h2>
-      <p class="lead" style="margin-top:var(--sp-4)">En Paseo Liray preparamos cada rincón para que llegues y desconectes: luz suave, música tranquila y un orden que se nota. <span class="sample">Fotos de referencia de otro salón</span></p>
       <ul class="salon-list">
-        <li><i>01</i><div><b>Desinfección entre cada atención</b><span>Superficies, sillones y lavado limpios antes de recibirte.</span></div></li>
-        <li><i>02</i><div><b>Herramientas esterilizadas</b><span>Material de manicure y pedicure esterilizado y desechables de un solo uso.</span></div></li>
-        <li><i>03</i><div><b>Pocas clientas a la vez</b><span>Cupos limitados para que el ambiente sea tranquilo y sin apuros.</span></div></li>
-        <li><i>04</i><div><b>Un café o té mientras esperas</b><span>Pequeños detalles para que te sientas en casa. <span class="sample">Ejemplo</span></span></div></li>
+        <li>Limpio y desinfectado</li>
+        <li>Luz cálida, música suave</li>
+        <li>Cupos limitados</li>
+        <li><a href="#visitanos">Paseo Liray, Chicureo</a></li>
       </ul>
-      <a class="link" href="#visitanos">Cómo llegar a Paseo Liray →</a>
     </div>
+    <div class="ph salon__img reveal" data-delay="1" data-file="assets/img/espacio/salon-main.webp"><img src="assets/img/espacio/salon-main.webp" alt="Interior de salón con espejos arqueados, lámparas cálidas y sala de espera" loading="lazy" width="1600" height="1200"></div>
   </div>
 </section>
+
 <!-- =================== EQUIPO =================== -->
 <section class="section" id="equipo" aria-labelledby="team-title">
   <div class="container">
