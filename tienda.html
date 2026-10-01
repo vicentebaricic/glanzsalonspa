@@ -503,18 +503,45 @@ html.hide-samples .sample{display:none}
 /* ============================================================
    RESEÑAS
    ============================================================ */
-.reviews-wrap{display:grid;gap:var(--sp-7)}
-@media (min-width: 1000px){ .reviews-wrap{grid-template-columns:4fr 8fr;gap:var(--sp-8)} }
-.score{font-family:var(--font-display);font-size:clamp(5rem, 4rem + 4vw, 8rem);line-height:.85}
-.score + .stars svg{width:22px;height:22px}
-.reviews{display:grid;gap:var(--sp-5)}
-@media (min-width: 700px){ .reviews{grid-template-columns:repeat(2,1fr)} }
-.review{margin:0;padding:var(--sp-6);background:var(--c-bg);border:1px solid var(--c-line);display:flex;flex-direction:column}
-.review .stars{color:var(--c-accent);margin-bottom:var(--sp-3)}
-.review figcaption{margin-top:auto}
-.review blockquote{margin:0 0 var(--sp-5);font-size:var(--fs-md);line-height:1.6}
-.review figcaption{display:flex;justify-content:space-between;align-items:center;gap:var(--sp-3);font-size:var(--fs-sm);color:var(--c-muted);flex-wrap:wrap}
-.review figcaption b{color:var(--c-text);font-weight:600}
+.rev-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:var(--sp-5);margin-bottom:var(--sp-7)}
+.rev-score{display:flex;align-items:center;gap:var(--sp-4)}
+.rev-score__num{font-family:var(--font-display);font-size:clamp(3.2rem, 2.4rem + 2.5vw, 4.6rem);line-height:.85}
+.rev-score .stars{color:var(--c-accent);display:flex;margin-bottom:var(--sp-1)}
+.rev-score .link{font-size:var(--fs-sm)}
+
+/* Carrusel */
+.carousel{position:relative}
+.carousel__track{
+  list-style:none;margin:0;padding:0 0 var(--sp-2);display:grid;grid-auto-flow:column;column-gap:var(--sp-4);
+  grid-auto-columns:86%;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;overscroll-behavior-x:contain;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;
+}
+.carousel__track::-webkit-scrollbar{display:none}
+.carousel__track:focus-visible{outline-offset:6px}
+@media (min-width:700px){ .carousel__track{grid-auto-columns:calc((100% - var(--sp-4)) / 2)} }
+@media (min-width:1080px){ .carousel__track{grid-auto-columns:calc((100% - 2 * var(--sp-5)) / 3);column-gap:var(--sp-5)} }
+.carousel__btn{
+  position:absolute;top:50%;z-index:2;width:44px;height:44px;margin-top:-22px;border-radius:50%;display:grid;place-items:center;
+  background:var(--c-bg);color:var(--c-text);border:1px solid var(--c-line);box-shadow:var(--shadow-1);cursor:pointer;
+  transition:opacity var(--dur-fast),transform var(--dur-fast);
+}
+.carousel__btn svg{width:20px;height:20px}
+.carousel__btn:hover{transform:scale(1.06)}
+.carousel__btn:disabled{opacity:0;pointer-events:none}
+.carousel__btn--prev{left:-10px} .carousel__btn--next{right:-10px}
+@media (min-width:1240px){ .carousel__btn--prev{left:-22px} .carousel__btn--next{right:-22px} }
+
+.review{scroll-snap-align:start;display:flex;flex-direction:column;min-height:300px;padding:var(--sp-6);background:var(--c-bg);border:1px solid var(--c-line)}
+.review__top{display:flex;justify-content:space-between;gap:var(--sp-3);font-size:var(--fs-sm);margin-bottom:var(--sp-3)}
+.review__top b{font-weight:600}
+.review__top time{color:var(--c-muted);font-variant-numeric:tabular-nums}
+.review .stars{color:var(--c-accent);display:flex;gap:2px;margin-bottom:var(--sp-4)}
+.review h3{font-family:var(--font-body);font-weight:500;font-size:1.3rem;line-height:1.3;margin-bottom:var(--sp-3)}
+.review__text{font-size:var(--fs-md);line-height:1.6;color:var(--c-text);margin:0;
+  display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.review.is-open .review__text{-webkit-line-clamp:unset;display:block}
+.review__more{align-self:flex-start;background:none;border:0;padding:var(--sp-1) 0;margin-top:var(--sp-1);cursor:pointer;color:var(--c-accent-ink);font-weight:600;font-size:var(--fs-sm)}
+.review__foot{margin-top:auto;padding-top:var(--sp-5);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--sp-2);font-size:var(--fs-sm);color:var(--c-muted)}
 
 /* ============================================================
    VISÍTANOS: horarios + ubicación
@@ -996,10 +1023,13 @@ const TEAM = [
 
 /* Reseñas — DE EJEMPLO hasta copiar textos reales desde AgendaPro */
 const REVIEWS = [
-  { name: "María José R.", service: "Coloración", text: "Me escucharon de verdad y el color quedó exactamente como lo quería. El salón es impecable." },
-  { name: "Paula S.",      service: "Spa de manos", text: "Llevo años atendiéndome aquí. Siempre puntuales, limpias y con un trato precioso." },
-  { name: "Andrea M.",     service: "Masaje relajante", text: "Una hora de desconexión total. Salí nueva. La música y la luz, todo pensado." },
-  { name: "Cecilia V.",    service: "Corte y brushing", text: "Por fin encontré mi peluquería en Chicureo. Honestas al recomendar y muy profesionales." }
+  { name: "María José R.", date: "14/09/26", title: "Justo el color que quería",       service: "Coloración",        text: "Me escucharon de verdad y el color quedó exactamente como lo quería. Yasna se tomó el tiempo de explicarme todo el proceso y el salón es impecable." },
+  { name: "Paula S.",      date: "02/09/26", title: "Puntuales y con un trato precioso", service: "Spa de manos",      text: "Llevo años atendiéndome aquí. Siempre puntuales, limpias y con un trato precioso." },
+  { name: "Andrea M.",     date: "28/08/26", title: "Desconexión total",               service: "Masaje relajante",  text: "Una hora de desconexión total. Salí nueva. La música, la luz, el aroma… todo pensado para que te relajes. Ya agendé el próximo." },
+  { name: "Cecilia V.",    date: "19/08/26", title: "Mi peluquería en Chicureo",       service: "Corte y brushing",  text: "Por fin encontré mi peluquería en Chicureo. Honestas al recomendar y muy profesionales." },
+  { name: "Francisca L.",  date: "07/08/26", title: "Pestañas naturales y prolijas",   service: "Lifting de pestañas", text: "Quedaron preciosas y naturales, tal como pedí. Aline es muy detallista y el lugar está siempre ordenado y limpio." },
+  { name: "Loreto P.",     date: "25/07/26", title: "Me sentí escuchada",              service: "Corte de cabello",  text: "Melissa entendió lo que quería sin que tuviera que explicarlo dos veces. El corte me duró perfecto por semanas." },
+  { name: "Isabel C.",     date: "11/07/26", title: "Vale cada peso",                  service: "Pedicure spa",      text: "Excelente atención de principio a fin. Herramientas esterilizadas, productos buenos y un ambiente muy tranquilo. Vale cada peso." }
 ];
 
 /* Tienda — productos y precios DE EJEMPLO. Fotos: assets/img/tienda/ */
@@ -1129,11 +1159,46 @@ function renderTeam(){
 
 function renderReviews(){
   $("#reviews").innerHTML = REVIEWS.map((r, i) => `
-    <figure class="review reveal" data-delay="${i % 2}">
-      <span class="stars" aria-label="5 de 5 estrellas">${STAR.repeat(5)}</span>
-      <blockquote>“${esc(r.text)}”</blockquote>
-      <figcaption><span><b>${esc(r.name)}</b> · ${esc(r.service)}</span>${sampleBadge("Reseña de ejemplo")}</figcaption>
-    </figure>`).join("");
+    <li class="review" aria-roledescription="reseña" aria-label="${i + 1} de ${REVIEWS.length}">
+      <div class="review__top"><b>${esc(r.name)}</b><time>${esc(r.date)}</time></div>
+      <span class="stars" role="img" aria-label="5 de 5 estrellas">${STAR.repeat(5)}</span>
+      <h3>${esc(r.title)}</h3>
+      <p class="review__text">${esc(r.text)}</p>
+      <button class="review__more" type="button" hidden>Leer más</button>
+      <div class="review__foot"><span>${esc(r.service)}</span>${sampleBadge("Reseña de ejemplo")}</div>
+    </li>`).join("");
+  initCarousel($("#reviews").closest(".carousel"));
+}
+
+// Carrusel horizontal: flechas, arrastre/scroll nativo con snap y "Leer más" en textos largos
+function initCarousel(root){
+  const track = $(".carousel__track", root), prev = $(".carousel__btn--prev", root), next = $(".carousel__btn--next", root);
+  const step = () => { const c = track.firstElementChild; return c ? c.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || 0) : 300; };
+  const sync = () => {
+    prev.disabled = track.scrollLeft <= 4;
+    next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+  };
+  prev.addEventListener("click", () => track.scrollBy({ left: -step(), behavior: "smooth" }));
+  next.addEventListener("click", () => track.scrollBy({ left: step(), behavior: "smooth" }));
+  track.addEventListener("keydown", e => {
+    if (e.key === "ArrowRight") { e.preventDefault(); next.click(); }
+    if (e.key === "ArrowLeft")  { e.preventDefault(); prev.click(); }
+  });
+  track.addEventListener("scroll", () => requestAnimationFrame(sync), { passive: true });
+  window.addEventListener("resize", sync);
+  // "Leer más" solo donde el texto quedó cortado
+  const clampCheck = () => $$(".review", track).forEach(card => {
+    const t = $(".review__text", card), b = $(".review__more", card);
+    if (card.classList.contains("is-open")) return;
+    b.hidden = t.scrollHeight <= t.clientHeight + 2;
+  });
+  track.addEventListener("click", e => {
+    const b = e.target.closest(".review__more"); if (!b) return;
+    const card = b.closest(".review"), open = card.classList.toggle("is-open");
+    b.textContent = open ? "Leer menos" : "Leer más";
+  });
+  sync(); clampCheck(); window.addEventListener("resize", clampCheck);
+  document.fonts && document.fonts.ready.then(() => { sync(); clampCheck(); });
 }
 
 function renderHours(){

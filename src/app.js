@@ -79,10 +79,13 @@ const TEAM = [
 
 /* Reseñas — DE EJEMPLO hasta copiar textos reales desde AgendaPro */
 const REVIEWS = [
-  { name: "María José R.", service: "Coloración", text: "Me escucharon de verdad y el color quedó exactamente como lo quería. El salón es impecable." },
-  { name: "Paula S.",      service: "Spa de manos", text: "Llevo años atendiéndome aquí. Siempre puntuales, limpias y con un trato precioso." },
-  { name: "Andrea M.",     service: "Masaje relajante", text: "Una hora de desconexión total. Salí nueva. La música y la luz, todo pensado." },
-  { name: "Cecilia V.",    service: "Corte y brushing", text: "Por fin encontré mi peluquería en Chicureo. Honestas al recomendar y muy profesionales." }
+  { name: "María José R.", date: "14/09/26", title: "Justo el color que quería",       service: "Coloración",        text: "Me escucharon de verdad y el color quedó exactamente como lo quería. Yasna se tomó el tiempo de explicarme todo el proceso y el salón es impecable." },
+  { name: "Paula S.",      date: "02/09/26", title: "Puntuales y con un trato precioso", service: "Spa de manos",      text: "Llevo años atendiéndome aquí. Siempre puntuales, limpias y con un trato precioso." },
+  { name: "Andrea M.",     date: "28/08/26", title: "Desconexión total",               service: "Masaje relajante",  text: "Una hora de desconexión total. Salí nueva. La música, la luz, el aroma… todo pensado para que te relajes. Ya agendé el próximo." },
+  { name: "Cecilia V.",    date: "19/08/26", title: "Mi peluquería en Chicureo",       service: "Corte y brushing",  text: "Por fin encontré mi peluquería en Chicureo. Honestas al recomendar y muy profesionales." },
+  { name: "Francisca L.",  date: "07/08/26", title: "Pestañas naturales y prolijas",   service: "Lifting de pestañas", text: "Quedaron preciosas y naturales, tal como pedí. Aline es muy detallista y el lugar está siempre ordenado y limpio." },
+  { name: "Loreto P.",     date: "25/07/26", title: "Me sentí escuchada",              service: "Corte de cabello",  text: "Melissa entendió lo que quería sin que tuviera que explicarlo dos veces. El corte me duró perfecto por semanas." },
+  { name: "Isabel C.",     date: "11/07/26", title: "Vale cada peso",                  service: "Pedicure spa",      text: "Excelente atención de principio a fin. Herramientas esterilizadas, productos buenos y un ambiente muy tranquilo. Vale cada peso." }
 ];
 
 /* Tienda — productos y precios DE EJEMPLO. Fotos: assets/img/tienda/ */
@@ -212,11 +215,46 @@ function renderTeam(){
 
 function renderReviews(){
   $("#reviews").innerHTML = REVIEWS.map((r, i) => `
-    <figure class="review reveal" data-delay="${i % 2}">
-      <span class="stars" aria-label="5 de 5 estrellas">${STAR.repeat(5)}</span>
-      <blockquote>“${esc(r.text)}”</blockquote>
-      <figcaption><span><b>${esc(r.name)}</b> · ${esc(r.service)}</span>${sampleBadge("Reseña de ejemplo")}</figcaption>
-    </figure>`).join("");
+    <li class="review" aria-roledescription="reseña" aria-label="${i + 1} de ${REVIEWS.length}">
+      <div class="review__top"><b>${esc(r.name)}</b><time>${esc(r.date)}</time></div>
+      <span class="stars" role="img" aria-label="5 de 5 estrellas">${STAR.repeat(5)}</span>
+      <h3>${esc(r.title)}</h3>
+      <p class="review__text">${esc(r.text)}</p>
+      <button class="review__more" type="button" hidden>Leer más</button>
+      <div class="review__foot"><span>${esc(r.service)}</span>${sampleBadge("Reseña de ejemplo")}</div>
+    </li>`).join("");
+  initCarousel($("#reviews").closest(".carousel"));
+}
+
+// Carrusel horizontal: flechas, arrastre/scroll nativo con snap y "Leer más" en textos largos
+function initCarousel(root){
+  const track = $(".carousel__track", root), prev = $(".carousel__btn--prev", root), next = $(".carousel__btn--next", root);
+  const step = () => { const c = track.firstElementChild; return c ? c.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || 0) : 300; };
+  const sync = () => {
+    prev.disabled = track.scrollLeft <= 4;
+    next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+  };
+  prev.addEventListener("click", () => track.scrollBy({ left: -step(), behavior: "smooth" }));
+  next.addEventListener("click", () => track.scrollBy({ left: step(), behavior: "smooth" }));
+  track.addEventListener("keydown", e => {
+    if (e.key === "ArrowRight") { e.preventDefault(); next.click(); }
+    if (e.key === "ArrowLeft")  { e.preventDefault(); prev.click(); }
+  });
+  track.addEventListener("scroll", () => requestAnimationFrame(sync), { passive: true });
+  window.addEventListener("resize", sync);
+  // "Leer más" solo donde el texto quedó cortado
+  const clampCheck = () => $$(".review", track).forEach(card => {
+    const t = $(".review__text", card), b = $(".review__more", card);
+    if (card.classList.contains("is-open")) return;
+    b.hidden = t.scrollHeight <= t.clientHeight + 2;
+  });
+  track.addEventListener("click", e => {
+    const b = e.target.closest(".review__more"); if (!b) return;
+    const card = b.closest(".review"), open = card.classList.toggle("is-open");
+    b.textContent = open ? "Leer menos" : "Leer más";
+  });
+  sync(); clampCheck(); window.addEventListener("resize", clampCheck);
+  document.fonts && document.fonts.ready.then(() => { sync(); clampCheck(); });
 }
 
 function renderHours(){
