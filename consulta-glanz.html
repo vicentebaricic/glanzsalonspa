@@ -78,7 +78,7 @@
 <div class="thanks" id="thanks" hidden><h2>¡Gracias! 🙌</h2><p class="lead" id="tmsg">Recibí tus respuestas. Te escribo pronto con la propuesta.</p><div class="row" id="trow"></div></div>
 </div></div>
 <script>
-var CFG={"endpoint":"https://vicentebaricic.github.io/glanzsalonspa/consulta-glanz","wa":"56988202844","brand":"Glanz Salon y Spa","preview":false,"subject":"Consulta · Glanz Salon y Spa"};
+var CFG={"endpoint":"https://formspree.io/f/xyezablq","wa":"56988202844","brand":"Glanz Salon y Spa","preview":false,"subject":"Consulta · Glanz Salon y Spa"};
 var f=document.getElementById("f"),bar=document.getElementById("bar"),err=document.getElementById("err");
 function answered(q){var e=q.querySelectorAll("input,select,textarea"),k;for(k=0;k<e.length;k++){var x=e[k];if((x.type==="checkbox"||x.type==="radio")?x.checked:x.value.trim())return true}return false}
 function progress(){var qs=f.querySelectorAll(".q:not([hidden])"),n=0;qs.forEach(function(q){if(answered(q))n++});bar.style.width=(qs.length?Math.round(100*n/qs.length):0)+"%"}
