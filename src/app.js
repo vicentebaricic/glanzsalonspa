@@ -383,7 +383,9 @@ function initTabs(){
     tabs.forEach(x => {
       const on = x === t;
       x.setAttribute("aria-selected", on); x.tabIndex = on ? 0 : -1;
-      $("#" + x.getAttribute("aria-controls")).hidden = !on;
+      const panel = $("#" + x.getAttribute("aria-controls"));
+      if (on && panel.hidden) { panel.classList.remove("is-entering"); void panel.offsetWidth; panel.classList.add("is-entering"); }
+      panel.hidden = !on;
     });
   };
   tabs.forEach((t, i) => {
