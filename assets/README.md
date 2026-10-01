@@ -1,28 +1,36 @@
 # Multimedia de Glanz Salon y Spa
 
-La carpeta `Media/` guarda los originales. Las versiones optimizadas que usa la página están en `assets/`.
+- `Media/` guarda los **originales** subidos (logo, video 4K, fotos Unsplash, equipo).
+- `assets/` tiene las versiones **optimizadas** que usa `index.html`.
 
-Sube aquí las fotos y videos con **exactamente estos nombres** y la página los mostrará sola.
-Mientras falte un archivo, la página muestra un recuadro gris con la ruta esperada.
+## Cómo se generan
 
-Recomendado: JPG/WebP de máx. 1600 px de ancho y menos de 400 KB. Video hero: MP4 (H.264), 10–20 s, sin audio, menos de 8 MB.
+```bash
+python3 tools/build_media.py                         # recortes + grade de color (requiere Pillow y numpy)
+NODE_PATH=$(npm root -g) node tools/build_products.js  # fotos de producto de la tienda (Playwright)
+```
 
-| Ruta | Uso |
+`build_media.py` recorta varias tomas desde cada original y les aplica **el mismo grade**
+(balance cálido, sombras levantadas, altas luces suaves, saturación contenida), para que todo
+se vea como una sola sesión de fotos. Los recortes se definen en la lista `SHOTS`.
+
+## Para el sitio final
+
+En este prototipo, la galería y los servicios usan fotos de Unsplash, el antes/después es una
+**simulación** (el "antes" es la misma foto apagada) y los productos son renders genéricos.
+Para reemplazarlos por material real:
+
+1. Sube la foto a `Media/`.
+2. Cambia la fuente correspondiente en `SHOTS` (o `BEFORE_AFTER`) de `tools/build_media.py`.
+3. Vuelve a correr el script: la nueva foto queda con el mismo tratamiento de color.
+
+| Carpeta | Uso |
 |---|---|
-| `video/hero.mp4`, `video/hero-mobile.mp4` | Video de fondo del hero (horizontal y vertical) ✅ |
-| `img/hero-poster.jpg`, `img/hero-poster-mobile.jpg` | Imagen fija mientras carga el video ✅ |
-| `img/logo.png`, `logo-light.png`, `logo-dark-mode.png` | Logo (malva, claro y para modo oscuro) ✅ |
-| `img/destacado-cabello.webp`, `img/destacado-color.webp` | Dos fotos verticales grandes después del hero ✅ |
-| `img/espacio/salon-01.webp` ✅, `atencion-01.webp` ✅, `detalle-01.jpg` ⏳ | Quiénes somos |
-| `img/espacio/salon-02.jpg`, `lavado.jpg`, `recepcion.jpg` | Franja de espacios bajo el equipo |
-| `img/espacio/cta.jpg` | Fondo del llamado final |
-| `img/servicios/cabello-01/02.webp` ✅, `belleza-01/02.webp` ✅, `bienestar-01.webp` ✅ · faltan `cabello-03.jpg`, `belleza-03.jpg`, `bienestar-02/03.jpg` | Fotos por categoría |
-| `img/galeria/color-01..04.jpg`, `corte-01..03.jpg`, `unas-01..03.jpg`, `pestanas-01..02.jpg` | Galería de trabajos |
-| `img/antes-despues/color-antes.jpg` / `color-despues.jpg` | Antes/después 1 (vertical 4:5) |
-| `img/antes-despues/pestanas-antes.jpg` / `pestanas-despues.jpg` | Antes/después 2 (horizontal 4:3) |
-| `img/antes-despues/unas-antes.jpg` / `unas-despues.jpg` | Antes/después 3 (horizontal 4:3) |
-| `img/equipo/yasna.webp`, `aline.webp`, `eli.webp`, `melissa.webp` | Equipo (cuadradas) ✅ — idealmente reemplazar por versiones de al menos 800×800 px |
-| `img/tienda/*.jpg` | Productos (ver nombres en `PRODUCTS` dentro de `index.html`) |
-
-Los textos de galería, antes/después, reseñas y productos se editan en los arreglos
-`GALLERY`, `BEFORE_AFTER`, `REVIEWS` y `PRODUCTS` al inicio del `<script>` de `index.html`.
+| `video/hero.mp4`, `hero-mobile.mp4` | Video del hero (horizontal / vertical), con grade |
+| `img/logo*.png` | Logo malva, claro (sobre el video) y para modo oscuro |
+| `img/destacado-*.webp`, `img/espacio/*` | Fotos editoriales, Quiénes somos, espacios, llamado final |
+| `img/servicios/*` | 3 fotos por categoría (Cabello, Belleza, Bienestar) |
+| `img/galeria/*` | 12 trabajos (color, corte, uñas, rostro) |
+| `img/antes-despues/*` | 3 pares antes/después |
+| `img/equipo/*` | Yasna, Aline, Eli, Melissa (ideal reemplazar por fotos de ≥800×800 px) |
+| `img/tienda/*` | 8 productos |
