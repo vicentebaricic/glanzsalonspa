@@ -67,6 +67,23 @@
 </aside>
 
 <!-- Lightbox -->
+<!-- Reserva AgendaPro (ventana integrada) -->
+<div class="booking" id="booking" role="dialog" aria-modal="true" aria-labelledby="booking-title" hidden>
+  <div class="booking__panel">
+    <div class="booking__head">
+      <h2 id="booking-title">Reserva tu hora</h2>
+      <a class="booking__ext js-book-ext" href="#" target="_blank" rel="noopener">Abrir en AgendaPro ↗</a>
+      <button class="icon-btn" type="button" id="bookingClose" aria-label="Cerrar reserva">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="booking__body">
+      <p class="booking__loading" aria-live="polite">Cargando agenda…</p>
+      <iframe id="bookingFrame" title="Agenda de Glanz Salon y Spa en AgendaPro" loading="lazy" allow="payment"></iframe>
+    </div>
+  </div>
+</div>
+
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada">
   <button class="icon-btn lb-close" type="button" aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <button class="icon-btn lb-prev" type="button" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>

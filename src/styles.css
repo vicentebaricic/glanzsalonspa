@@ -693,3 +693,27 @@ textarea.input{min-height:96px;resize:vertical}
 .ig__play{position:absolute;top:50%;left:50%;z-index:1;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:rgba(248,245,240,.9);color:#292522;display:grid;place-items:center}
 .ig__play svg{width:20px;height:20px;margin-left:3px}
 .ig__icon{position:absolute;top:var(--sp-4);right:var(--sp-4);z-index:1;width:22px;height:22px;opacity:.9}
+
+/* ============================================================
+   RESERVA AGENDAPRO (modal con iframe)
+   ============================================================ */
+.booking{position:fixed;inset:0;z-index:var(--z-drawer);display:grid;place-items:center;padding:var(--sp-5);background:var(--c-overlay);
+  opacity:0;transition:opacity var(--dur-med)}
+.booking[hidden]{display:none}
+.booking.is-open{opacity:1}
+.booking__panel{width:min(100%, 980px);height:min(88vh, 860px);background:var(--c-bg);display:flex;flex-direction:column;box-shadow:var(--shadow-2);
+  transform:translateY(16px);transition:transform var(--dur-med) var(--ease-out)}
+.booking.is-open .booking__panel{transform:none}
+.booking__head{display:flex;align-items:center;gap:var(--sp-4);padding:var(--sp-3) var(--sp-3) var(--sp-3) var(--sp-5);border-bottom:1px solid var(--c-line)}
+.booking__head h2{font-size:1.5rem;margin-right:auto}
+.booking__head h2,.booking__ext{white-space:nowrap}
+.booking__ext{font-size:var(--fs-xs);font-weight:600;color:var(--c-accent-ink);text-underline-offset:.25em}
+.booking__body{position:relative;flex:1;background:#fff}
+.booking__body iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.booking__loading{position:absolute;inset:0;display:grid;place-items:center;margin:0;color:#615953;font-size:var(--fs-sm)}
+@media (max-width:699px){
+  .booking{padding:0;place-items:end stretch}
+  .booking__panel{width:100%;height:100dvh;transform:translateY(24px)}
+  .booking__head{padding-left:var(--sp-4);gap:var(--sp-3)}
+  .booking__head h2{font-size:1.25rem}
+}

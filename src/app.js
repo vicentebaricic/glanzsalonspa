@@ -5,6 +5,7 @@ const CONFIG = {
   business: "Glanz Salon y Spa",
   whatsapp: "56944242386",
   agendapro: "https://glanz.site.agendapro.com/cl/sucursal/73487",
+  bookingInline: true,   // false = los botones "Reservar" abren AgendaPro en pestaña nueva
   reviews:   "https://glanz.site.agendapro.com/cl/sucursal/73487",
   instagram: "https://www.instagram.com/glanzsalonyspa/",
   deliveryFee: 3500,
@@ -513,6 +514,35 @@ function initCart(){
 }
 let undoRemove = null;
 
+// Reserva: los botones "Reservar" abren AgendaPro dentro de la página.
+// Si AgendaPro no permite mostrarse embebido, el link "Abrir en AgendaPro" sigue disponible arriba.
+function initBooking(){
+  const host = location.hostname;
+  if (!CONFIG.bookingInline || !host || /claude|anthropic/.test(host)) return; // visor de artifacts: abre pestaña nueva
+  const modal = $("#booking"), frame = $("#bookingFrame"), loading = $(".booking__loading", modal);
+  $$(".js-book-ext").forEach(a => a.href = CONFIG.agendapro);
+  frame.addEventListener("load", () => { if (frame.src) loading.hidden = true; });
+  const open = () => {
+    if (!frame.src) frame.src = CONFIG.agendapro;
+    modal.hidden = false; requestAnimationFrame(() => modal.classList.add("is-open"));
+    lastFocus = document.activeElement; document.body.style.overflow = "hidden";
+    setTimeout(() => $("#bookingClose").focus(), 60);
+  };
+  const close = () => {
+    modal.classList.remove("is-open"); document.body.style.overflow = "";
+    setTimeout(() => { modal.hidden = true; }, 250); lastFocus && lastFocus.focus();
+  };
+  document.addEventListener("click", e => {
+    const a = e.target.closest(".js-book");
+    if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return; // cmd/ctrl+clic: pestaña nueva
+    e.preventDefault(); $("#mnav")?.classList.contains("is-open") && $("#menuClose").click(); open();
+  });
+  $("#bookingClose").addEventListener("click", close);
+  modal.addEventListener("click", e => { if (e.target === modal) close(); });
+  modal.addEventListener("keydown", e => { if (e.key === "Escape") close(); trapFocus(e, modal); });
+  if (location.hash === "#reservar") open();
+}
+
 // Mapa: embebe Google Maps cuando el sitio corre en su propio dominio
 function initMap(){
   const host = location.hostname;
@@ -570,5 +600,5 @@ run("#reviews", renderReviews); run("#hoursBody", renderHours); run("#shop", ren
 wireLinks(); watchMedia();
 run(null, initHeader); run(null, initTheme); run("#mnav", initMenu); run("#heroVideo", initHero);
 run("[role=tab]", initTabs); run("#gallery", initGallery); run("#giftForm", initGift); run("#cart", initCart);
-run(".map", initMap); run(".ig-video", initIgVideo); run(null, initReveal); run("#toggleSamples", initSamples);
+run(".map", initMap); run("#booking", initBooking); run(".ig-video", initIgVideo); run(null, initReveal); run("#toggleSamples", initSamples);
 $("#year").textContent = new Date().getFullYear();

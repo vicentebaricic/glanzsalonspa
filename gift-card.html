@@ -713,6 +713,30 @@ textarea.input{min-height:96px;resize:vertical}
 .ig__play{position:absolute;top:50%;left:50%;z-index:1;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:rgba(248,245,240,.9);color:#292522;display:grid;place-items:center}
 .ig__play svg{width:20px;height:20px;margin-left:3px}
 .ig__icon{position:absolute;top:var(--sp-4);right:var(--sp-4);z-index:1;width:22px;height:22px;opacity:.9}
+
+/* ============================================================
+   RESERVA AGENDAPRO (modal con iframe)
+   ============================================================ */
+.booking{position:fixed;inset:0;z-index:var(--z-drawer);display:grid;place-items:center;padding:var(--sp-5);background:var(--c-overlay);
+  opacity:0;transition:opacity var(--dur-med)}
+.booking[hidden]{display:none}
+.booking.is-open{opacity:1}
+.booking__panel{width:min(100%, 980px);height:min(88vh, 860px);background:var(--c-bg);display:flex;flex-direction:column;box-shadow:var(--shadow-2);
+  transform:translateY(16px);transition:transform var(--dur-med) var(--ease-out)}
+.booking.is-open .booking__panel{transform:none}
+.booking__head{display:flex;align-items:center;gap:var(--sp-4);padding:var(--sp-3) var(--sp-3) var(--sp-3) var(--sp-5);border-bottom:1px solid var(--c-line)}
+.booking__head h2{font-size:1.5rem;margin-right:auto}
+.booking__head h2,.booking__ext{white-space:nowrap}
+.booking__ext{font-size:var(--fs-xs);font-weight:600;color:var(--c-accent-ink);text-underline-offset:.25em}
+.booking__body{position:relative;flex:1;background:#fff}
+.booking__body iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.booking__loading{position:absolute;inset:0;display:grid;place-items:center;margin:0;color:#615953;font-size:var(--fs-sm)}
+@media (max-width:699px){
+  .booking{padding:0;place-items:end stretch}
+  .booking__panel{width:100%;height:100dvh;transform:translateY(24px)}
+  .booking__head{padding-left:var(--sp-4);gap:var(--sp-3)}
+  .booking__head h2{font-size:1.25rem}
+}
 </style>
 </head>
 <body class="page-sub">
@@ -908,6 +932,23 @@ textarea.input{min-height:96px;resize:vertical}
 </aside>
 
 <!-- Lightbox -->
+<!-- Reserva AgendaPro (ventana integrada) -->
+<div class="booking" id="booking" role="dialog" aria-modal="true" aria-labelledby="booking-title" hidden>
+  <div class="booking__panel">
+    <div class="booking__head">
+      <h2 id="booking-title">Reserva tu hora</h2>
+      <a class="booking__ext js-book-ext" href="#" target="_blank" rel="noopener">Abrir en AgendaPro ↗</a>
+      <button class="icon-btn" type="button" id="bookingClose" aria-label="Cerrar reserva">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="booking__body">
+      <p class="booking__loading" aria-live="polite">Cargando agenda…</p>
+      <iframe id="bookingFrame" title="Agenda de Glanz Salon y Spa en AgendaPro" loading="lazy" allow="payment"></iframe>
+    </div>
+  </div>
+</div>
+
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada">
   <button class="icon-btn lb-close" type="button" aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <button class="icon-btn lb-prev" type="button" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
@@ -926,6 +967,7 @@ const CONFIG = {
   business: "Glanz Salon y Spa",
   whatsapp: "56944242386",
   agendapro: "https://glanz.site.agendapro.com/cl/sucursal/73487",
+  bookingInline: true,   // false = los botones "Reservar" abren AgendaPro en pestaña nueva
   reviews:   "https://glanz.site.agendapro.com/cl/sucursal/73487",
   instagram: "https://www.instagram.com/glanzsalonyspa/",
   deliveryFee: 3500,
@@ -1434,6 +1476,35 @@ function initCart(){
 }
 let undoRemove = null;
 
+// Reserva: los botones "Reservar" abren AgendaPro dentro de la página.
+// Si AgendaPro no permite mostrarse embebido, el link "Abrir en AgendaPro" sigue disponible arriba.
+function initBooking(){
+  const host = location.hostname;
+  if (!CONFIG.bookingInline || !host || /claude|anthropic/.test(host)) return; // visor de artifacts: abre pestaña nueva
+  const modal = $("#booking"), frame = $("#bookingFrame"), loading = $(".booking__loading", modal);
+  $$(".js-book-ext").forEach(a => a.href = CONFIG.agendapro);
+  frame.addEventListener("load", () => { if (frame.src) loading.hidden = true; });
+  const open = () => {
+    if (!frame.src) frame.src = CONFIG.agendapro;
+    modal.hidden = false; requestAnimationFrame(() => modal.classList.add("is-open"));
+    lastFocus = document.activeElement; document.body.style.overflow = "hidden";
+    setTimeout(() => $("#bookingClose").focus(), 60);
+  };
+  const close = () => {
+    modal.classList.remove("is-open"); document.body.style.overflow = "";
+    setTimeout(() => { modal.hidden = true; }, 250); lastFocus && lastFocus.focus();
+  };
+  document.addEventListener("click", e => {
+    const a = e.target.closest(".js-book");
+    if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return; // cmd/ctrl+clic: pestaña nueva
+    e.preventDefault(); $("#mnav")?.classList.contains("is-open") && $("#menuClose").click(); open();
+  });
+  $("#bookingClose").addEventListener("click", close);
+  modal.addEventListener("click", e => { if (e.target === modal) close(); });
+  modal.addEventListener("keydown", e => { if (e.key === "Escape") close(); trapFocus(e, modal); });
+  if (location.hash === "#reservar") open();
+}
+
 // Mapa: embebe Google Maps cuando el sitio corre en su propio dominio
 function initMap(){
   const host = location.hostname;
@@ -1491,7 +1562,7 @@ run("#reviews", renderReviews); run("#hoursBody", renderHours); run("#shop", ren
 wireLinks(); watchMedia();
 run(null, initHeader); run(null, initTheme); run("#mnav", initMenu); run("#heroVideo", initHero);
 run("[role=tab]", initTabs); run("#gallery", initGallery); run("#giftForm", initGift); run("#cart", initCart);
-run(".map", initMap); run(".ig-video", initIgVideo); run(null, initReveal); run("#toggleSamples", initSamples);
+run(".map", initMap); run("#booking", initBooking); run(".ig-video", initIgVideo); run(null, initReveal); run("#toggleSamples", initSamples);
 $("#year").textContent = new Date().getFullYear();
 </script>
 </body>
