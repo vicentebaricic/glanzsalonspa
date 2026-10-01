@@ -21,8 +21,8 @@
   --c-bg:        #F8F5F0;   /* 70% */
   --c-surface:   #EEE8E0;   /* 15% */
   --c-ink:       #292522;   /* 10% */
-  --c-accent:    #A65A45;   /* 5%  terracota (botones, acentos) */
-  --c-accent-ink:#8E4A37;   /* terracota para texto sobre claro (AA) */
+  --c-accent:    #8A505A;   /* 5%  malva del logo (botones, acentos) */
+  --c-accent-ink:#7A4450;   /* malva para texto sobre claro (AA) */
   --c-on-accent: #FFFFFF;
 
   --c-text:      var(--c-ink);
@@ -63,7 +63,7 @@
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --c-bg:#1D1A18; --c-surface:#27231F; --c-ink:#F3EEE8;
-    --c-accent:#C9806B; --c-accent-ink:#E0A18E; --c-on-accent:#1D1A18;
+    --c-accent:#D29AA5; --c-accent-ink:#E2B3BC; --c-on-accent:#1D1A18;
     --c-text:#F3EEE8; --c-muted:#B9AFA6; --c-line:#3A3430; --c-card:#2C2723;
     --c-overlay:rgba(10,8,7,.6); --c-sample-bg:#4A3A10; --c-sample-tx:#FFE29A;
     --shadow-1: 0 1px 2px rgba(0,0,0,.3), 0 4px 14px rgba(0,0,0,.25);
@@ -73,7 +73,7 @@
 }
 :root[data-theme="dark"]{
   --c-bg:#1D1A18; --c-surface:#27231F; --c-ink:#F3EEE8;
-  --c-accent:#C9806B; --c-accent-ink:#E0A18E; --c-on-accent:#1D1A18;
+  --c-accent:#D29AA5; --c-accent-ink:#E2B3BC; --c-on-accent:#1D1A18;
   --c-text:#F3EEE8; --c-muted:#B9AFA6; --c-line:#3A3430; --c-card:#2C2723;
   --c-overlay:rgba(10,8,7,.6); --c-sample-bg:#4A3A10; --c-sample-tx:#FFE29A;
   --shadow-1: 0 1px 2px rgba(0,0,0,.3), 0 4px 14px rgba(0,0,0,.25);
@@ -165,7 +165,7 @@ html.hide-samples .sample{display:none}
 .ph img,.ph video{width:100%;height:100%;object-fit:cover}
 .ph.is-missing{
   background:
-    linear-gradient(135deg, rgba(166,90,69,.10), transparent 60%),
+    linear-gradient(135deg, rgba(138,80,90,.10), transparent 60%),
     repeating-linear-gradient(45deg, transparent 0 14px, rgba(41,37,34,.035) 14px 15px),
     color-mix(in srgb, var(--c-surface) 82%, var(--c-ink) 8%);
 }
@@ -198,9 +198,18 @@ html.hide-samples .sample{display:none}
 .header.is-solid{background:color-mix(in srgb, var(--c-bg) 92%, transparent);color:var(--c-text);box-shadow:0 1px 0 var(--c-line);backdrop-filter:saturate(1.2) blur(10px);-webkit-backdrop-filter:saturate(1.2) blur(10px)}
 .header__inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:var(--sp-4);width:min(100% - 2.5rem, 1400px);margin-inline:auto}
 .brand{display:flex;flex-direction:column;align-items:center;line-height:1;text-decoration:none;grid-column:2}
-.brand__name{font-family:var(--font-body);font-weight:500;font-size:1.5rem;letter-spacing:.55em;margin-right:-.55em;text-transform:uppercase}
-.brand__tag{font-size:.5625rem;letter-spacing:.42em;margin-right:-.42em;text-transform:uppercase;margin-top:6px;opacity:.8}
-@media (min-width:1080px){ .brand__name{font-size:1.85rem} }
+.brand img{height:44px;width:auto}
+@media (min-width:1080px){ .brand img{height:56px} }
+.logo-dark,.logo-light{display:none}
+/* Sobre el hero (header transparente): logo claro */
+.header:not(.is-solid) .logo-main{display:none}
+.header:not(.is-solid) .logo-light{display:block}
+:root[data-theme="dark"] .logo-main{display:none}
+:root[data-theme="dark"] .header.is-solid .logo-dark,:root[data-theme="dark"] .mnav .logo-dark,:root[data-theme="dark"] .footer .logo-dark{display:block}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .logo-main{display:none}
+  :root:not([data-theme="light"]) .header.is-solid .logo-dark,:root:not([data-theme="light"]) .mnav .logo-dark,:root:not([data-theme="light"]) .footer .logo-dark{display:block}
+}
 .nav{display:none;grid-column:1;grid-row:1}
 .nav ul{display:flex;gap:var(--sp-5);flex-wrap:nowrap;list-style:none;margin:0;padding:0}
 .nav a{font-size:var(--fs-sm);font-weight:500;text-decoration:none;padding:var(--sp-2) 0;border-bottom:1px solid transparent}
@@ -222,7 +231,7 @@ html.hide-samples .sample{display:none}
 .header .btn-book:hover{transform:none;opacity:.75}
 .menu-btn{display:inline-grid}
 #themeBtn{display:none}
-@media (max-width:419px){ .brand__name{font-size:1.2rem;letter-spacing:.45em;margin-right:-.45em} }
+@media (max-width:419px){ .brand img{height:34px} }
 @media (min-width: 1080px){
   .nav{display:block}
   .header .btn-book{display:inline-flex}
@@ -262,7 +271,7 @@ html.hide-samples .sample{display:none}
 }
 .fab-wa:hover{transform:scale(1.06)}
 .fab-wa svg{width:26px;height:26px}
-@media (max-width: 899px){ .hero__inner{padding-bottom:calc(76px + 2rem + env(safe-area-inset-bottom))} .hero__row{gap:var(--sp-5)} }
+@media (max-width: 899px){ .hero .hero__inner{padding-bottom:calc(76px + 2rem + env(safe-area-inset-bottom))} .hero__row{gap:var(--sp-5)} }
 @media (min-width: 900px){ .fab-wa{display:grid} .hero__row{padding-right:72px} }
 
 /* ============================================================
@@ -280,7 +289,7 @@ html.hide-samples .sample{display:none}
 .hero__inner{width:min(100% - 2.5rem, 1400px);margin-inline:auto;padding-bottom:clamp(2.5rem, 7vh, 5.5rem);padding-top:calc(var(--header-h) + 3rem)}
 .hero__kicker{font-size:var(--fs-xs);letter-spacing:.24em;text-transform:uppercase;font-weight:600;margin-bottom:var(--sp-5);opacity:.95}
 .hero h1{font-size:var(--fs-hero);line-height:.98;max-width:13ch;letter-spacing:-.02em}
-.hero h1 em{font-style:italic;color:#F3CDBE}
+.hero h1 em{font-style:italic;color:#F0CBD1}
 .hero__row{padding-right:0;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:var(--sp-6);margin-top:var(--sp-6)}
 .hero__ctas{display:flex;flex-wrap:wrap;gap:var(--sp-3)}
 .hero__meta{display:flex;align-items:center;gap:var(--sp-4);font-size:var(--fs-sm)}
@@ -454,7 +463,7 @@ html.hide-samples .sample{display:none}
 .team{display:grid;gap:var(--sp-6) var(--sp-5);grid-template-columns:1fr}
 @media (min-width: 600px){ .team{grid-template-columns:repeat(2,1fr)} }
 @media (min-width: 1080px){ .team{grid-template-columns:repeat(4,1fr)} .team > :nth-child(even){margin-top:var(--sp-8)} }
-.member .ph{aspect-ratio:4/5;border-radius:var(--radius-m);margin-bottom:var(--sp-4)}
+.member .ph{aspect-ratio:1;max-width:320px;border-radius:var(--radius-m);margin-bottom:var(--sp-4)}
 .member h3{font-size:1.6rem}
 .member .role{font-size:var(--fs-xs);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c-accent-ink);margin:var(--sp-2) 0 var(--sp-3)}
 .member p{font-size:var(--fs-sm);color:var(--c-muted);margin-bottom:var(--sp-3)}
@@ -508,7 +517,7 @@ html.hide-samples .sample{display:none}
   background:#292522;color:#F8F5F0;box-shadow:var(--shadow-2);overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;
   max-width:560px;
 }
-.gcard::before{content:"";position:absolute;right:-18%;top:-40%;width:70%;aspect-ratio:1;border-radius:50%;background:#A65A45;opacity:.9}
+.gcard::before{content:"";position:absolute;right:-18%;top:-40%;width:70%;aspect-ratio:1;border-radius:50%;background:#8A505A;opacity:.9}
 .gcard > *{position:relative}
 .gcard__top{display:flex;justify-content:space-between;align-items:flex-start}
 .gcard__brand{font-family:var(--font-display);font-size:clamp(1.6rem, 1rem + 2vw, 2.4rem);line-height:1}
@@ -598,11 +607,12 @@ textarea.input{min-height:96px;resize:vertical}
 .cta-band::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg, rgba(20,16,14,.85), rgba(20,16,14,.35))}
 .cta-band .container{padding-block:var(--sp-9);display:grid;gap:var(--sp-5);justify-items:start}
 .cta-band h2{font-size:var(--fs-2xl);max-width:16ch}
-.cta-band h2 em{color:#F1C7B8}
+.cta-band h2 em{color:#F0CBD1}
 .footer{background:var(--c-surface);padding-block:var(--sp-8) var(--sp-6);font-size:var(--fs-sm)}
 .footer__grid{display:grid;gap:var(--sp-6)}
 @media (min-width: 800px){ .footer__grid{grid-template-columns:2fr 1fr 1fr 1fr} }
 .footer .brand{align-items:flex-start}
+.footer .brand img{height:56px}
 .footer h3{font-family:var(--font-body);font-size:var(--fs-xs);font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:var(--sp-3);color:var(--c-muted)}
 .footer ul{list-style:none;margin:0;padding:0;display:grid;gap:var(--sp-2)}
 .footer a{text-decoration:none}
@@ -624,8 +634,7 @@ textarea.input{min-height:96px;resize:vertical}
 <header class="header" id="header">
   <div class="header__inner">
     <a class="brand" href="#inicio" aria-label="Glanz Salon y Spa, ir al inicio">
-      <span class="brand__name">Glanz</span>
-      <span class="brand__tag">Salon y Spa</span>
+      <img class="logo-main" src="assets/img/logo.png" alt="Glanz Salón y Spa" width="640" height="178"><img class="logo-light" src="assets/img/logo-light.png" alt="Glanz Salón y Spa" width="640" height="178"><img class="logo-dark" src="assets/img/logo-dark-mode.png" alt="Glanz Salón y Spa" width="640" height="178">
     </a>
     <nav class="nav" aria-label="Principal">
       <ul>
@@ -655,7 +664,7 @@ textarea.input{min-height:96px;resize:vertical}
 <!-- Menú móvil -->
 <div class="mnav" id="mnav" role="dialog" aria-modal="true" aria-label="Menú">
   <div class="mnav__top">
-    <span class="brand"><span class="brand__name">Glanz</span><span class="brand__tag">Salon y Spa</span></span>
+    <span class="brand"><img class="logo-main" src="assets/img/logo.png" alt="Glanz Salón y Spa" width="640" height="178"><img class="logo-dark" src="assets/img/logo-dark-mode.png" alt="Glanz Salón y Spa" width="640" height="178"></span>
     <button class="icon-btn" type="button" id="menuClose" aria-label="Cerrar menú">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
@@ -680,9 +689,9 @@ textarea.input{min-height:96px;resize:vertical}
 
 <!-- =================== HERO =================== -->
 <section class="hero" id="inicio" aria-label="Bienvenida">
-  <div class="hero__media ph" data-file="assets/video/hero.mp4  ·  assets/img/hero-poster.jpg">
+  <div class="hero__media ph" data-file="assets/video/hero.mp4">
     <video id="heroVideo" autoplay muted loop playsinline preload="metadata" poster="assets/img/hero-poster.jpg" aria-hidden="true">
-      <source src="assets/video/hero.webm" type="video/webm">
+      <source src="assets/video/hero-mobile.mp4" type="video/mp4" media="(max-width: 699px)">
       <source src="assets/video/hero.mp4" type="video/mp4">
     </video>
   </div>
@@ -713,12 +722,12 @@ textarea.input{min-height:96px;resize:vertical}
 <!-- =================== SPLIT EDITORIAL =================== -->
 <div class="split" aria-label="Destacados">
   <a class="split__item reveal" href="#trabajos">
-    <div class="ph" data-file="assets/img/destacado-cabello.jpg"><img src="assets/img/destacado-cabello.jpg" alt="Clienta con coloración realizada en Glanz" loading="lazy" width="900" height="1125"></div>
-    <div class="split__cap"><h2>Color que se ve natural</h2><span>Ver trabajos</span></div>
+    <div class="ph" data-file="assets/img/destacado-cabello.webp"><img src="assets/img/destacado-cabello.webp" alt="Estilista dando ondas al cabello de una clienta" loading="lazy" width="900" height="1125"></div>
+    <div class="split__cap"><h2>Ondas, brushing y peinados</h2><span>Ver trabajos</span></div>
   </a>
-  <a class="split__item reveal" data-delay="1" href="#tienda">
-    <div class="ph" data-file="assets/img/destacado-tienda.jpg"><img src="assets/img/destacado-tienda.jpg" alt="Productos profesionales para el cuidado del cabello" loading="lazy" width="900" height="1125"></div>
-    <div class="split__cap"><h2>El cuidado sigue en casa</h2><span>Ir a la tienda</span></div>
+  <a class="split__item reveal" data-delay="1" href="#servicios">
+    <div class="ph" data-file="assets/img/destacado-color.webp"><img src="assets/img/destacado-color.webp" alt="Estilista aplicando coloración con pincel" loading="lazy" width="900" height="1125"></div>
+    <div class="split__cap"><h2>Diagnóstico antes de cada color</h2><span>Ver servicios</span></div>
   </a>
 </div>
 
@@ -739,9 +748,9 @@ textarea.input{min-height:96px;resize:vertical}
         <a class="link js-book" href="#" target="_blank" rel="noopener">Agenda tu momento →</a>
       </div>
       <div class="about__media">
-        <div class="ph a1 reveal" data-file="assets/img/espacio/salon-01.jpg"><img src="assets/img/espacio/salon-01.jpg" alt="Interior del salón Glanz, luminoso y ordenado" loading="lazy" width="800" height="1000"></div>
+        <div class="ph a1 reveal" data-file="assets/img/espacio/salon-01.webp"><img src="assets/img/espacio/salon-01.webp" alt="Manicure con herramientas esterilizadas" loading="lazy" width="800" height="1000"></div>
         <div class="ph a2 reveal" data-delay="1" data-file="assets/img/espacio/detalle-01.jpg"><img src="assets/img/espacio/detalle-01.jpg" alt="Detalle de herramientas limpias y ordenadas" loading="lazy" width="600" height="800"></div>
-        <div class="ph a3 reveal" data-delay="2" data-file="assets/img/espacio/atencion-01.jpg"><img src="assets/img/espacio/atencion-01.jpg" alt="Estilista conversando con una clienta antes del servicio" loading="lazy" width="1000" height="625"></div>
+        <div class="ph a3 reveal" data-delay="2" data-file="assets/img/espacio/atencion-01.webp"><img src="assets/img/espacio/atencion-01.webp" alt="Estilista peinando a una clienta en el salón" loading="lazy" width="1000" height="625"></div>
       </div>
     </div>
 
@@ -790,8 +799,8 @@ textarea.input{min-height:96px;resize:vertical}
     <!-- CABELLO -->
     <div class="svc" role="tabpanel" id="panel-cabello" aria-labelledby="tab-cabello" tabindex="0">
       <div class="svc__media">
-        <div class="ph" data-file="assets/img/servicios/cabello-01.jpg"><img src="assets/img/servicios/cabello-01.jpg" alt="Coloración en tonos miel realizada en Glanz" loading="lazy" width="600" height="800"></div>
-        <div class="ph" data-file="assets/img/servicios/cabello-02.jpg"><img src="assets/img/servicios/cabello-02.jpg" alt="Corte y brushing terminado" loading="lazy" width="400" height="400"></div>
+        <div class="ph" data-file="assets/img/servicios/cabello-01.webp"><img src="assets/img/servicios/cabello-01.webp" alt="Estilista aplicando coloración con pincel y papel" loading="lazy" width="600" height="800"></div>
+        <div class="ph" data-file="assets/img/servicios/cabello-02.webp"><img src="assets/img/servicios/cabello-02.webp" alt="Estilista dando ondas con tenaza" loading="lazy" width="400" height="400"></div>
         <div class="ph" data-file="assets/img/servicios/cabello-03.jpg"><img src="assets/img/servicios/cabello-03.jpg" alt="Tratamiento capilar en lavado" loading="lazy" width="400" height="400"></div>
       </div>
       <div>
@@ -816,8 +825,8 @@ textarea.input{min-height:96px;resize:vertical}
     <!-- BELLEZA -->
     <div class="svc svc--flip" role="tabpanel" id="panel-belleza" aria-labelledby="tab-belleza" tabindex="0" hidden>
       <div class="svc__media">
-        <div class="ph" data-file="assets/img/servicios/belleza-01.jpg"><img src="assets/img/servicios/belleza-01.jpg" alt="Manicure con esmaltado permanente" loading="lazy" width="600" height="800"></div>
-        <div class="ph" data-file="assets/img/servicios/belleza-02.jpg"><img src="assets/img/servicios/belleza-02.jpg" alt="Lifting de pestañas" loading="lazy" width="400" height="400"></div>
+        <div class="ph" data-file="assets/img/servicios/belleza-01.webp"><img src="assets/img/servicios/belleza-01.webp" alt="Manicure con esmaltado permanente" loading="lazy" width="600" height="800"></div>
+        <div class="ph" data-file="assets/img/servicios/belleza-02.webp"><img src="assets/img/servicios/belleza-02.webp" alt="Limpieza facial y cuidado de la piel" loading="lazy" width="400" height="400"></div>
         <div class="ph" data-file="assets/img/servicios/belleza-03.jpg"><img src="assets/img/servicios/belleza-03.jpg" alt="Spa de pies" loading="lazy" width="400" height="400"></div>
       </div>
       <div>
@@ -846,7 +855,7 @@ textarea.input{min-height:96px;resize:vertical}
     <!-- BIENESTAR -->
     <div class="svc" role="tabpanel" id="panel-bienestar" aria-labelledby="tab-bienestar" tabindex="0" hidden>
       <div class="svc__media">
-        <div class="ph" data-file="assets/img/servicios/bienestar-01.jpg"><img src="assets/img/servicios/bienestar-01.jpg" alt="Sala de masajes con luz cálida" loading="lazy" width="600" height="800"></div>
+        <div class="ph" data-file="assets/img/servicios/bienestar-01.webp"><img src="assets/img/servicios/bienestar-01.webp" alt="Clienta relajada durante un masaje facial" loading="lazy" width="600" height="800"></div>
         <div class="ph" data-file="assets/img/servicios/bienestar-02.jpg"><img src="assets/img/servicios/bienestar-02.jpg" alt="Masaje de espalda relajante" loading="lazy" width="400" height="400"></div>
         <div class="ph" data-file="assets/img/servicios/bienestar-03.jpg"><img src="assets/img/servicios/bienestar-03.jpg" alt="Aceites y toallas preparadas para el masaje" loading="lazy" width="400" height="400"></div>
       </div>
@@ -1075,7 +1084,7 @@ textarea.input{min-height:96px;resize:vertical}
   <div class="container">
     <div class="footer__grid">
       <div>
-        <span class="brand"><span class="brand__name">Glanz</span><span class="brand__tag">Salon y Spa</span></span>
+        <span class="brand"><img class="logo-main" src="assets/img/logo.png" alt="Glanz Salón y Spa" width="640" height="178"><img class="logo-dark" src="assets/img/logo-dark-mode.png" alt="Glanz Salón y Spa" width="640" height="178"></span>
         <p class="muted" style="margin-top:var(--sp-4);max-width:36ch">Salón de belleza y spa en Chicureo. Más de 7 años cuidando tu cabello, tus manos y tu bienestar.</p>
       </div>
       <div>
@@ -1208,19 +1217,19 @@ const BEFORE_AFTER = [
 
 /* Equipo — datos reales. Fotos: assets/img/equipo/<nombre>.jpg */
 const TEAM = [
-  { name: "Yasna",   role: "Colorista · Estilista",          file: "yasna.jpg",
+  { name: "Yasna",   role: "Colorista · Estilista",          file: "yasna.webp",
     tagline: "Ciencia y arte en color capilar.",
     bio: "Especialista en colorimetría, mechas de alta precisión y análisis capilar. Domina balayage, babylights y highlights para lograr efectos de luz naturales y elegantes. Sus tratamientos, basados en un diagnóstico profundo, devuelven vitalidad, suavidad y brillo.",
     days: "Martes, miércoles, viernes y sábado" },
-  { name: "Aline",   role: "Cosmetóloga · Belleza integral", file: "aline.jpg",
+  { name: "Aline",   role: "Cosmetóloga · Belleza integral", file: "aline.webp",
     tagline: "Versatilidad profesional y resultados impecables.",
     bio: "Cosmetóloga certificada, especialista en piel. Realiza limpiezas faciales profundas, maquillaje profesional, manicure rusa, pedicure, depilación con cera, lifting y extensiones de pestañas 1 a 1, además de trenzas para ocasiones especiales.",
     days: "Lunes a viernes" },
-  { name: "Eli",     role: "Masoterapeuta",                  file: "eli.jpg",
+  { name: "Eli",     role: "Masoterapeuta",                  file: "eli.webp",
     tagline: "Bienestar que transforma.",
     bio: "Masoterapeuta con amplia experiencia en masajes terapéuticos y estéticos. También realiza depilación, manicure, pedicure y lifting de pestañas, combinando técnica y calidez para renovar cuerpo y mente.",
     days: "Lunes a sábado" },
-  { name: "Melissa", role: "Estilista integral",             file: "melissa.jpg",
+  { name: "Melissa", role: "Estilista integral",             file: "melissa.webp",
     tagline: "Técnica y dedicación en cada corte.",
     bio: "Especialista en corte femenino, masculino y niños, styling y blowout, y color, destacando en técnicas de iluminación con capucha. Su sello: un resultado pensado para realzar tu estilo.",
     days: "Martes a sábado" }
@@ -1460,6 +1469,7 @@ function initHero(){
   const sources = $$("source", v);
   let failed = 0;
   sources.forEach(s => s.addEventListener("error", () => { if (++failed === sources.length) { box.classList.add("is-missing"); b.hidden = true; } }));
+  if (matchMedia("(max-width: 699px)").matches) v.poster = "assets/img/hero-poster-mobile.jpg";
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) { v.removeAttribute("autoplay"); v.pause(); }
   const sync = () => {
     b.setAttribute("aria-label", v.paused ? "Reproducir video de fondo" : "Pausar video de fondo");
