@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Glanz Salon y Spa · Chicureo</title>
 <meta name="description" content="Glanz Salon y Spa en Paseo Liray, Chicureo. Más de 7 años cuidando tu cabello, manos, pestañas y bienestar. Reserva tu hora online.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Glanz Salon y Spa · Chicureo">
+<meta property="og:description" content="Tu momento de calma y cuidado en Chicureo. Cabello, belleza y bienestar en Paseo Liray. Reserva tu hora online.">
+<meta property="og:image" content="https://vicentebaricic.github.io/glanzsalonspa/assets/img/destacado-cabello.webp">
+<meta property="og:url" content="https://vicentebaricic.github.io/glanzsalonspa/">
+<meta property="og:locale" content="es_CL">
 <meta name="theme-color" content="#F8F5F0" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1D1A18" media="(prefers-color-scheme: dark)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -510,6 +516,8 @@ html.hide-samples .sample{display:none}
 .map:hover img{transform:scale(1.03)}
 .map__card{position:absolute;left:var(--sp-4);right:var(--sp-4);bottom:var(--sp-4);display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-3) var(--sp-4);
   background:var(--c-bg);padding:var(--sp-4) var(--sp-5);box-shadow:var(--shadow-2)}
+.map__frame{position:absolute;inset:0;width:100%;height:100%;border:0}
+.map__card.is-over-map{left:auto;max-width:calc(100% - 2rem);text-decoration:none;color:var(--c-text)}
 .map__card svg{width:28px;height:28px;color:var(--c-accent);flex:none}
 .map__card strong{display:block;font-weight:600}
 .map__card span{font-size:var(--fs-sm);color:var(--c-muted)}
@@ -1181,6 +1189,7 @@ const CONFIG = {
   reviews:   "https://glanz.site.agendapro.com/cl/sucursal/73487",
   instagram: "https://www.instagram.com/glanzsalonyspa/",
   deliveryFee: 3500,
+  mapEmbed: "https://www.google.com/maps?q=Paseo%20Liray%2021-A%2C%20Chicureo%2C%20Colina%2C%20Chile&z=16&output=embed",
   // Mensajes de WhatsApp pre-armados según la sección del clic
   waMessages: {
     default:   "Hola Glanz, quisiera hacer una consulta.",
@@ -1670,6 +1679,23 @@ function initCart(){
 }
 let undoRemove = null;
 
+// Mapa: embebe Google Maps cuando el sitio corre en su propio dominio
+function initMap(){
+  const host = location.hostname;
+  if (!host || /claude|anthropic/.test(host)) return; // visor de artifacts: se queda la tarjeta con link
+  // El bloque deja de ser un link completo: el mapa se usa y la tarjeta sigue llevando a Google Maps
+  const link = $(".map"), box = document.createElement("div");
+  box.className = link.className; box.dataset.delay = link.dataset.delay || "";
+  const f = document.createElement("iframe");
+  f.title = "Mapa: Glanz Salon y Spa en Paseo Liray, Chicureo";
+  f.loading = "lazy"; f.referrerPolicy = "no-referrer-when-downgrade"; f.src = CONFIG.mapEmbed;
+  f.className = "map__frame";
+  const card = document.createElement("a");
+  card.className = "map__card is-over-map"; card.href = link.href; card.target = "_blank"; card.rel = "noopener";
+  card.innerHTML = $(".map__card", link).innerHTML;
+  box.append(f, card); link.replaceWith(box);
+}
+
 // Reveal on scroll
 function initReveal(){
   const els = $$(".reveal:not(.is-in)");
@@ -1696,7 +1722,7 @@ function initSamples(){
    ============================================================ */
 renderGallery(); renderBA(); renderTeam(); renderReviews(); renderHours(); renderShop();
 wireLinks(); watchMedia();
-initHeader(); initTheme(); initMenu(); initHero(); initTabs(); initGallery(); initGift(); initCart(); initReveal(); initSamples();
+initHeader(); initTheme(); initMenu(); initHero(); initTabs(); initGallery(); initGift(); initCart(); initMap(); initReveal(); initSamples();
 $("#year").textContent = new Date().getFullYear();
 </script>
 </body>
